@@ -1,0 +1,39 @@
+{
+	"include": ["src/**/*.ts", "test/**/*.ts"],
+	"compilerOptions": {
+		"outDir": "lib/",
+		"noEmit": false,
+
+		"module": "NodeNext",
+		"target": "ESNext",
+		"lib": ["ESNext", "DOM"],
+		"types": ["@types/jest"],
+
+		"sourceMap": false,
+		"inlineSourceMap": false,
+		"inlineSources": false,
+		"removeComments": true,
+		"importHelpers": false,
+		"declaration": true,
+		"incremental": true,
+
+		"moduleResolution": "NodeNext",
+		"isolatedModules": true,
+		"resolveJsonModule": false,
+		"esModuleInterop": false,
+
+		"strict": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		"pretty": true
+	}
+}
