@@ -35,8 +35,6 @@ console.log(r3) // "world"
 
 ## API
 
-
-
 ## License
 
 This library is licensed under LGPL-2.1.

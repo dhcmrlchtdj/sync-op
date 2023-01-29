@@ -1,7 +1,7 @@
 {
-	"include": ["src/**/*.ts", "test/**/*.ts"],
+	"include": ["src/**/*.ts"],
 	"compilerOptions": {
-		"outDir": "lib/",
+		"outDir": "dist/",
 		"noEmit": false,
 
 		"module": "NodeNext",

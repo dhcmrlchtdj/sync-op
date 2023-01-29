@@ -16,10 +16,10 @@ fmt:
 	prettier --write .
 
 lint:
-	eslint --ext=".ts" src test
+	eslint --ext=".ts" src
 
-test: $(test_compiled)
-	jest --rootDir=./test $^
+test: build
+	NODE_OPTIONS=--experimental-vm-modules jest --coverage --rootDir=./dist/test/
 
 doc:
 	typedoc \
@@ -31,7 +31,7 @@ doc:
 		src/index.ts
 
 clean:
-	-rm -rfv ./lib
+	-rm -rfv ./dist
 
 outdated:
 	pnpm outdated
