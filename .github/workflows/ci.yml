@@ -1,0 +1,31 @@
+name: CI
+
+on:
+    - push
+    - pull_request
+
+jobs:
+    ci:
+        # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners
+        runs-on: ubuntu-22.04
+        steps:
+            # https://github.com/marketplace/actions/checkout
+            - uses: actions/checkout@v3.3.0
+            # https://github.com/marketplace/actions/setup-node-js-environment
+            - uses: actions/setup-node@v3.6.0
+              with:
+                  node-version: 18
+            # https://github.com/marketplace/actions/cache
+            - uses: actions/cache@v3.2.3
+              with:
+                  path: ~/.local/share/pnpm/store
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: ${{ runner.os }}-pnpm-
+            - run: |
+                  corepack enable pnpm
+                  pnpm install
+                  pnpm store prune
+              env:
+                  PNPM_HOME: /home/runner/.local/bin
+            - run: |
+                  make -j build lint test
