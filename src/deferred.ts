@@ -7,6 +7,7 @@ export class Deferred<T = void> {
 	resolve: (payload: T | PromiseLike<T>) => void
 	// @ts-expect-error
 	reject: (err?: unknown) => void
+
 	constructor() {
 		this.isFulfilled = false
 		this.isResolved = false

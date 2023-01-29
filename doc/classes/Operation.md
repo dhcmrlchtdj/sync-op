@@ -2,6 +2,8 @@
 
 # Class: Operation<T\>
 
+used for creating new Op
+
 ## Type parameters
 
 | Name |
@@ -22,7 +24,6 @@
 
 ### Methods
 
-- [flatten](Operation.md#flatten)
 - [poll](Operation.md#poll)
 - [sync](Operation.md#sync)
 - [wrap](Operation.md#wrap)
@@ -44,7 +45,7 @@
 
 | Name | Type |
 | :------ | :------ |
-| `builder` | `OpBuilder`<`T`\> |
+| `builder` | [`OpBuilder`](../README.md#opbuilder)<`T`\> |
 
 #### Overrides
 
@@ -52,44 +53,15 @@
 
 #### Defined in
 
-operation.ts:51
+operation.ts:83
 
 ## Methods
-
-### flatten
-
-▸ **flatten**(`shouldNotAbort`, `genOps`, `abortMap`): `Object`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `shouldNotAbort` | `number`[] |
-| `genOps` | `GenOp`<`T`\>[] |
-| `abortMap` | `AbortMap` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `abortMap` | `AbortMap` |
-| `genOps` | `GenOp`<`T`\>[] |
-
-#### Overrides
-
-Op.flatten
-
-#### Defined in
-
-operation.ts:65
-
-___
 
 ### poll
 
 ▸ **poll**(): `Option`<`T`\>
+
+non-blocking version of `Op#sync`
 
 #### Returns
 
@@ -101,13 +73,15 @@ ___
 
 #### Defined in
 
-operation.ts:34
+operation.ts:46
 
 ___
 
 ### sync
 
 ▸ **sync**(): `Promise`<`T`\>
+
+synchronizes on the Op
 
 #### Returns
 
@@ -119,13 +93,19 @@ ___
 
 #### Defined in
 
-operation.ts:30
+operation.ts:39
 
 ___
 
 ### wrap
 
 ▸ **wrap**<`R`\>(`fn`): [`Op`](Op.md)<`R`\>
+
+`fn` is used for transforming the result from type T to type R.
+
+```typescript
+await always(2).wrap(n => x * 2).sync() // 4
+```
 
 #### Type parameters
 
@@ -149,13 +129,22 @@ ___
 
 #### Defined in
 
-operation.ts:55
+operation.ts:87
 
 ___
 
 ### wrapAbort
 
 ▸ **wrapAbort**(`onAbort`): [`Op`](Op.md)<`T`\>
+
+`onAbort` is invoked if the Op is not chosen by the `choose()`
+
+```typescript
+await select(
+	always(1),
+	never().wrapAbort(() => console.log("aborted"))),
+)
+```
 
 #### Parameters
 
@@ -173,4 +162,4 @@ ___
 
 #### Defined in
 
-operation.ts:38
+operation.ts:60

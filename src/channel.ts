@@ -16,25 +16,24 @@ export interface writableChannel<T> {
 	close(): void
 }
 
-type Sender<T> = {
-	performed: Deferred<number>
-	idx: number
-	data: Option<T>
-	sent: boolean
-}
-
-type Receiver<T> = {
-	performed: Deferred<number>
-	idx: number
-	data: Option<T>
-}
-
+/**
+the synchronous channel
+*/
 export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	private _senders: Sender<T>[]
 	private _receivers: Receiver<T>[]
 	private _closed: boolean
 	private _capacity: number
 	private _buffer: Option<T>[] // [out ... in]
+
+	/**
+	create a new channel with buffer size `capacity`
+
+	```typescript
+	const unbuffered = new Channel()
+	const buffered = new Channel(1)
+	```
+	*/
 	constructor(capacity: number = 0) {
 		this._senders = []
 		this._receivers = []
@@ -44,9 +43,7 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	}
 
 	close() {
-		if (this._closed) {
-			return
-		}
+		if (this._closed) return
 		this._closed = true
 		if (this._receivers.length > 0 && this._senders.length === 0) {
 			this._receivers.forEach((r) => {
@@ -57,11 +54,24 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	isClosed(): boolean {
 		return this._closed
 	}
+
+	/**
+	return `true` if the buffer is empty and there is no pending senders.
+	*/
 	isDrained(): boolean {
 		if (!this._closed) return false
 		return this._buffer.length === 0 && this._senders.length === 0
 	}
 
+	/**
+	sends the message `data` to the channel.
+	if the channel is closed, return `false`.
+
+	```typescript
+	const op = ch.send("hello world")
+	await op.sync()
+	```
+	*/
 	send(data: T): Op<boolean> {
 		if (this._closed) return always(false)
 		return new Operation((performed, idx) => {
@@ -101,6 +111,16 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 			}
 		})
 	}
+
+	/**
+	receives a message from the channel.
+	if the channel is drained, return `none`.
+
+	```typescript
+	const op = ch.receive()
+	const msg = await op.sync()
+	```
+	*/
 	receive(): Op<Option<T>> {
 		if (this.isDrained()) return always(none)
 		return new Operation((performed, idx) => {
@@ -153,10 +173,36 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	}
 }
 
+type Sender<T> = {
+	performed: Deferred<number>
+	idx: number
+	data: Option<T>
+	sent: boolean
+}
+
+type Receiver<T> = {
+	performed: Deferred<number>
+	idx: number
+	data: Option<T>
+}
+
+/**
+used to work with `for await...of`.
+
+```typescript
+const ch = new Channel()
+for await (const msg of toIterator(ch)) {
+	console.log(msg)
+}
+```
+*/
 export async function* toIterator<T>(c: readableChannel<T>): AsyncGenerator<T> {
 	while (true) {
 		const r = await c.receive().sync()
-		if (r.isNone()) return
-		yield r.unwrap()
+		if (r.isSome()) {
+			yield r.unwrap()
+		} else {
+			return
+		}
 	}
 }

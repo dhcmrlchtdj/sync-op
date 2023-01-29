@@ -4,7 +4,7 @@ PATH := ./node_modules/.bin:$(PATH)
 
 ###
 
-.PHONY: dev build fmt lint test clean outdated upgrade
+.PHONY: dev build fmt lint test doc clean outdated upgrade
 
 # dev:
 #     tsc --watch

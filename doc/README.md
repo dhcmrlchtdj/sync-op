@@ -15,6 +15,11 @@ sync-op
 - [readableChannel](interfaces/readableChannel.md)
 - [writableChannel](interfaces/writableChannel.md)
 
+### Type Aliases
+
+- [BasicOp](README.md#basicop)
+- [OpBuilder](README.md#opbuilder)
+
 ### Functions
 
 - [always](README.md#always)
@@ -27,11 +32,68 @@ sync-op
 - [select](README.md#select)
 - [toIterator](README.md#toiterator)
 
+## Type Aliases
+
+### BasicOp
+
+Ƭ **BasicOp**<`T`\>: `Object`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `poll` | () => `boolean` |
+| `result` | () => `T` |
+| `suspend` | () => `void` |
+
+#### Defined in
+
+operation.ts:6
+
+___
+
+### OpBuilder
+
+Ƭ **OpBuilder**<`T`\>: (`performed`: `Deferred`<`number`\>, `idx`: `number`) => [`BasicOp`](README.md#basicop)<`T`\>
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Type declaration
+
+▸ (`performed`, `idx`): [`BasicOp`](README.md#basicop)<`T`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `performed` | `Deferred`<`number`\> |
+| `idx` | `number` |
+
+##### Returns
+
+[`BasicOp`](README.md#basicop)<`T`\>
+
+#### Defined in
+
+operation.ts:12
+
 ## Functions
 
 ### always
 
 ▸ **always**<`T`\>(`data`): [`Op`](classes/Op.md)<`T`\>
+
+an operation that is always ready for synchronization
 
 #### Type parameters
 
@@ -51,13 +113,15 @@ sync-op
 
 #### Defined in
 
-ext.ts:3
+ext.ts:6
 
 ___
 
 ### choose
 
 ▸ **choose**<`T`\>(`...ops`): [`Op`](classes/Op.md)<`T`\>
+
+constructs the Op that represents the non-deterministic choice of the `ops`
 
 #### Type parameters
 
@@ -77,13 +141,15 @@ ___
 
 #### Defined in
 
-operation.ts:215
+operation.ts:253
 
 ___
 
 ### fromAbortSignal
 
 ▸ **fromAbortSignal**(`signal`): [`Op`](classes/Op.md)<`unknown`\>
+
+convert AbortSignal to operation
 
 #### Parameters
 
@@ -97,13 +163,22 @@ ___
 
 #### Defined in
 
-ext.ts:49
+ext.ts:68
 
 ___
 
 ### fromPromise
 
 ▸ **fromPromise**<`T`\>(`p`): [`Op`](classes/Op.md)<`Promise`<`T`\>\>
+
+convert promise to operation
+
+> **Warning**
+> if the promise rejected, `await op.sync()` will throw the error.
+
+```typescript
+await fromPromise(Promise.reject("error").catch(err => err)).sync()
+```
 
 #### Type parameters
 
@@ -123,13 +198,15 @@ ___
 
 #### Defined in
 
-ext.ts:28
+ext.ts:44
 
 ___
 
 ### fromTimeout
 
 ▸ **fromTimeout**(`delay`): [`Op`](classes/Op.md)<`unknown`\>
+
+the timer is started when it's be polled.
 
 #### Parameters
 
@@ -143,13 +220,15 @@ ___
 
 #### Defined in
 
-ext.ts:77
+ext.ts:99
 
 ___
 
 ### guard
 
 ▸ **guard**<`T`\>(`fn`): [`Op`](classes/Op.md)<`T`\>
+
+use `fn` to create a new Op when it's polled
 
 #### Type parameters
 
@@ -169,7 +248,7 @@ ___
 
 #### Defined in
 
-operation.ts:219
+operation.ts:260
 
 ___
 
@@ -177,19 +256,23 @@ ___
 
 ▸ **never**(): [`Op`](classes/Op.md)<`never`\>
 
+an operation that is never ready for synchronization
+
 #### Returns
 
 [`Op`](classes/Op.md)<`never`\>
 
 #### Defined in
 
-ext.ts:16
+ext.ts:22
 
 ___
 
 ### select
 
 ▸ **select**<`T`\>(`...ops`): `Promise`<`T`\>
+
+just `choose(...ops).sync()`
 
 #### Type parameters
 
@@ -209,13 +292,22 @@ ___
 
 #### Defined in
 
-operation.ts:211
+operation.ts:246
 
 ___
 
 ### toIterator
 
 ▸ **toIterator**<`T`\>(`c`): `AsyncGenerator`<`T`\>
+
+used to work with `for await...of`.
+
+```typescript
+const ch = new Channel()
+for await (const msg of toIterator(ch)) {
+	console.log(msg)
+}
+```
 
 #### Type parameters
 
@@ -235,4 +327,4 @@ ___
 
 #### Defined in
 
-channel.ts:156
+channel.ts:199

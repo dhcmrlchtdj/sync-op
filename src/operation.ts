@@ -3,13 +3,16 @@
 import { Deferred } from "./deferred.js"
 import { Option, some, none } from "./option.js"
 
-type BasicOp<T> = {
+export type BasicOp<T> = {
 	poll(): boolean
 	suspend(): void
 	result(): T
 }
 
-type OpBuilder<T> = (performed: Deferred<number>, idx: number) => BasicOp<T>
+export type OpBuilder<T> = (
+	performed: Deferred<number>,
+	idx: number,
+) => BasicOp<T>
 
 type GenOp<T> = { builder: OpBuilder<T>; shouldNotAbort: number[] }
 
@@ -26,18 +29,44 @@ function randomize<T>(arr: T[]): T[] {
 
 ///
 
+/**
+the first-class sychronous operations
+*/
 export abstract class Op<T> {
+	/**
+	synchronizes on the Op
+	*/
 	sync(): Promise<T> {
 		const { genOps, abortMap } = this.flatten([], [], new Map())
 		return basicSync(abortMap, randomize(genOps))
 	}
+	/**
+	non-blocking version of `Op#sync`
+	*/
 	poll(): Option<T> {
 		const { genOps, abortMap } = this.flatten([], [], new Map())
 		return basicPoll(abortMap, randomize(genOps))
 	}
+	/**
+	`onAbort` is invoked if the Op is not chosen by the `choose()`
+
+	```typescript
+	await select(
+		always(1),
+		never().wrapAbort(() => console.log("aborted"))),
+	)
+	```
+	*/
 	wrapAbort(onAbort: () => void): Op<T> {
 		return new WrapAbort(this, onAbort)
 	}
+	/**
+	`fn` is used for transforming the result from type T to type R.
+
+	```typescript
+	await always(2).wrap(n => x * 2).sync() // 4
+	```
+	*/
 	abstract wrap<R>(fn: (v: T) => R): Op<R>
 	protected abstract flatten(
 		abortList: number[],
@@ -46,6 +75,9 @@ export abstract class Op<T> {
 	): { genOps: GenOp<T>[]; abortMap: AbortMap }
 }
 
+/**
+used for creating new Op
+*/
 export class Operation<T> extends Op<T> {
 	private builder: OpBuilder<T>
 	constructor(builder: OpBuilder<T>) {
@@ -62,7 +94,7 @@ export class Operation<T> extends Op<T> {
 			}
 		})
 	}
-	flatten(
+	protected flatten(
 		shouldNotAbort: number[],
 		genOps: GenOp<T>[],
 		abortMap: AbortMap,
@@ -81,7 +113,7 @@ class Choose<T> extends Op<T> {
 	wrap<R>(fn: (v: T) => R): Op<R> {
 		return new Choose(this.ops.map((e) => e.wrap(fn)))
 	}
-	flatten(
+	protected flatten(
 		shouldNotAbort: number[],
 		genOps: GenOp<T>[],
 		abortMap: AbortMap,
@@ -107,7 +139,7 @@ class WrapAbort<T> extends Op<T> {
 	wrap<R>(fn: (v: T) => R): Op<R> {
 		return new WrapAbort(this.op.wrap(fn), this.onAbort)
 	}
-	flatten(
+	protected flatten(
 		shouldNotAbort: number[],
 		genOps: GenOp<T>[],
 		abortMap: AbortMap,
@@ -129,7 +161,7 @@ class Guard<T> extends Op<T> {
 	wrap<R>(fn: (v: T) => R): Op<R> {
 		return new Guard(() => this.g().wrap(fn))
 	}
-	flatten(
+	protected flatten(
 		shouldNotAbort: number[],
 		genOps: GenOp<T>[],
 		abortMap: AbortMap,
@@ -208,14 +240,23 @@ function doAborts(abortMap: AbortMap, shouldNotAbort: number[]) {
 
 ///
 
+/**
+just `choose(...ops).sync()`
+*/
 export function select<T>(...ops: Op<T>[]): Promise<T> {
 	return new Choose(ops).sync()
 }
 
+/**
+constructs the Op that represents the non-deterministic choice of the `ops`
+*/
 export function choose<T>(...ops: Op<T>[]): Op<T> {
 	return new Choose(ops)
 }
 
+/**
+use `fn` to create a new Op when it's polled
+*/
 export function guard<T>(fn: () => Op<T>): Op<T> {
 	return new Guard(fn)
 }

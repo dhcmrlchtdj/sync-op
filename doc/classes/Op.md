@@ -2,6 +2,8 @@
 
 # Class: Op<T\>
 
+the first-class sychronous operations
+
 ## Type parameters
 
 | Name |
@@ -45,13 +47,15 @@
 
 ▸ **poll**(): `Option`<`T`\>
 
+non-blocking version of `Op#sync`
+
 #### Returns
 
 `Option`<`T`\>
 
 #### Defined in
 
-operation.ts:34
+operation.ts:46
 
 ___
 
@@ -59,19 +63,27 @@ ___
 
 ▸ **sync**(): `Promise`<`T`\>
 
+synchronizes on the Op
+
 #### Returns
 
 `Promise`<`T`\>
 
 #### Defined in
 
-operation.ts:30
+operation.ts:39
 
 ___
 
 ### wrap
 
 ▸ `Abstract` **wrap**<`R`\>(`fn`): [`Op`](Op.md)<`R`\>
+
+`fn` is used for transforming the result from type T to type R.
+
+```typescript
+await always(2).wrap(n => x * 2).sync() // 4
+```
 
 #### Type parameters
 
@@ -91,13 +103,22 @@ ___
 
 #### Defined in
 
-operation.ts:41
+operation.ts:70
 
 ___
 
 ### wrapAbort
 
 ▸ **wrapAbort**(`onAbort`): [`Op`](Op.md)<`T`\>
+
+`onAbort` is invoked if the Op is not chosen by the `choose()`
+
+```typescript
+await select(
+	always(1),
+	never().wrapAbort(() => console.log("aborted"))),
+)
+```
 
 #### Parameters
 
@@ -111,4 +132,4 @@ ___
 
 #### Defined in
 
-operation.ts:38
+operation.ts:60

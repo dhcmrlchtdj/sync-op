@@ -2,6 +2,8 @@
 
 # Class: Channel<T\>
 
+the synchronous channel
+
 ## Type parameters
 
 | Name |
@@ -33,6 +35,13 @@
 
 • **new Channel**<`T`\>(`capacity?`)
 
+create a new channel with buffer size `capacity`
+
+```typescript
+const unbuffered = new Channel()
+const buffered = new Channel(1)
+```
+
 #### Type parameters
 
 | Name |
@@ -47,7 +56,7 @@
 
 #### Defined in
 
-channel.ts:38
+channel.ts:37
 
 ## Methods
 
@@ -65,7 +74,7 @@ channel.ts:38
 
 #### Defined in
 
-channel.ts:46
+channel.ts:45
 
 ___
 
@@ -83,13 +92,15 @@ ___
 
 #### Defined in
 
-channel.ts:57
+channel.ts:54
 
 ___
 
 ### isDrained
 
 ▸ **isDrained**(): `boolean`
+
+return `true` if the buffer is empty and there is no pending senders.
 
 #### Returns
 
@@ -101,13 +112,21 @@ ___
 
 #### Defined in
 
-channel.ts:60
+channel.ts:61
 
 ___
 
 ### receive
 
 ▸ **receive**(): [`Op`](Op.md)<`Option`<`T`\>\>
+
+receives a message from the channel.
+if the channel is drained, return `none`.
+
+```typescript
+const op = ch.receive()
+const msg = await op.sync()
+```
 
 #### Returns
 
@@ -119,13 +138,21 @@ ___
 
 #### Defined in
 
-channel.ts:104
+channel.ts:124
 
 ___
 
 ### send
 
 ▸ **send**(`data`): [`Op`](Op.md)<`boolean`\>
+
+sends the message `data` to the channel.
+if the channel is closed, return `false`.
+
+```typescript
+const op = ch.send("hello world")
+await op.sync()
+```
 
 #### Parameters
 
@@ -143,4 +170,4 @@ ___
 
 #### Defined in
 
-channel.ts:65
+channel.ts:75

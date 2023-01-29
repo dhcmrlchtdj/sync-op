@@ -1,4 +1,4 @@
-export { type Op } from "./operation.js"
+export { type Op, type OpBuilder, type BasicOp } from "./operation.js"
 export { Operation, select, choose, guard } from "./operation.js"
 
 export * from "./ext.js"

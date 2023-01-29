@@ -1,9 +1,6 @@
 export type Option<T> = None | Some<T>
 
 class None {
-	isNone(): this is None {
-		return true
-	}
 	isSome<T>(): this is Some<T> {
 		return false
 	}
@@ -22,9 +19,6 @@ class Some<T> {
 	value: T
 	constructor(value: T) {
 		this.value = value
-	}
-	isNone(): this is None {
-		return false
 	}
 	isSome(): this is Some<T> {
 		return true
