@@ -1,5 +1,5 @@
 import { Deferred } from "./deferred.js"
-import { always } from "./helper.js"
+import { always } from "./ext.js"
 import { Op, Operation } from "./operation.js"
 import { Option, some, none } from "./option.js"
 
