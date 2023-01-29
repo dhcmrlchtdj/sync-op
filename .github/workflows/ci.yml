@@ -15,10 +15,12 @@ jobs:
             - uses: actions/setup-node@v3.6.0
               with:
                   node-version: 18
+            - id: pnpm-cache-dir
+              run: echo "dir=$(pnpm store path)" >> ${GITHUB_OUTPUT}
             # https://github.com/marketplace/actions/cache
             - uses: actions/cache@v3.2.3
               with:
-                  path: ~/.local/share/pnpm/store
+                  path: ${{ steps.pnpm-cache-dir.outputs.dir }}
                   key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
                   restore-keys: ${{ runner.os }}-pnpm-
             - run: |
