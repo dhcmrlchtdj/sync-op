@@ -1,7 +1,7 @@
 import { Channel } from "../channel.js"
 
 describe("unbuffered Channel", () => {
-	test("receive", async () => {
+	test("receive", () => {
 		const ch = new Channel<number>()
 
 		const op = ch.receive()
@@ -23,7 +23,7 @@ describe("unbuffered Channel", () => {
 		expect(await bg).toBe(true)
 	})
 
-	test("close/receive", async () => {
+	test("close/receive", () => {
 		const ch = new Channel<number>()
 
 		ch.close()
@@ -36,7 +36,7 @@ describe("unbuffered Channel", () => {
 		expect(r.unwrap().isSome()).toBe(false)
 	})
 
-	test("close/send", async () => {
+	test("close/send", () => {
 		const ch = new Channel<number>()
 
 		ch.close()
@@ -51,14 +51,14 @@ describe("unbuffered Channel", () => {
 })
 
 describe("buffered Channel", () => {
-	test("send", async () => {
+	test("send", () => {
 		const ch = new Channel<number>(1)
 		const op = ch.send(1)
 		const r = op.poll()
 		expect(r.isSome()).toBe(true)
 	})
 
-	test("close/send/receive", async () => {
+	test("close/send/receive", () => {
 		const ch = new Channel<number>(1)
 
 		const op = ch.send(1)
