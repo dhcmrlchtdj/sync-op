@@ -20,14 +20,20 @@ export class Channel<T> {
 	private _senders: Sender<T>[]
 	private _receivers: Receiver<T>[]
 	private _closed: boolean
-	constructor() {
+	private _capacity: number
+	private _buffer: Option<T>[] // [out ... in]
+	constructor(capacity: number = 0) {
 		this._senders = []
 		this._receivers = []
 		this._closed = false
+		this._capacity = capacity
+		this._buffer = []
 	}
 
 	close() {
-		if (this._closed) return
+		if (this._closed) {
+			return
+		}
 		this._closed = true
 		if (this._receivers.length > 0 && this._senders.length === 0) {
 			this._receivers.forEach((r) => {
@@ -37,6 +43,10 @@ export class Channel<T> {
 	}
 	isClosed(): boolean {
 		return this._closed
+	}
+	isDrained(): boolean {
+		if (!this._closed) return false
+		return this._buffer.length === 0 && this._senders.length === 0
 	}
 
 	send(data: T): Op<boolean> {
@@ -53,10 +63,16 @@ export class Channel<T> {
 					while (this._receivers.length > 0) {
 						const receiver = this._receivers.shift()!
 						if (receiver.performed.isFulfilled) continue
-						receiver.data = sender.data
-						performed.resolve(idx)
 						sender.sent = true
+						performed.resolve(idx)
+						receiver.data = sender.data
 						receiver.performed.resolve(receiver.idx)
+						return true
+					}
+					if (this._buffer.length < this._capacity) {
+						this._buffer.push(some(data))
+						sender.sent = true
+						performed.resolve(idx)
 						return true
 					}
 					return false
@@ -73,7 +89,7 @@ export class Channel<T> {
 		})
 	}
 	receive(): Op<Option<T>> {
-		if (this._closed) return always(none)
+		if (this.isDrained()) return always(none)
 		return new Operation((performed, idx) => {
 			const receiver: Receiver<T> = {
 				performed,
@@ -82,6 +98,20 @@ export class Channel<T> {
 			}
 			return {
 				poll: () => {
+					if (this._buffer.length > 0) {
+						const data = this._buffer.shift()!
+						receiver.data = data
+						performed.resolve(idx)
+						while (this._senders.length > 0) {
+							const sender = this._senders.shift()!
+							if (sender.performed.isFulfilled) continue
+							this._buffer.push(sender.data)
+							sender.sent = true
+							sender.performed.resolve(sender.idx)
+							break
+						}
+						return true
+					}
 					while (this._senders.length > 0) {
 						const sender = this._senders.shift()!
 						if (sender.performed.isFulfilled) continue
