@@ -54,7 +54,7 @@ sync-op
 
 #### Defined in
 
-operation.ts:6
+[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L6)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-operation.ts:12
+[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L12)
 
 ## Functions
 
@@ -113,7 +113,7 @@ an operation that is always ready for synchronization
 
 #### Defined in
 
-ext.ts:6
+[ext.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L6)
 
 ___
 
@@ -141,7 +141,7 @@ constructs the Op that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-operation.ts:253
+[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L253)
 
 ___
 
@@ -163,7 +163,7 @@ convert AbortSignal to operation
 
 #### Defined in
 
-ext.ts:68
+[ext.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L68)
 
 ___
 
@@ -198,7 +198,7 @@ await fromPromise(Promise.reject("error").catch(err => err)).sync()
 
 #### Defined in
 
-ext.ts:44
+[ext.ts:44](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L44)
 
 ___
 
@@ -220,7 +220,7 @@ the timer is started when it's be polled.
 
 #### Defined in
 
-ext.ts:99
+[ext.ts:99](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L99)
 
 ___
 
@@ -248,7 +248,7 @@ use `fn` to create a new Op when it's polled
 
 #### Defined in
 
-operation.ts:260
+[operation.ts:260](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L260)
 
 ___
 
@@ -264,7 +264,7 @@ an operation that is never ready for synchronization
 
 #### Defined in
 
-ext.ts:22
+[ext.ts:22](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L22)
 
 ___
 
@@ -292,7 +292,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-operation.ts:246
+[operation.ts:246](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L246)
 
 ___
 
@@ -327,4 +327,4 @@ for await (const msg of toIterator(ch)) {
 
 #### Defined in
 
-channel.ts:199
+[channel.ts:199](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L199)

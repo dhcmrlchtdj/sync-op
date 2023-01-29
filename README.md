@@ -33,7 +33,7 @@ const r3 = await select(
 console.log(r3) // "world"
 ```
 
-## API
+## [API](https://github.com/dhcmrlchtdj/sync-op/tree/main/doc)
 
 ## License
 

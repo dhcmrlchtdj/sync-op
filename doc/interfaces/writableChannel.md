@@ -33,7 +33,7 @@
 
 #### Defined in
 
-channel.ts:16
+[channel.ts:16](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L16)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-channel.ts:13
+[channel.ts:13](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L13)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-channel.ts:14
+[channel.ts:14](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L14)
 
 ___
 
@@ -81,4 +81,4 @@ ___
 
 #### Defined in
 
-channel.ts:15
+[channel.ts:15](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L15)

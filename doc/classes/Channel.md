@@ -56,7 +56,7 @@ const buffered = new Channel(1)
 
 #### Defined in
 
-channel.ts:37
+[channel.ts:37](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L37)
 
 ## Methods
 
@@ -74,7 +74,7 @@ channel.ts:37
 
 #### Defined in
 
-channel.ts:45
+[channel.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L45)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-channel.ts:54
+[channel.ts:54](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L54)
 
 ___
 
@@ -112,7 +112,7 @@ return `true` if the buffer is empty and there is no pending senders.
 
 #### Defined in
 
-channel.ts:61
+[channel.ts:61](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L61)
 
 ___
 
@@ -138,7 +138,7 @@ const msg = await op.sync()
 
 #### Defined in
 
-channel.ts:124
+[channel.ts:124](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L124)
 
 ___
 
@@ -170,4 +170,4 @@ await op.sync()
 
 #### Defined in
 
-channel.ts:75
+[channel.ts:75](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L75)
