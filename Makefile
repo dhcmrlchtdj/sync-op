@@ -21,6 +21,15 @@ lint:
 test: $(test_compiled)
 	jest --rootDir=./test $^
 
+doc:
+	typedoc \
+		--out doc \
+		--cleanOutputDir \
+		--readme none \
+		--excludePrivate \
+		--excludeProtected \
+		src/index.ts
+
 clean:
 	-rm -rfv ./lib
 
