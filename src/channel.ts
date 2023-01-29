@@ -109,3 +109,11 @@ export class Channel<T> {
 		})
 	}
 }
+
+export async function* toIterator<T>(c: Channel<T>): AsyncGenerator<T> {
+	while (true) {
+		const r = await c.receive().sync()
+		if (r.isNone()) return
+		yield r.unwrap()
+	}
+}
