@@ -3,6 +3,19 @@ import { always } from "./helper.js"
 import { Op, Operation } from "./operation.js"
 import { Option, some, none } from "./option.js"
 
+export interface readableChannel<T> {
+	isClosed(): boolean
+	isDrained(): boolean
+	receive(): Op<Option<T>>
+}
+
+export interface writableChannel<T> {
+	isClosed(): boolean
+	isDrained(): boolean
+	send(data: T): Op<boolean>
+	close(): void
+}
+
 type Sender<T> = {
 	performed: Deferred<number>
 	idx: number
@@ -16,7 +29,7 @@ type Receiver<T> = {
 	data: Option<T>
 }
 
-export class Channel<T> {
+export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	private _senders: Sender<T>[]
 	private _receivers: Receiver<T>[]
 	private _closed: boolean
@@ -140,7 +153,7 @@ export class Channel<T> {
 	}
 }
 
-export async function* toIterator<T>(c: Channel<T>): AsyncGenerator<T> {
+export async function* toIterator<T>(c: readableChannel<T>): AsyncGenerator<T> {
 	while (true) {
 		const r = await c.receive().sync()
 		if (r.isNone()) return
