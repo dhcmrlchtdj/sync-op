@@ -15,15 +15,9 @@ jobs:
             - uses: actions/setup-node@v3.6.0
               with:
                   node-version: 18
-            # https://github.com/marketplace/actions/cache
-            - uses: actions/cache@v3.2.3
-              with:
-                  path: ~/.local/share/pnpm/store
-                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: ${{ runner.os }}-pnpm-
+                  cache: "pnpm"
             - run: |
-                  corepack enable pnpm
-                  pnpm install
+                  pnpm install --frozen-lockfile
                   pnpm store prune
               env:
                   PNPM_HOME: /home/runner/.local/bin
