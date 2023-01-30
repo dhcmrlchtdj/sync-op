@@ -10,30 +10,109 @@ $ npm install sync-op
 
 ## Usage
 
+See [doc](https://github.com/dhcmrlchtdj/sync-op/tree/main/doc) for the full API.
+
+### `Channel`
+
 ```typescript
-import { Channel, select, fromTimeout } from "sync-op"
+const ch = new Channel<string>() // unbuffered channel
 
-const ch = new Channel()
-ch.send("hello").sync()
-const r1 = await ch.receive().sync() // Some("hello")
-console.log(r1.isSome()) // true
-console.log(r1.unwrap()) // "hello"
+// send/receive create a new Op which is ready to be synced or polled
+ch.send("hello").sync() // Promise<boolean>
+const r = ch.receive().poll() // Option<string>, r=Some("hello")
 
-const r2 = await select(
-	ch.receive().wrapAbort(() => console.log("aborted")),
-	fromTimeout(10).wrap(() => "timeout"),
-)
-console.log(r2) // "timeout"
+///
 
-ch.send("world").sync()
-const r3 = await select(
-	ch.receive().wrap((x) => x.unwrap()),
-	fromTimeout(10).wrap(() => "timeout"),
-)
-console.log(r3) // "world"
+const ch = new Channel<number>(1) // buffered channel
+
+ch.send(1).poll() // Some(true), the data is buffered
+ch.send(2).poll() // None, the buf is full and there is no receiver.
+const s3 = ch.send(3).sync() // Promise<boolean>
+
+ch.receive().poll() // Some(1), read from buffer. s3 is resolved and the data is pushed to buf.
+ch.receive().poll() // Some(3), read from buffer
+ch.receive().poll() // None, the buf is empty and there is no sender.
+
+///
+
+const ch = new Channel<number>(1)
+
+ch.send(1).sync()
+ch.send(2).sync()
+ch.send(3).sync()
+ch.close()
+
+for await (const msg of ch) {
+	console.log(msg) // 1, 2, 3
+}
 ```
 
-## [API](https://github.com/dhcmrlchtdj/sync-op/tree/main/doc)
+### `choose` / `select`
+
+```typescript
+const c1 = new Channel<string>()
+const c2 = new Channel<number>()
+const c3 = new Channel<boolean>()
+
+c1.send("hello").sync()
+c2.send(1).sync()
+c3.receive().sync()
+
+const op = choose<string | number>(c1.receive(), c2.receive())
+const r = await op.sync() // maybe "hello" or 1
+
+// `select(...ops)` is just a sugar for `choose(...ops).sync()`
+await select(c1.receive(), c2.receive())
+
+// `choose` can be nested
+await choose<string | number | boolean>(op, c3.send(true)).sync()
+```
+
+### `always` / `never` / `wrap` / `fromTimeout` / `fromAbortSignal`
+
+```typescript
+const ch = new Channel<number>()
+
+// use `always` to unblock the poll
+choose(ch.receive(), always(1), never()).poll()
+
+// `wrap` can be used for transform the result
+await always(2)
+	.wrap((x) => x * 2)
+	.sync() // 4
+
+// set a timeout for `Op#sync()`
+// the timer is started when it is polled/synced.
+choose(ch.receive(), fromTimeout(1000)).sync()
+
+// use AbortController to abort an Op.
+const c = new AbortController()
+choose(ch.receive(), fromAbortSignal(c.signal)).sync()
+setTimeout(() => c.abort(), 500)
+```
+
+### `fromPromise` / `guard`
+
+```typescript
+await fromPromise(Promise.resolve(1)).sync() // 1
+
+await fromPromise(Promise.reject("error")).sync() // throw "error"
+
+const ac = new AbortController()
+// `guard` will create a new Op when it is polled/synced
+const fetchOp = guard(() =>
+	fromPromise(fetch("http://127.0.0.1", { signal: ac.signal })),
+).wrapAbort(() => ac.abort())
+await choose(fromTimeout(10), fetchOp).sync()
+```
+
+## resource
+
+https://people.cs.uchicago.edu/~jhr/papers/cml.html
+http://cml.cs.uchicago.edu/pages/cml.html
+https://docs.racket-lang.org/reference/sync.html
+https://ocaml.org/api/Event.html
+https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
 
 ## License
 
