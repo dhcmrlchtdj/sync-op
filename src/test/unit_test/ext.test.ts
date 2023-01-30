@@ -3,7 +3,8 @@ import {
 	never,
 	fromPromise,
 	fromAbortSignal,
-	fromTimeout,
+	timeout,
+	after,
 } from "../../ext.js"
 
 describe("Operation Ext", () => {
@@ -35,11 +36,22 @@ describe("Operation Ext", () => {
 		expect(r).toBe("test")
 	})
 
-	test("fromTimeout", async () => {
-		const op = fromTimeout(10).wrap(() => "timeout")
+	test("timeout", async () => {
+		const op = timeout(0).wrap(() => "timeout")
+		expect(op.poll().isSome()).toBe(false)
+
+		await new Promise((r) => setTimeout(r, 10))
 		expect(op.poll().isSome()).toBe(false)
 
 		const r = await op.sync()
 		expect(r).toBe("timeout")
+	})
+
+	test("after", async () => {
+		const op = after(0).wrap(() => "timeout")
+		expect(op.poll().isSome()).toBe(false)
+
+		await new Promise((r) => setTimeout(r, 10))
+		expect(op.poll().isSome()).toBe(true)
 	})
 })

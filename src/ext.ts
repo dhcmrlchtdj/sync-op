@@ -1,5 +1,7 @@
 import { Op, Operation, guard } from "./operation.js"
 
+const noop = () => {}
+
 /**
 an operation that is always ready for synchronization
 */
@@ -10,7 +12,7 @@ export function always<T>(data: T): Op<T> {
 				performed.resolve(idx)
 				return true
 			},
-			suspend: () => {},
+			suspend: noop,
 			result: () => data,
 		}
 	})
@@ -23,7 +25,7 @@ export function never(): Op<never> {
 	return new Operation((_performed, _idx) => {
 		return {
 			poll: () => false,
-			suspend: () => {},
+			suspend: noop,
 			result: () => {
 				throw new Error("never")
 			},
@@ -41,7 +43,6 @@ convert promise to operation
 await fromPromise(Promise.reject("error").catch(err => err)).sync()
 ```
 */
-const noop = () => {}
 export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
 	const pp = p.catch(noop)
 	let fulfilled = false
@@ -96,8 +97,38 @@ export function fromAbortSignal(signal: AbortSignal): Op<unknown> {
 }
 
 /**
-the timer is started when it's be polled.
+the timer is started when the Op is polled
 */
-export function fromTimeout(delay: number): Op<unknown> {
-	return guard(() => fromAbortSignal(AbortSignal.timeout(delay)))
+export function timeout(delay: number): Op<void> {
+	return guard(() => after(delay))
+}
+
+/**
+the timer is started when the Op is created
+*/
+export function after(delay: number): Op<void> {
+	let out = false
+	let handler = () => {
+		out = true
+	}
+	const timer = setTimeout(() => handler(), delay)
+	return new Operation((performed, idx) => {
+		return {
+			poll: () => {
+				if (out) {
+					performed.resolve(idx)
+					return true
+				} else {
+					return false
+				}
+			},
+			suspend: () => {
+				handler = () => {
+					performed.resolve(idx)
+				}
+				performed.promise.finally(() => clearTimeout(timer)).catch(noop)
+			},
+			result: noop,
+		}
+	})
 }

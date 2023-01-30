@@ -6,7 +6,7 @@ import {
 	never,
 	fromAbortSignal,
 	fromPromise,
-	fromTimeout,
+	timeout,
 } from "../../ext.js"
 
 describe("example", () => {
@@ -86,7 +86,7 @@ describe("example", () => {
 		expect((await s3).unwrap()).toBe(true)
 	})
 
-	test("always / never / wrap / fromTimeout / fromAbortSignal", async () => {
+	test("always / never / wrap / timeout / fromAbortSignal", async () => {
 		const ch = new Channel<number>()
 
 		const r1 = choose<unknown>(ch.receive(), always(1), never()).poll()
@@ -100,7 +100,7 @@ describe("example", () => {
 
 		const r3 = await choose<unknown>(
 			ch.receive(),
-			fromTimeout(10).wrap(() => "timeout"),
+			timeout(10).wrap(() => "timeout"),
 		).sync()
 		expect(r3).toBe("timeout")
 
@@ -129,7 +129,7 @@ describe("example", () => {
 			),
 		).wrapAbort(() => ac.abort())
 		const r3 = await choose<unknown>(
-			fromTimeout(1).wrap(() => "timeout"),
+			timeout(1).wrap(() => "timeout"),
 			fetchOp,
 		).sync()
 		expect(ac.signal.aborted).toBe(true)

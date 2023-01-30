@@ -68,7 +68,7 @@ await select(c1.receive(), c2.receive())
 await choose<unknown>(op, c3.send(true)).sync()
 ```
 
-### `always` / `never` / `wrap` / `fromTimeout` / `fromAbortSignal`
+### `always` / `never` / `wrap` / `timeout` / `fromAbortSignal`
 
 ```typescript
 const ch = new Channel<number>()
@@ -83,7 +83,7 @@ await always(2)
 
 // set a timeout for `Op#sync()`
 // the timer is started when it is polled/synced.
-choose(ch.receive(), fromTimeout(10)).sync()
+choose(ch.receive(), timeout(10)).sync()
 
 // use AbortController to abort an Op.
 const ac = new AbortController()
@@ -103,7 +103,7 @@ const ac = new AbortController()
 const fetchOp = guard(() =>
 	fromPromise(fetch("http://127.0.0.1", { signal: ac.signal })),
 ).wrapAbort(() => ac.abort())
-await choose(fromTimeout(10), fetchOp).sync()
+await choose(timeout(10), fetchOp).sync()
 ```
 
 ## Resource
