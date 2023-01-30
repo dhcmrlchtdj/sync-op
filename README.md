@@ -19,7 +19,7 @@ const ch = new Channel<string>() // unbuffered channel
 
 // send/receive create a new Op which is ready to be synced or polled
 ch.send("hello").sync() // Promise<boolean>
-const r = ch.receive().poll() // Option<string>, r=Some("hello")
+const r = ch.receive().poll() // Some(Some("hello"))
 
 ///
 
@@ -58,14 +58,14 @@ c1.send("hello").sync()
 c2.send(1).sync()
 c3.receive().sync()
 
-const op = choose<string | number>(c1.receive(), c2.receive())
+const op = choose<Option<string | number>>(c1.receive(), c2.receive())
 const r = await op.sync() // maybe "hello" or 1
 
 // `select(...ops)` is just a sugar for `choose(...ops).sync()`
 await select(c1.receive(), c2.receive())
 
 // `choose` can be nested
-await choose<string | number | boolean>(op, c3.send(true)).sync()
+await choose<unknown>(op, c3.send(true)).sync()
 ```
 
 ### `always` / `never` / `wrap` / `fromTimeout` / `fromAbortSignal`
@@ -83,12 +83,12 @@ await always(2)
 
 // set a timeout for `Op#sync()`
 // the timer is started when it is polled/synced.
-choose(ch.receive(), fromTimeout(1000)).sync()
+choose(ch.receive(), fromTimeout(10)).sync()
 
 // use AbortController to abort an Op.
-const c = new AbortController()
-choose(ch.receive(), fromAbortSignal(c.signal)).sync()
-setTimeout(() => c.abort(), 500)
+const ac = new AbortController()
+setTimeout(() => ac.abort(), 10)
+choose(ch.receive(), fromAbortSignal(ac.signal)).sync()
 ```
 
 ### `fromPromise` / `guard`

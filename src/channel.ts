@@ -171,6 +171,27 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 			}
 		})
 	}
+
+	/**
+	```typescript
+	const ch = new Channel()
+	ch.send(1)
+	ch.close()
+	for await (const msg of ch) {
+		console.log(msg)
+	}
+	```
+	*/
+	async *[Symbol.asyncIterator]() {
+		while (true) {
+			const r = await this.receive().sync()
+			if (r.isSome()) {
+				yield r.unwrap()
+			} else {
+				return
+			}
+		}
+	}
 }
 
 type Sender<T> = {
@@ -184,25 +205,4 @@ type Receiver<T> = {
 	performed: Deferred<number>
 	idx: number
 	data: Option<T>
-}
-
-/**
-used to work with `for await...of`.
-
-```typescript
-const ch = new Channel()
-for await (const msg of toIterator(ch)) {
-	console.log(msg)
-}
-```
-*/
-export async function* toIterator<T>(c: readableChannel<T>): AsyncGenerator<T> {
-	while (true) {
-		const r = await c.receive().sync()
-		if (r.isSome()) {
-			yield r.unwrap()
-		} else {
-			return
-		}
-	}
 }

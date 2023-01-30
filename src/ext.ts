@@ -41,9 +41,11 @@ convert promise to operation
 await fromPromise(Promise.reject("error").catch(err => err)).sync()
 ```
 */
+const noop = () => {}
 export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
+	const pp = p.catch(noop)
 	let fulfilled = false
-	p.finally(() => (fulfilled = true))
+	pp.finally(() => (fulfilled = true))
 	return new Operation((performed, idx) => {
 		return {
 			poll: () => {
@@ -55,7 +57,7 @@ export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
 				}
 			},
 			suspend: () => {
-				p.finally(() => performed.resolve(idx))
+				pp.finally(() => performed.resolve(idx))
 			},
 			result: () => p,
 		}
