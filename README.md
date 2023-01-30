@@ -106,13 +106,13 @@ const fetchOp = guard(() =>
 await choose(fromTimeout(10), fetchOp).sync()
 ```
 
-## resource
+## Resource
 
-https://people.cs.uchicago.edu/~jhr/papers/cml.html
-http://cml.cs.uchicago.edu/pages/cml.html
-https://docs.racket-lang.org/reference/sync.html
-https://ocaml.org/api/Event.html
-https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
+-   https://people.cs.uchicago.edu/~jhr/papers/cml.html
+-   http://cml.cs.uchicago.edu/pages/cml.html
+-   https://docs.racket-lang.org/reference/sync.html
+-   https://ocaml.org/api/Event.html
+-   https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
 
 ## License
 
