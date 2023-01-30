@@ -7,6 +7,7 @@ export interface readableChannel<T> {
 	isClosed(): boolean
 	isDrained(): boolean
 	receive(): Op<Option<T>>
+	[Symbol.asyncIterator](): AsyncGenerator<T>
 }
 
 export interface writableChannel<T> {
