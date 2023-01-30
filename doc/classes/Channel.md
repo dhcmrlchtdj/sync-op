@@ -23,6 +23,7 @@ the synchronous channel
 
 ### Methods
 
+- [[asyncIterator]](Channel.md#[asynciterator])
 - [close](Channel.md#close)
 - [isClosed](Channel.md#isclosed)
 - [isDrained](Channel.md#isdrained)
@@ -56,9 +57,36 @@ const buffered = new Channel(1)
 
 #### Defined in
 
-[channel.ts:37](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L37)
+[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L38)
 
 ## Methods
+
+### [asyncIterator]
+
+▸ **[asyncIterator]**(): `AsyncGenerator`<`Awaited`<`T`\>, `void`, `unknown`\>
+
+```typescript
+const ch = new Channel()
+ch.send(1)
+ch.close()
+for await (const msg of ch) {
+	console.log(msg)
+}
+```
+
+#### Returns
+
+`AsyncGenerator`<`Awaited`<`T`\>, `void`, `unknown`\>
+
+#### Implementation of
+
+[readableChannel](../interfaces/readableChannel.md).[[asyncIterator]](../interfaces/readableChannel.md#[asynciterator])
+
+#### Defined in
+
+[channel.ts:186](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L186)
+
+___
 
 ### close
 
@@ -74,7 +102,7 @@ const buffered = new Channel(1)
 
 #### Defined in
 
-[channel.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L45)
+[channel.ts:46](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L46)
 
 ___
 
@@ -92,7 +120,7 @@ ___
 
 #### Defined in
 
-[channel.ts:54](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L54)
+[channel.ts:55](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L55)
 
 ___
 
@@ -112,7 +140,7 @@ return `true` if the buffer is empty and there is no pending senders.
 
 #### Defined in
 
-[channel.ts:61](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L61)
+[channel.ts:62](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L62)
 
 ___
 
@@ -138,7 +166,7 @@ const msg = await op.sync()
 
 #### Defined in
 
-[channel.ts:124](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L124)
+[channel.ts:125](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L125)
 
 ___
 
@@ -170,4 +198,4 @@ await op.sync()
 
 #### Defined in
 
-[channel.ts:75](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L75)
+[channel.ts:76](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L76)

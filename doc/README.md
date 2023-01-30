@@ -30,7 +30,6 @@ sync-op
 - [guard](README.md#guard)
 - [never](README.md#never)
 - [select](README.md#select)
-- [toIterator](README.md#toiterator)
 
 ## Type Aliases
 
@@ -54,7 +53,7 @@ sync-op
 
 #### Defined in
 
-[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L6)
+[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L6)
 
 ___
 
@@ -85,7 +84,7 @@ ___
 
 #### Defined in
 
-[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L12)
+[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L12)
 
 ## Functions
 
@@ -113,7 +112,7 @@ an operation that is always ready for synchronization
 
 #### Defined in
 
-[ext.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L6)
+[ext.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L6)
 
 ___
 
@@ -141,7 +140,7 @@ constructs the Op that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L253)
+[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L253)
 
 ___
 
@@ -163,22 +162,13 @@ convert AbortSignal to operation
 
 #### Defined in
 
-[ext.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L68)
+[ext.ts:70](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L70)
 
 ___
 
 ### fromPromise
 
 ▸ **fromPromise**<`T`\>(`p`): [`Op`](classes/Op.md)<`Promise`<`T`\>\>
-
-convert promise to operation
-
-> **Warning**
-> if the promise rejected, `await op.sync()` will throw the error.
-
-```typescript
-await fromPromise(Promise.reject("error").catch(err => err)).sync()
-```
 
 #### Type parameters
 
@@ -198,7 +188,7 @@ await fromPromise(Promise.reject("error").catch(err => err)).sync()
 
 #### Defined in
 
-[ext.ts:44](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L44)
+[ext.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L45)
 
 ___
 
@@ -220,7 +210,7 @@ the timer is started when it's be polled.
 
 #### Defined in
 
-[ext.ts:99](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L99)
+[ext.ts:101](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L101)
 
 ___
 
@@ -248,7 +238,7 @@ use `fn` to create a new Op when it's polled
 
 #### Defined in
 
-[operation.ts:260](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L260)
+[operation.ts:260](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L260)
 
 ___
 
@@ -264,7 +254,7 @@ an operation that is never ready for synchronization
 
 #### Defined in
 
-[ext.ts:22](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/ext.ts#L22)
+[ext.ts:22](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L22)
 
 ___
 
@@ -292,39 +282,4 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:246](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/operation.ts#L246)
-
-___
-
-### toIterator
-
-▸ **toIterator**<`T`\>(`c`): `AsyncGenerator`<`T`\>
-
-used to work with `for await...of`.
-
-```typescript
-const ch = new Channel()
-for await (const msg of toIterator(ch)) {
-	console.log(msg)
-}
-```
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `c` | [`readableChannel`](interfaces/readableChannel.md)<`T`\> |
-
-#### Returns
-
-`AsyncGenerator`<`T`\>
-
-#### Defined in
-
-[channel.ts:199](https://github.com/dhcmrlchtdj/sync-op/blob/517f729/src/channel.ts#L199)
+[operation.ts:246](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L246)
