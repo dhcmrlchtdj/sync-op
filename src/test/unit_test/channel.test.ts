@@ -1,4 +1,4 @@
-import { Channel } from "../channel.js"
+import { Channel } from "../../channel.js"
 
 describe("unbuffered Channel", () => {
 	test("receive", () => {

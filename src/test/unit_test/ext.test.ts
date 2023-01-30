@@ -4,7 +4,7 @@ import {
 	fromPromise,
 	fromAbortSignal,
 	fromTimeout,
-} from "../ext.js"
+} from "../../ext.js"
 
 describe("Operation Ext", () => {
 	test("always", () => {

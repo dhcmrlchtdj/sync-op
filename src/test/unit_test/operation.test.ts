@@ -1,5 +1,5 @@
-import { choose, select, guard } from "../operation.js"
-import { always } from "../ext.js"
+import { choose, select, guard } from "../../operation.js"
+import { always } from "../../ext.js"
 
 describe("Operation", () => {
 	test("choose", () => {
