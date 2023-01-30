@@ -22,14 +22,15 @@ sync-op
 
 ### Functions
 
+- [after](README.md#after)
 - [always](README.md#always)
 - [choose](README.md#choose)
 - [fromAbortSignal](README.md#fromabortsignal)
 - [fromPromise](README.md#frompromise)
-- [fromTimeout](README.md#fromtimeout)
 - [guard](README.md#guard)
 - [never](README.md#never)
 - [select](README.md#select)
+- [timeout](README.md#timeout)
 
 ## Type Aliases
 
@@ -53,7 +54,7 @@ sync-op
 
 #### Defined in
 
-[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L6)
+[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/operation.ts#L6)
 
 ___
 
@@ -84,9 +85,31 @@ ___
 
 #### Defined in
 
-[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L12)
+[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/operation.ts#L12)
 
 ## Functions
+
+### after
+
+▸ **after**(`delay`): [`Op`](classes/Op.md)<`void`\>
+
+the timer is started when the Op is created
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `delay` | `number` |
+
+#### Returns
+
+[`Op`](classes/Op.md)<`void`\>
+
+#### Defined in
+
+[ext.ts:109](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/ext.ts#L109)
+
+___
 
 ### always
 
@@ -112,7 +135,7 @@ an operation that is always ready for synchronization
 
 #### Defined in
 
-[ext.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L6)
+[ext.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/ext.ts#L8)
 
 ___
 
@@ -140,7 +163,7 @@ constructs the Op that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L253)
+[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/operation.ts#L253)
 
 ___
 
@@ -162,13 +185,22 @@ convert AbortSignal to operation
 
 #### Defined in
 
-[ext.ts:70](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L70)
+[ext.ts:71](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/ext.ts#L71)
 
 ___
 
 ### fromPromise
 
 ▸ **fromPromise**<`T`\>(`p`): [`Op`](classes/Op.md)<`Promise`<`T`\>\>
+
+convert promise to operation
+
+> **Warning**
+> if the promise rejected, `await op.sync()` will throw the error.
+
+```typescript
+await fromPromise(Promise.reject("error").catch(err => err)).sync()
+```
 
 #### Type parameters
 
@@ -188,29 +220,7 @@ ___
 
 #### Defined in
 
-[ext.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L45)
-
-___
-
-### fromTimeout
-
-▸ **fromTimeout**(`delay`): [`Op`](classes/Op.md)<`unknown`\>
-
-the timer is started when it's be polled.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `delay` | `number` |
-
-#### Returns
-
-[`Op`](classes/Op.md)<`unknown`\>
-
-#### Defined in
-
-[ext.ts:101](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L101)
+[ext.ts:46](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/ext.ts#L46)
 
 ___
 
@@ -238,7 +248,7 @@ use `fn` to create a new Op when it's polled
 
 #### Defined in
 
-[operation.ts:260](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L260)
+[operation.ts:260](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/operation.ts#L260)
 
 ___
 
@@ -254,7 +264,7 @@ an operation that is never ready for synchronization
 
 #### Defined in
 
-[ext.ts:22](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/ext.ts#L22)
+[ext.ts:24](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/ext.ts#L24)
 
 ___
 
@@ -282,4 +292,26 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:246](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/operation.ts#L246)
+[operation.ts:246](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/operation.ts#L246)
+
+___
+
+### timeout
+
+▸ **timeout**(`delay`): [`Op`](classes/Op.md)<`void`\>
+
+the timer is started when the Op is polled
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `delay` | `number` |
+
+#### Returns
+
+[`Op`](classes/Op.md)<`void`\>
+
+#### Defined in
+
+[ext.ts:102](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/ext.ts#L102)

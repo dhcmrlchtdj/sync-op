@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L10)
+[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/channel.ts#L10)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L7)
+[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/channel.ts#L7)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L8)
+[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/channel.ts#L8)
 
 ___
 
@@ -75,4 +75,4 @@ ___
 
 #### Defined in
 
-[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/edd6222/src/channel.ts#L9)
+[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/bd5f2f4/src/channel.ts#L9)
