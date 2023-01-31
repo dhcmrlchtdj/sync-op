@@ -1,6 +1,10 @@
 # sync-op
 
-first-class synchronous operations
+sync-op provides CML-like first-class synchronous operations.
+
+There are "Channel" and "select". If you know golang, they are similar.
+
+Just read the following example to see how to use them.
 
 ## Install
 
@@ -15,6 +19,8 @@ See [doc](https://github.com/dhcmrlchtdj/sync-op/tree/main/doc) for the full API
 ### `Channel`
 
 ```typescript
+import { Channel } from "sync-op"
+
 const ch = new Channel<string>() // unbuffered channel
 
 // send/receive create a new Op which is ready to be synced or polled
@@ -50,6 +56,8 @@ for await (const msg of ch) {
 ### `choose` / `select`
 
 ```typescript
+import { Channel, choose, select } from "sync-op"
+
 const c1 = new Channel<string>()
 const c2 = new Channel<number>()
 const c3 = new Channel<boolean>()
@@ -71,18 +79,27 @@ await choose(op, c3.send(true)).sync() // Option<string> | Option<number> | bool
 ### `always` / `never` / `wrap` / `timeout` / `fromAbortSignal`
 
 ```typescript
+import {
+	Channel,
+	choose,
+	always,
+	never,
+	timeout,
+	fromAbortSignal,
+} from "sync-op"
+
 const ch = new Channel<number>()
 
-// use `always` to unblock the poll
+// use `always` to provide default value
 choose(ch.receive(), always(1), never()).poll()
 
-// `wrap` can be used for transform the result
-await always(2)
+// `wrap` can be used to transform the result
+always(2)
 	.wrap((x) => x * 2)
-	.sync() // 4
+	.sync() // Promise<4>
 
 // set a timeout for `Op#sync()`
-// the timer is started when it is polled/synced.
+// the timer is started when it is polled
 choose(ch.receive(), timeout(10)).sync()
 
 // use AbortController to abort an Op.
@@ -94,12 +111,14 @@ choose(ch.receive(), fromAbortSignal(ac.signal)).sync()
 ### `fromPromise` / `guard`
 
 ```typescript
+import { choose, timeout, guard, fromPromise } from "sync-op"
+
 await fromPromise(Promise.resolve(1)).sync() // 1
 
 await fromPromise(Promise.reject("error")).sync() // throw "error"
 
 const ac = new AbortController()
-// `guard` will create a new Op when it is polled/synced
+// `guard` will create a new Op when it is polled
 const fetchOp = guard(() =>
 	fromPromise(fetch("http://127.0.0.1", { signal: ac.signal })),
 ).wrapAbort(() => ac.abort())
