@@ -66,19 +66,25 @@ describe("example", () => {
 		const s2 = c2.send(1).sync()
 		const s3 = c3.receive().sync()
 
-		const op = choose<Option<string | number>>(c1.receive(), c2.receive())
+		const op = choose<Option<string> | Option<number>>(
+			c1.receive(),
+			c2.receive(),
+		)
 		const r1 = await op.sync()
 		expect(r1.isSome()).toBe(true)
 		expect([1, "hello"]).toContain(r1.unwrap())
 
-		const r2 = await select<Option<string | number>>(
+		const r2 = await select<Option<string> | Option<number>>(
 			c1.receive(),
 			c2.receive(),
 		)
 		expect(r2.isSome()).toBe(true)
 		expect([1, "hello"]).toContain(r2.unwrap())
 
-		const r3 = await choose<unknown>(op, c3.send(true)).sync()
+		const r3 = await choose<Option<string> | Option<number> | boolean>(
+			op,
+			c3.send(true),
+		).sync()
 		expect(r3).toBe(true) // c1/c2 is consumed
 
 		await expect(s1).resolves.toBe(true)
