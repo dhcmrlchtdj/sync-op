@@ -55,7 +55,7 @@ non-blocking version of `Op#sync`
 
 #### Defined in
 
-[operation.ts:46](https://github.com/dhcmrlchtdj/sync-op/blob/88a1f02/src/operation.ts#L46)
+[operation.ts:47](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L47)
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 ▸ **sync**(): `Promise`<`T`\>
 
-synchronizes on the Op
+synchronizes on `Op`
 
 #### Returns
 
@@ -71,7 +71,7 @@ synchronizes on the Op
 
 #### Defined in
 
-[operation.ts:39](https://github.com/dhcmrlchtdj/sync-op/blob/88a1f02/src/operation.ts#L39)
+[operation.ts:39](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L39)
 
 ___
 
@@ -79,10 +79,10 @@ ___
 
 ▸ `Abstract` **wrap**<`R`\>(`fn`): [`Op`](Op.md)<`R`\>
 
-`fn` is used for transforming the result from type T to type R.
+`fn` is used to transform the result from type T to type R.
 
 ```typescript
-await always(2).wrap(n => x * 2).sync() // 4
+await always(2).wrap(n => n * 2).sync() // 4
 ```
 
 #### Type parameters
@@ -103,7 +103,7 @@ await always(2).wrap(n => x * 2).sync() // 4
 
 #### Defined in
 
-[operation.ts:70](https://github.com/dhcmrlchtdj/sync-op/blob/88a1f02/src/operation.ts#L70)
+[operation.ts:73](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L73)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 ▸ **wrapAbort**(`onAbort`): [`Op`](Op.md)<`T`\>
 
-`onAbort` is invoked if the Op is not chosen by the `choose()`
+`onAbort` is invoked if `Op` is not chosen by the `choose()`
 
 ```typescript
 await select(
@@ -132,4 +132,4 @@ await select(
 
 #### Defined in
 
-[operation.ts:60](https://github.com/dhcmrlchtdj/sync-op/blob/88a1f02/src/operation.ts#L60)
+[operation.ts:62](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L62)
