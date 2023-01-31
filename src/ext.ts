@@ -3,7 +3,7 @@ import { Op, Operation, guard } from "./operation.js"
 const noop = () => {}
 
 /**
-an operation that is always ready for synchronization
+always ready for synchronization
 */
 export function always<T>(data: T): Op<T> {
 	return new Operation((performed, idx) => {
@@ -19,7 +19,7 @@ export function always<T>(data: T): Op<T> {
 }
 
 /**
-an operation that is never ready for synchronization
+never ready for synchronization
 */
 export function never(): Op<never> {
 	return new Operation((_performed, _idx) => {
@@ -34,10 +34,10 @@ export function never(): Op<never> {
 }
 
 /**
-convert promise to operation
+convert `Promise` to `Op`
 
 > **Warning**
-> if the promise rejected, `await op.sync()` will throw the error.
+> if the `Promise` rejected, `await op.sync()` will throw the error.
 
 ```typescript
 await fromPromise(Promise.reject("error").catch(err => err)).sync()
@@ -66,7 +66,7 @@ export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
 }
 
 /**
-convert AbortSignal to operation
+convert `AbortSignal` to `Op`
 */
 export function fromAbortSignal(signal: AbortSignal): Op<unknown> {
 	let reason = null as unknown
@@ -97,14 +97,14 @@ export function fromAbortSignal(signal: AbortSignal): Op<unknown> {
 }
 
 /**
-the timer is started when the Op is polled
+the timer is started when `Op` polled
 */
 export function timeout(delay: number): Op<void> {
 	return guard(() => after(delay))
 }
 
 /**
-the timer is started when the Op is created
+the timer is started when `Op` created
 */
 export function after(delay: number): Op<void> {
 	let out = false

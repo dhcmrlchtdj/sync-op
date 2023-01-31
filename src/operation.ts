@@ -34,12 +34,13 @@ the first-class sychronous operations
 */
 export abstract class Op<T> {
 	/**
-	synchronizes on the Op
+	synchronizes on `Op`
 	*/
 	sync(): Promise<T> {
 		const { genOps, abortMap } = this.flatten([], [], new Map())
 		return basicSync(abortMap, randomize(genOps))
 	}
+
 	/**
 	non-blocking version of `Op#sync`
 	*/
@@ -47,8 +48,9 @@ export abstract class Op<T> {
 		const { genOps, abortMap } = this.flatten([], [], new Map())
 		return basicPoll(abortMap, randomize(genOps))
 	}
+
 	/**
-	`onAbort` is invoked if the Op is not chosen by the `choose()`
+	`onAbort` is invoked if `Op` is not chosen by the `choose()`
 
 	```typescript
 	await select(
@@ -60,11 +62,12 @@ export abstract class Op<T> {
 	wrapAbort(onAbort: () => void): Op<T> {
 		return new WrapAbort(this, onAbort)
 	}
+
 	/**
-	`fn` is used for transforming the result from type T to type R.
+	`fn` is used to transform the result from type T to type R.
 
 	```typescript
-	await always(2).wrap(n => x * 2).sync() // 4
+	await always(2).wrap(n => n * 2).sync() // 4
 	```
 	*/
 	abstract wrap<R>(fn: (v: T) => R): Op<R>
@@ -75,9 +78,6 @@ export abstract class Op<T> {
 	): { genOps: GenOp<T>[]; abortMap: AbortMap }
 }
 
-/**
-used for creating new Op
-*/
 export class Operation<T> extends Op<T> {
 	private builder: OpBuilder<T>
 	constructor(builder: OpBuilder<T>) {
@@ -306,7 +306,7 @@ export function select<T>(...ops: Op<T>[]): Promise<T> {
 }
 
 /**
-constructs the Op that represents the non-deterministic choice of the `ops`
+constructs `Op` that represents the non-deterministic choice of the `ops`
 */
 export function choose<T>(...ops: Op<T>[]): Op<T>
 export function choose<T1, T2>(op1: Op<T1>, op2: Op<T2>): Op<T1 | T2>
@@ -371,7 +371,7 @@ export function choose<T>(...ops: Op<T>[]): Op<T> {
 }
 
 /**
-use `fn` to create a new Op when it's polled
+use `fn` to create new `Op` when it's polled
 */
 export function guard<T>(fn: () => Op<T>): Op<T> {
 	return new Guard(fn)
