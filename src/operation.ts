@@ -243,6 +243,7 @@ function doAborts(abortMap: AbortMap, shouldNotAbort: number[]) {
 /**
 just `choose(...ops).sync()`
 */
+export function select<T>(...ops: Op<T>[]): Promise<T>
 export function select<T1, T2>(op1: Op<T1>, op2: Op<T2>): Promise<T1 | T2>
 export function select<T1, T2, T3>(
 	op1: Op<T1>,
@@ -307,6 +308,7 @@ export function select<T>(...ops: Op<T>[]): Promise<T> {
 /**
 constructs the Op that represents the non-deterministic choice of the `ops`
 */
+export function choose<T>(...ops: Op<T>[]): Op<T>
 export function choose<T1, T2>(op1: Op<T1>, op2: Op<T2>): Op<T1 | T2>
 export function choose<T1, T2, T3>(
 	op1: Op<T1>,
