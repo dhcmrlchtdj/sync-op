@@ -58,17 +58,14 @@ c1.send("hello").sync()
 c2.send(1).sync()
 c3.receive().sync()
 
-const op = choose<Option<string> | Option<number>>(c1.receive(), c2.receive())
+const op = choose(c1.receive(), c2.receive()) // Op<Option<string> | Option<number>>
 const r = await op.sync() // maybe "hello" or 1
 
 // `select(...ops)` is just a sugar for `choose(...ops).sync()`
-await select(c1.receive(), c2.receive())
+await select(c1.receive(), c2.receive()) // Option<string> | Option<number>
 
 // `choose` can be nested
-await choose<Option<string> | Option<number> | boolean>(
-	op,
-	c3.send(true),
-).sync()
+await choose(op, c3.send(true)).sync() // Option<string> | Option<number> | boolean
 ```
 
 ### `always` / `never` / `wrap` / `timeout` / `fromAbortSignal`

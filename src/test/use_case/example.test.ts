@@ -1,6 +1,5 @@
 import { choose, select, guard } from "../../operation.js"
 import { Channel } from "../../channel.js"
-import { Option } from "../../option.js"
 import {
 	always,
 	never,
@@ -66,25 +65,16 @@ describe("example", () => {
 		const s2 = c2.send(1).sync()
 		const s3 = c3.receive().sync()
 
-		const op = choose<Option<string> | Option<number>>(
-			c1.receive(),
-			c2.receive(),
-		)
+		const op = choose(c1.receive(), c2.receive())
 		const r1 = await op.sync()
 		expect(r1.isSome()).toBe(true)
 		expect([1, "hello"]).toContain(r1.unwrap())
 
-		const r2 = await select<Option<string> | Option<number>>(
-			c1.receive(),
-			c2.receive(),
-		)
+		const r2 = await select(c1.receive(), c2.receive())
 		expect(r2.isSome()).toBe(true)
 		expect([1, "hello"]).toContain(r2.unwrap())
 
-		const r3 = await choose<Option<string> | Option<number> | boolean>(
-			op,
-			c3.send(true),
-		).sync()
+		const r3 = await choose(op, c3.send(true)).sync()
 		expect(r3).toBe(true) // c1/c2 is consumed
 
 		await expect(s1).resolves.toBe(true)
@@ -95,7 +85,7 @@ describe("example", () => {
 	test("always / never / wrap / timeout / fromAbortSignal", async () => {
 		const ch = new Channel<number>()
 
-		const r1 = choose<unknown>(ch.receive(), always(1), never()).poll()
+		const r1 = choose(ch.receive(), always(1), never()).poll()
 		expect(r1.isSome()).toBe(true)
 		expect(r1.unwrap()).toBe(1)
 
@@ -104,7 +94,7 @@ describe("example", () => {
 			.sync()
 		expect(r2).toBe(4)
 
-		const r3 = await choose<unknown>(
+		const r3 = await choose(
 			ch.receive(),
 			timeout(10).wrap(() => "timeout"),
 		).sync()
@@ -112,7 +102,7 @@ describe("example", () => {
 
 		const ac = new AbortController()
 		setTimeout(() => ac.abort(), 10)
-		const r4 = await choose<unknown>(
+		const r4 = await choose(
 			ch.receive(),
 			fromAbortSignal(ac.signal).wrap(() => "abort"),
 		).sync()
@@ -134,7 +124,7 @@ describe("example", () => {
 				),
 			),
 		).wrapAbort(() => ac.abort())
-		const r3 = await choose<unknown>(
+		const r3 = await choose(
 			timeout(1).wrap(() => "timeout"),
 			fetchOp,
 		).sync()

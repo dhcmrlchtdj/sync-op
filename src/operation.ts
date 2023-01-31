@@ -243,6 +243,63 @@ function doAborts(abortMap: AbortMap, shouldNotAbort: number[]) {
 /**
 just `choose(...ops).sync()`
 */
+export function select<T1, T2>(op1: Op<T1>, op2: Op<T2>): Promise<T1 | T2>
+export function select<T1, T2, T3>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+): Promise<T1 | T2 | T3>
+export function select<T1, T2, T3, T4>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+): Promise<T1 | T2 | T3 | T4>
+export function select<T1, T2, T3, T4, T5>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+): Promise<T1 | T2 | T3 | T4 | T5>
+export function select<T1, T2, T3, T4, T5, T6>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+): Promise<T1 | T2 | T3 | T4 | T5 | T6>
+export function select<T1, T2, T3, T4, T5, T6, T7>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+	op7: Op<T7>,
+): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7>
+export function select<T1, T2, T3, T4, T5, T6, T7, T8>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+	op7: Op<T7>,
+	op8: Op<T8>,
+): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>
+export function select<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+	op7: Op<T7>,
+	op8: Op<T8>,
+	op9: Op<T9>,
+): Promise<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>
 export function select<T>(...ops: Op<T>[]): Promise<T> {
 	return new Choose(ops).sync()
 }
@@ -250,6 +307,63 @@ export function select<T>(...ops: Op<T>[]): Promise<T> {
 /**
 constructs the Op that represents the non-deterministic choice of the `ops`
 */
+export function choose<T1, T2>(op1: Op<T1>, op2: Op<T2>): Op<T1 | T2>
+export function choose<T1, T2, T3>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+): Op<T1 | T2 | T3>
+export function choose<T1, T2, T3, T4>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+): Op<T1 | T2 | T3 | T4>
+export function choose<T1, T2, T3, T4, T5>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+): Op<T1 | T2 | T3 | T4 | T5>
+export function choose<T1, T2, T3, T4, T5, T6>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+): Op<T1 | T2 | T3 | T4 | T5 | T6>
+export function choose<T1, T2, T3, T4, T5, T6, T7>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+	op7: Op<T7>,
+): Op<T1 | T2 | T3 | T4 | T5 | T6 | T7>
+export function choose<T1, T2, T3, T4, T5, T6, T7, T8>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+	op7: Op<T7>,
+	op8: Op<T8>,
+): Op<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8>
+export function choose<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+	op1: Op<T1>,
+	op2: Op<T2>,
+	op3: Op<T3>,
+	op4: Op<T4>,
+	op5: Op<T5>,
+	op6: Op<T6>,
+	op7: Op<T7>,
+	op8: Op<T8>,
+	op9: Op<T9>,
+): Op<T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>
 export function choose<T>(...ops: Op<T>[]): Op<T> {
 	return new Choose(ops)
 }
