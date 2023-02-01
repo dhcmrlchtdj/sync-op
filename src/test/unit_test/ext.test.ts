@@ -5,6 +5,8 @@ import {
 	fromAbortSignal,
 	timeout,
 	after,
+	IVar,
+	Mutex,
 } from "../../ext.js"
 
 describe("Operation Ext", () => {
@@ -53,5 +55,33 @@ describe("Operation Ext", () => {
 
 		await new Promise((r) => setTimeout(r, 10))
 		expect(op.poll().isSome()).toBe(true)
+	})
+
+	test("Mutex", async () => {
+		const mutex = new Mutex()
+
+		expect(mutex.lock().poll().isSome()).toBe(true)
+		expect(mutex.lock().poll().isSome()).toBe(false)
+
+		let counter = 0
+		const op = mutex.lock().wrap(() => counter++)
+		const r = op.sync()
+		expect(counter).toBe(0)
+
+		mutex.unlock()
+
+		await r
+		expect(counter).toBe(1)
+	})
+
+	test("IVar", async () => {
+		const iv = new IVar<number>()
+		expect(iv.get().poll().isSome()).toBe(false)
+
+		expect(iv.put(1)).toBe(true)
+		expect(iv.put(2)).toBe(false)
+
+		expect(iv.get().poll().isSome()).toBe(true)
+		expect(await iv.get().sync()).toBe(1)
 	})
 })
