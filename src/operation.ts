@@ -4,7 +4,7 @@ import { Deferred } from "./deferred.js"
 import { Option, some, none } from "./option.js"
 
 export type BasicOp<T> = {
-	poll(): boolean
+	poll(): void
 	suspend(): void
 	result(): T
 }
@@ -192,8 +192,8 @@ async function basicSync<T>(
 	// poll ops
 	let idx: number | false = false
 	for (let i = 0; i < ops.length; i++) {
-		const op = ops[i]!
-		if (op.poll()) {
+		ops[i]!.poll()
+		if (performed.isFulfilled) {
 			idx = i
 			break
 		}
@@ -219,8 +219,8 @@ function basicPoll<T>(abortMap: AbortMap, genOps: GenOp<T>[]): Option<T> {
 	// poll ops
 	let idx: number | false = false
 	for (let i = 0; i < ops.length; i++) {
-		const op = ops[i]!
-		if (op.poll()) {
+		ops[i]!.poll()
+		if (performed.isFulfilled) {
 			idx = i
 			break
 		}

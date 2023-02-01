@@ -8,10 +8,7 @@ always ready for synchronization
 export function always<T>(data: T): Op<T> {
 	return new Operation((performed, idx) => {
 		return {
-			poll: () => {
-				performed.resolve(idx)
-				return true
-			},
+			poll: () => performed.resolve(idx),
 			suspend: noop,
 			result: () => data,
 		}
@@ -24,7 +21,7 @@ never ready for synchronization
 export function never(): Op<never> {
 	return new Operation((_performed, _idx) => {
 		return {
-			poll: () => false,
+			poll: noop,
 			suspend: noop,
 			result: () => {
 				throw new Error("never")
@@ -50,12 +47,7 @@ export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
 	return new Operation((performed, idx) => {
 		return {
 			poll: () => {
-				if (fulfilled) {
-					performed.resolve(idx)
-					return true
-				} else {
-					return false
-				}
+				if (fulfilled) performed.resolve(idx)
 			},
 			suspend: () => {
 				pp.finally(() => performed.resolve(idx))
@@ -76,9 +68,6 @@ export function fromAbortSignal(signal: AbortSignal): Op<unknown> {
 				if (signal.aborted) {
 					reason = signal.reason
 					performed.resolve(idx)
-					return true
-				} else {
-					return false
 				}
 			},
 			suspend: () => {
@@ -115,12 +104,7 @@ export function after(delay: number): Op<void> {
 	return new Operation((performed, idx) => {
 		return {
 			poll: () => {
-				if (out) {
-					performed.resolve(idx)
-					return true
-				} else {
-					return false
-				}
+				if (out) performed.resolve(idx)
 			},
 			suspend: () => {
 				handler = () => {

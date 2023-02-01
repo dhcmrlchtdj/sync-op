@@ -91,15 +91,14 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 						performed.resolve(idx)
 						receiver.data = sender.data
 						receiver.performed.resolve(receiver.idx)
-						return true
+						return
 					}
 					if (this._buffer.length < this._capacity) {
 						this._buffer.push(some(data))
 						sender.sent = true
 						performed.resolve(idx)
-						return true
+						return
 					}
-					return false
 				},
 				suspend: () => {
 					const senders = this._senders.filter(
@@ -144,7 +143,7 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 							sender.performed.resolve(sender.idx)
 							break
 						}
-						return true
+						return
 					}
 					while (this._senders.length > 0) {
 						const sender = this._senders.shift()!
@@ -153,13 +152,9 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 						performed.resolve(idx)
 						sender.sent = true
 						sender.performed.resolve(sender.idx)
-						return true
+						return
 					}
-					if (this._closed) {
-						performed.resolve(idx)
-						return true
-					}
-					return false
+					if (this._closed) performed.resolve(idx)
 				},
 				suspend: () => {
 					const receivers = this._receivers.filter(
