@@ -7,6 +7,8 @@ sync-op
 ### Classes
 
 - [Channel](classes/Channel.md)
+- [IVar](classes/IVar.md)
+- [Mutex](classes/Mutex.md)
 - [Op](classes/Op.md)
 - [Operation](classes/Operation.md)
 
@@ -48,13 +50,13 @@ sync-op
 
 | Name | Type |
 | :------ | :------ |
-| `poll` | () => `boolean` |
+| `poll` | () => `void` |
 | `result` | () => `T` |
 | `suspend` | () => `void` |
 
 #### Defined in
 
-[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L6)
+[operation.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L6)
 
 ___
 
@@ -85,7 +87,7 @@ ___
 
 #### Defined in
 
-[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L12)
+[operation.ts:12](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L12)
 
 ## Functions
 
@@ -107,7 +109,7 @@ the timer is started when `Op` created
 
 #### Defined in
 
-[ext.ts:109](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/ext.ts#L109)
+[ext.ts:100](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L100)
 
 ___
 
@@ -135,7 +137,7 @@ always ready for synchronization
 
 #### Defined in
 
-[ext.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/ext.ts#L8)
+[ext.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L10)
 
 ___
 
@@ -163,7 +165,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:311](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L311)
+[operation.ts:317](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L317)
 
 ▸ **choose**<`T1`, `T2`\>(`op1`, `op2`): [`Op`](classes/Op.md)<`T1` \| `T2`\>
 
@@ -187,7 +189,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:312](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L312)
+[operation.ts:318](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L318)
 
 ▸ **choose**<`T1`, `T2`, `T3`\>(`op1`, `op2`, `op3`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3`\>
 
@@ -213,7 +215,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:313](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L313)
+[operation.ts:319](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L319)
 
 ▸ **choose**<`T1`, `T2`, `T3`, `T4`\>(`op1`, `op2`, `op3`, `op4`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3` \| `T4`\>
 
@@ -241,7 +243,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:318](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L318)
+[operation.ts:324](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L324)
 
 ▸ **choose**<`T1`, `T2`, `T3`, `T4`, `T5`\>(`op1`, `op2`, `op3`, `op4`, `op5`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3` \| `T4` \| `T5`\>
 
@@ -271,7 +273,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:324](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L324)
+[operation.ts:330](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L330)
 
 ▸ **choose**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6`\>
 
@@ -303,7 +305,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:331](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L331)
+[operation.ts:337](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L337)
 
 ▸ **choose**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`, `T7`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`, `op7`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6` \| `T7`\>
 
@@ -337,7 +339,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:339](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L339)
+[operation.ts:345](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L345)
 
 ▸ **choose**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`, `T7`, `T8`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`, `op7`, `op8`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6` \| `T7` \| `T8`\>
 
@@ -373,7 +375,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:348](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L348)
+[operation.ts:354](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L354)
 
 ▸ **choose**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`, `T7`, `T8`, `T9`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`, `op7`, `op8`, `op9`): [`Op`](classes/Op.md)<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6` \| `T7` \| `T8` \| `T9`\>
 
@@ -411,7 +413,7 @@ constructs `Op` that represents the non-deterministic choice of the `ops`
 
 #### Defined in
 
-[operation.ts:358](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L358)
+[operation.ts:364](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L364)
 
 ___
 
@@ -433,7 +435,7 @@ convert `AbortSignal` to `Op`
 
 #### Defined in
 
-[ext.ts:71](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/ext.ts#L71)
+[ext.ts:65](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L65)
 
 ___
 
@@ -468,7 +470,7 @@ await fromPromise(Promise.reject("error").catch(err => err)).sync()
 
 #### Defined in
 
-[ext.ts:46](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/ext.ts#L46)
+[ext.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L45)
 
 ___
 
@@ -496,7 +498,7 @@ use `fn` to create new `Op` when it's polled
 
 #### Defined in
 
-[operation.ts:376](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L376)
+[operation.ts:382](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L382)
 
 ___
 
@@ -512,7 +514,7 @@ never ready for synchronization
 
 #### Defined in
 
-[ext.ts:24](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/ext.ts#L24)
+[ext.ts:23](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L23)
 
 ___
 
@@ -540,7 +542,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:246](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L246)
+[operation.ts:252](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L252)
 
 ▸ **select**<`T1`, `T2`\>(`op1`, `op2`): `Promise`<`T1` \| `T2`\>
 
@@ -564,7 +566,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:247](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L247)
+[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L253)
 
 ▸ **select**<`T1`, `T2`, `T3`\>(`op1`, `op2`, `op3`): `Promise`<`T1` \| `T2` \| `T3`\>
 
@@ -590,7 +592,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:248](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L248)
+[operation.ts:254](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L254)
 
 ▸ **select**<`T1`, `T2`, `T3`, `T4`\>(`op1`, `op2`, `op3`, `op4`): `Promise`<`T1` \| `T2` \| `T3` \| `T4`\>
 
@@ -618,7 +620,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L253)
+[operation.ts:259](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L259)
 
 ▸ **select**<`T1`, `T2`, `T3`, `T4`, `T5`\>(`op1`, `op2`, `op3`, `op4`, `op5`): `Promise`<`T1` \| `T2` \| `T3` \| `T4` \| `T5`\>
 
@@ -648,7 +650,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:259](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L259)
+[operation.ts:265](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L265)
 
 ▸ **select**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`): `Promise`<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6`\>
 
@@ -680,7 +682,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:266](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L266)
+[operation.ts:272](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L272)
 
 ▸ **select**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`, `T7`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`, `op7`): `Promise`<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6` \| `T7`\>
 
@@ -714,7 +716,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:274](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L274)
+[operation.ts:280](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L280)
 
 ▸ **select**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`, `T7`, `T8`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`, `op7`, `op8`): `Promise`<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6` \| `T7` \| `T8`\>
 
@@ -750,7 +752,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:283](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L283)
+[operation.ts:289](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L289)
 
 ▸ **select**<`T1`, `T2`, `T3`, `T4`, `T5`, `T6`, `T7`, `T8`, `T9`\>(`op1`, `op2`, `op3`, `op4`, `op5`, `op6`, `op7`, `op8`, `op9`): `Promise`<`T1` \| `T2` \| `T3` \| `T4` \| `T5` \| `T6` \| `T7` \| `T8` \| `T9`\>
 
@@ -788,7 +790,7 @@ just `choose(...ops).sync()`
 
 #### Defined in
 
-[operation.ts:293](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/operation.ts#L293)
+[operation.ts:299](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/operation.ts#L299)
 
 ___
 
@@ -810,4 +812,4 @@ the timer is started when `Op` polled
 
 #### Defined in
 
-[ext.ts:102](https://github.com/dhcmrlchtdj/sync-op/blob/6e55887/src/ext.ts#L102)
+[ext.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L93)
