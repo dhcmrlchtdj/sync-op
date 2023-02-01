@@ -17,6 +17,7 @@ fmt:
 
 lint:
 	eslint --ext=".ts" src
+	prettier --check .
 
 test: build
 	NODE_OPTIONS=--experimental-vm-modules jest --coverage --rootDir=./dist/test/
