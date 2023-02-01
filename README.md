@@ -134,6 +134,7 @@ await choose(timeout(10), fetchOp).sync()
 -   https://docs.racket-lang.org/reference/sync.html
 -   https://ocaml.org/api/Event.html
 -   https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
+-   https://medium.com/@asolove/synchronizable-abstractions-for-understandable-concurrency-64ae57cd61d1
 
 ## License
 
