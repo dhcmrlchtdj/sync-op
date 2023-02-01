@@ -1,4 +1,6 @@
+import { Deferred } from "./deferred.js"
 import { Op, Operation, guard } from "./operation.js"
+import { Option, some, none } from "./option.js"
 
 const noop = () => {}
 
@@ -115,4 +117,83 @@ export function after(delay: number): Op<void> {
 			result: noop,
 		}
 	})
+}
+
+export class Mutex {
+	private _locked: boolean
+	private _queue: { performed: Deferred<number>; idx: number }[]
+	constructor() {
+		this._locked = false
+		this._queue = []
+	}
+	lock(): Op<void> {
+		return new Operation((performed, idx) => {
+			return {
+				poll: () => {
+					if (!this._locked) {
+						this._locked = true
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					this._queue.push({ performed, idx })
+				},
+				result: noop,
+			}
+		})
+	}
+	unlock(): void {
+		if (this._locked) {
+			while (this._queue.length > 0) {
+				const { performed, idx } = this._queue.shift()!
+				if (!performed.isFulfilled) {
+					performed.resolve(idx)
+					return
+				}
+			}
+			this._locked = false
+		}
+	}
+	async withLock<T>(f: () => T | Promise<T>): Promise<T> {
+		await this.lock().sync()
+		try {
+			return await f()
+		} finally {
+			this.unlock()
+		}
+	}
+}
+
+export class IVar<T> {
+	private _value: Option<T>
+	private _queue: { performed: Deferred<number>; idx: number }[]
+	constructor() {
+		this._value = none
+		this._queue = []
+	}
+	get(): Op<T> {
+		return new Operation((performed, idx) => {
+			return {
+				poll: () => {
+					if (this._value.isSome()) {
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					this._queue.push({ performed, idx })
+				},
+				result: () => this._value.unwrap(),
+			}
+		})
+	}
+	put(value: T): boolean {
+		if (this._value.isSome()) {
+			return false
+		} else {
+			this._value = some(value)
+			this._queue.forEach(({ performed, idx }) => performed.resolve(idx))
+			this._queue = []
+			return true
+		}
+	}
 }
