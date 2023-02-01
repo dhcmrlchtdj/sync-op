@@ -1,9 +1,7 @@
 # sync-op
 
 sync-op provides CML-like first-class synchronous operations.
-
-There are "Channel" and "select". If you know golang, they are similar.
-
+There are `Channel` and `select`. If you know golang, they are similar.
 Just read the following example to see how to use them.
 
 ## Install
@@ -11,6 +9,8 @@ Just read the following example to see how to use them.
 ```sh
 $ npm install sync-op
 ```
+
+or try `import { Channel } from "https://esm.sh/sync-op"` on [esm.sh/playground](https://playground.esm.sh/).
 
 ## Usage
 

@@ -1,7 +1,7 @@
 {
 	"name": "sync-op",
 	"version": "0.4.0",
-	"description": "first-class synchronous operations",
+	"description": "CML-like first-class synchronous operations",
 	"author": "h11 <me@h11.io>",
 	"license": "LGPL-2.1",
 	"homepage": "https://github.com/dhcmrlchtdj/sync-op",
@@ -13,6 +13,7 @@
 		"dist/*.js",
 		"dist/*.d.ts"
 	],
+	"keywords": ["cml", "concurrent-ml", "channel"],
 	"packageManager": "pnpm@7.26.1",
 	"devDependencies": {
 		"@types/jest": "29.4.0",
