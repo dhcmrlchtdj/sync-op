@@ -197,3 +197,104 @@ export class IVar<T> {
 		}
 	}
 }
+
+export class MVar<T> {
+	private _value: Option<T>
+	private _queue: (() => void)[]
+	constructor() {
+		this._value = none
+		this._queue = []
+	}
+
+	// fill MVar if it is empty
+	put(value: T): boolean {
+		if (this._value.isSome()) {
+			return false
+		} else {
+			this._value = some(value)
+			if (this._queue.length > 0) {
+				const queue = this._queue
+				this._queue = []
+				queue.forEach((cb) => cb())
+			}
+			return true
+		}
+	}
+
+	// read MVar
+	get(): Op<T> {
+		return new Operation((performed, idx) => {
+			return {
+				poll: () => {
+					if (this._value.isSome()) {
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					this._queue.push(() => performed.resolve(idx))
+				},
+				result: () => this._value.unwrap(),
+			}
+		})
+	}
+
+	// read MVar and clear it
+	take(): Op<T> {
+		return new Operation((performed, idx) => {
+			let value = null as T
+			return {
+				poll: () => {
+					if (this._value.isSome()) {
+						value = this._value.unwrap()
+						this._value = none
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					const cb = () => {
+						if (performed.isFulfilled) return
+						if (this._value.isSome()) {
+							value = this._value.unwrap()
+							this._value = none
+							performed.resolve(idx)
+						} else {
+							this._queue.push(cb)
+						}
+					}
+					this._queue.push(cb)
+				},
+				result: () => value,
+			}
+		})
+	}
+
+	// read MVar and replace it with `newValue`
+	swap(newValue: T): Op<T> {
+		return new Operation((performed, idx) => {
+			let oldValue = null as T
+			return {
+				poll: () => {
+					if (this._value.isSome()) {
+						oldValue = this._value.unwrap()
+						this._value = some(newValue)
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					const cb = () => {
+						if (performed.isFulfilled) return
+						if (this._value.isSome()) {
+							oldValue = this._value.unwrap()
+							this._value = some(newValue)
+							performed.resolve(idx)
+						} else {
+							this._queue.push(cb)
+						}
+					}
+					this._queue.push(cb)
+				},
+				result: () => oldValue,
+			}
+		})
+	}
+}

@@ -7,6 +7,7 @@ import {
 	after,
 	IVar,
 	Mutex,
+	MVar,
 } from "../../ext.js"
 
 describe("Operation Ext", () => {
@@ -83,5 +84,22 @@ describe("Operation Ext", () => {
 
 		expect(iv.get().poll().isSome()).toBe(true)
 		expect(await iv.get().sync()).toBe(1)
+	})
+
+	test("MVar", async () => {
+		const mv = new MVar<number>()
+		expect(mv.get().poll().isSome()).toBe(false)
+
+		expect(mv.put(1)).toBe(true)
+		expect(mv.put(2)).toBe(false)
+
+		expect(mv.get().poll().isSome()).toBe(true)
+		expect(await mv.get().sync()).toBe(1)
+
+		expect(await mv.swap(3).sync()).toBe(1)
+		expect(await mv.get().sync()).toBe(3)
+
+		expect(await mv.take().sync()).toBe(3)
+		expect(mv.get().poll().isNone()).toBe(true)
 	})
 })
