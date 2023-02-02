@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[ext.ts:170](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L170)
+[ext.ts:170](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L170)
 
 ## Methods
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[ext.ts:174](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L174)
+[ext.ts:174](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L174)
 
 ___
 
@@ -67,4 +67,4 @@ ___
 
 #### Defined in
 
-[ext.ts:189](https://github.com/dhcmrlchtdj/sync-op/blob/5c2057c/src/ext.ts#L189)
+[ext.ts:189](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L189)
