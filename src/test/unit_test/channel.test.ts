@@ -6,7 +6,7 @@ describe("unbuffered Channel", () => {
 
 		const op = ch.receive()
 		const r = op.poll()
-		expect(r.isSome()).toBe(false)
+		expect(r.isNone()).toBe(true)
 	})
 
 	test("send/receive", async () => {
@@ -33,7 +33,7 @@ describe("unbuffered Channel", () => {
 		const op = ch.receive()
 		const r = op.poll()
 		expect(r.isSome()).toBe(true)
-		expect(r.unwrap().isSome()).toBe(false)
+		expect(r.unwrap().isNone()).toBe(true)
 	})
 
 	test("close/send", () => {
@@ -79,6 +79,6 @@ describe("buffered Channel", () => {
 
 		const r3 = op2.poll()
 		expect(r3.isSome()).toBe(true)
-		expect(r3.unwrap().isSome()).toBe(false)
+		expect(r3.unwrap().isNone()).toBe(true)
 	})
 })

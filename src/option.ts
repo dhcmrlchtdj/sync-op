@@ -4,6 +4,9 @@ class None {
 	isSome<T>(): this is Some<T> {
 		return false
 	}
+	isNone(): this is None {
+		return true
+	}
 	unwrap(): never {
 		throw new Error("None.unwrap()")
 	}
@@ -22,6 +25,9 @@ class Some<T> {
 	}
 	isSome(): this is Some<T> {
 		return true
+	}
+	isNone(): this is None {
+		return false
 	}
 	unwrap(): T {
 		return this.value
