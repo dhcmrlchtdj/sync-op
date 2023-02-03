@@ -53,19 +53,19 @@ the first-class sychronous operations
 
 #### Defined in
 
-[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/operation.ts#L89)
+[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/operation.ts#L89)
 
 ## Methods
 
 ### poll
 
-▸ **poll**(): `Option`<`T`\>
+▸ **poll**(): [`Option`](../README.md#option)<`T`\>
 
 non-blocking version of `Op#sync`
 
 #### Returns
 
-`Option`<`T`\>
+[`Option`](../README.md#option)<`T`\>
 
 #### Inherited from
 
@@ -73,7 +73,7 @@ non-blocking version of `Op#sync`
 
 #### Defined in
 
-[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/operation.ts#L53)
+[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/operation.ts#L53)
 
 ___
 
@@ -93,7 +93,7 @@ synchronizes on `Op`
 
 #### Defined in
 
-[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/operation.ts#L45)
+[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/operation.ts#L45)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 ▸ **wrap**<`R`\>(`fn`): [`Op`](Op.md)<`R`\>
 
-`fn` is used to transform the result from type T to type R.
+`fn` is used to transform the result from type `T` to type `R`.
 
 ```typescript
 await always(2).wrap(n => n * 2).sync() // 4
@@ -129,7 +129,7 @@ await always(2).wrap(n => n * 2).sync() // 4
 
 #### Defined in
 
-[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/operation.ts#L93)
+[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/operation.ts#L93)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 ▸ **wrapAbort**(`onAbort`): [`Op`](Op.md)<`T`\>
 
-`onAbort` is invoked if `Op` is not chosen by the `choose()`
+`onAbort` is called if `Op` is not chosen by the `choose()`
 
 ```typescript
 await select(
@@ -162,4 +162,4 @@ await select(
 
 #### Defined in
 
-[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/operation.ts#L68)
+[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/operation.ts#L68)

@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L10)
+[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L10)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L7)
+[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L7)
 
 ___
 
@@ -61,18 +61,18 @@ ___
 
 #### Defined in
 
-[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L8)
+[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L8)
 
 ___
 
 ### receive
 
-▸ **receive**(): [`Op`](../classes/Op.md)<`Option`<`T`\>\>
+▸ **receive**(): [`Op`](../classes/Op.md)<[`Option`](../README.md#option)<`T`\>\>
 
 #### Returns
 
-[`Op`](../classes/Op.md)<`Option`<`T`\>\>
+[`Op`](../classes/Op.md)<[`Option`](../README.md#option)<`T`\>\>
 
 #### Defined in
 
-[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L9)
+[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L9)

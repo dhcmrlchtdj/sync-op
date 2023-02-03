@@ -57,7 +57,7 @@ const buffered = new Channel(1)
 
 #### Defined in
 
-[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L38)
+[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L38)
 
 ## Methods
 
@@ -84,7 +84,7 @@ for await (const msg of ch) {
 
 #### Defined in
 
-[channel.ts:181](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L181)
+[channel.ts:181](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L181)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[channel.ts:46](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L46)
+[channel.ts:46](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L46)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[channel.ts:55](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L55)
+[channel.ts:55](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L55)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 ▸ **isDrained**(): `boolean`
 
-return `true` if the buffer is empty and there is no pending senders.
+returns `true` if the buffer is empty and there are no pending senders.
 
 #### Returns
 
@@ -140,13 +140,13 @@ return `true` if the buffer is empty and there is no pending senders.
 
 #### Defined in
 
-[channel.ts:62](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L62)
+[channel.ts:62](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L62)
 
 ___
 
 ### receive
 
-▸ **receive**(): [`Op`](Op.md)<`Option`<`T`\>\>
+▸ **receive**(): [`Op`](Op.md)<[`Option`](../README.md#option)<`T`\>\>
 
 receives a message from the channel.
 if the channel is drained, return `none`.
@@ -158,7 +158,7 @@ const msg = await op.sync()
 
 #### Returns
 
-[`Op`](Op.md)<`Option`<`T`\>\>
+[`Op`](Op.md)<[`Option`](../README.md#option)<`T`\>\>
 
 #### Implementation of
 
@@ -166,7 +166,7 @@ const msg = await op.sync()
 
 #### Defined in
 
-[channel.ts:124](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L124)
+[channel.ts:124](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L124)
 
 ___
 
@@ -174,8 +174,8 @@ ___
 
 ▸ **send**(`data`): [`Op`](Op.md)<`boolean`\>
 
-sends the message `data` to the channel.
-if the channel is closed, return `false`.
+sends the `data` message to the channel.
+if channel is closed, return `false`.
 
 ```typescript
 const op = ch.send("hello world")
@@ -198,4 +198,4 @@ await op.sync()
 
 #### Defined in
 
-[channel.ts:76](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/channel.ts#L76)
+[channel.ts:76](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/channel.ts#L76)

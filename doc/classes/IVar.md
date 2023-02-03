@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[ext.ts:170](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L170)
+[extension.ts:170](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L170)
 
 ## Methods
 
@@ -41,19 +41,24 @@
 
 ▸ **get**(): [`Op`](Op.md)<`T`\>
 
+read `IVar`
+
 #### Returns
 
 [`Op`](Op.md)<`T`\>
 
 #### Defined in
 
-[ext.ts:174](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L174)
+[extension.ts:193](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L193)
 
 ___
 
 ### put
 
 ▸ **put**(`value`): `boolean`
+
+fill `IVar` if it is empty.
+return `false` if it's not empty.
 
 #### Parameters
 
@@ -67,4 +72,4 @@ ___
 
 #### Defined in
 
-[ext.ts:189](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L189)
+[extension.ts:179](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L179)

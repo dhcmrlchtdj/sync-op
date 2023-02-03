@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[ext.ts:204](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L204)
+[extension.ts:213](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L213)
 
 ## Methods
 
@@ -43,19 +43,24 @@
 
 ▸ **get**(): [`Op`](Op.md)<`T`\>
 
+read `MVar`
+
 #### Returns
 
 [`Op`](Op.md)<`T`\>
 
 #### Defined in
 
-[ext.ts:225](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L225)
+[extension.ts:239](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L239)
 
 ___
 
 ### put
 
 ▸ **put**(`value`): `boolean`
+
+fill `MVar` if it is empty
+return `false` if it's not empty.
 
 #### Parameters
 
@@ -69,13 +74,15 @@ ___
 
 #### Defined in
 
-[ext.ts:210](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L210)
+[extension.ts:222](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L222)
 
 ___
 
 ### swap
 
 ▸ **swap**(`newValue`): [`Op`](Op.md)<`T`\>
+
+read `MVar` and replace it with `newValue`
 
 #### Parameters
 
@@ -89,7 +96,7 @@ ___
 
 #### Defined in
 
-[ext.ts:272](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L272)
+[extension.ts:265](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L265)
 
 ___
 
@@ -97,10 +104,12 @@ ___
 
 ▸ **take**(): [`Op`](Op.md)<`T`\>
 
+read `MVar` and clear it
+
 #### Returns
 
 [`Op`](Op.md)<`T`\>
 
 #### Defined in
 
-[ext.ts:242](https://github.com/dhcmrlchtdj/sync-op/blob/87263f3/src/ext.ts#L242)
+[extension.ts:258](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L258)
