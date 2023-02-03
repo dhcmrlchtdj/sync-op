@@ -1,12 +1,14 @@
-import { choose, select, guard } from "../../operation.js"
-import { Channel } from "../../channel.js"
 import {
+	Channel,
+	choose,
+	select,
+	guard,
 	always,
 	never,
 	fromAbortSignal,
 	fromPromise,
 	timeout,
-} from "../../ext.js"
+} from "../../index.js"
 
 describe("example", () => {
 	test("unbuffered channel", async () => {

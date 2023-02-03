@@ -8,7 +8,7 @@ import {
 	IVar,
 	Mutex,
 	MVar,
-} from "../../ext.js"
+} from "../../extension.js"
 
 describe("Operation Ext", () => {
 	test("always", () => {
