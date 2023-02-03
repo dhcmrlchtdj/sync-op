@@ -1,0 +1,60 @@
+name: release
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "version"
+                type: "choice"
+                required: true
+                default: "minor"
+                options:
+                    - "major"
+                    - "minor"
+                    - "patch"
+                    - "premajor"
+                    - "preminor"
+                    - "prepatch"
+                    - "prerelease"
+
+jobs:
+    release:
+        # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners
+        runs-on: ubuntu-22.04
+        steps:
+            # https://github.com/marketplace/actions/checkout
+            - uses: actions/checkout@v3.3.0
+            # https://github.com/marketplace/actions/setup-node-js-environment
+            - uses: actions/setup-node@v3.6.0
+              with:
+                  node-version: "18"
+                  registry-url: "https://registry.npmjs.org"
+            - run: corepack enable pnpm
+            - id: pnpm-cache-dir
+              run: echo "dir=$(pnpm store path)" >> ${GITHUB_OUTPUT}
+            # https://github.com/marketplace/actions/cache
+            - uses: actions/cache@v3.2.3
+              with:
+                  path: ${{ steps.pnpm-cache-dir.outputs.dir }}
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: ${{ runner.os }}-pnpm-
+            - run: |
+                  pnpm install
+                  pnpm store prune
+            - run: make -j build lint test
+            - run: |
+                  git config --global user.name "GitHub Actions (${GITHUB_ACTOR})"
+                  git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+            - run: npm version ${VERSION}
+              env:
+                  VERSION: ${{ inputs.version }}
+            - run: |
+                  make doc
+                  git add .
+                  git commit -m "doc"
+            - run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - run: |
+                  git push
+                  git push --tags
