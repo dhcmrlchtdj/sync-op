@@ -118,6 +118,5 @@ describe("Operation Ext", () => {
 
 		expect(await mv.take().sync()).toBe(4)
 		expect(mv.get().poll().isNone()).toBe(true)
-
 	})
 })
