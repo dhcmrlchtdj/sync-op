@@ -55,7 +55,7 @@ non-blocking version of `Op#sync`
 
 #### Defined in
 
-[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/operation.ts#L53)
+[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/operation.ts#L53)
 
 ___
 
@@ -71,7 +71,7 @@ synchronizes on `Op`
 
 #### Defined in
 
-[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/operation.ts#L45)
+[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/operation.ts#L45)
 
 ___
 
@@ -103,7 +103,7 @@ await always(2).wrap(n => n * 2).sync() // 4
 
 #### Defined in
 
-[operation.ts:79](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/operation.ts#L79)
+[operation.ts:79](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/operation.ts#L79)
 
 ___
 
@@ -132,4 +132,4 @@ await select(
 
 #### Defined in
 
-[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/operation.ts#L68)
+[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/operation.ts#L68)

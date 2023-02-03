@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[extension.ts:213](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L213)
+[extension.ts:213](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/extension.ts#L213)
 
 ## Methods
 
@@ -51,7 +51,7 @@ read `MVar`
 
 #### Defined in
 
-[extension.ts:239](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L239)
+[extension.ts:239](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/extension.ts#L239)
 
 ___
 
@@ -74,7 +74,7 @@ return `false` if it's not empty.
 
 #### Defined in
 
-[extension.ts:222](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L222)
+[extension.ts:222](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/extension.ts#L222)
 
 ___
 
@@ -96,7 +96,7 @@ read `MVar` and replace it with `newValue`
 
 #### Defined in
 
-[extension.ts:265](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L265)
+[extension.ts:265](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/extension.ts#L265)
 
 ___
 
@@ -112,4 +112,4 @@ read `MVar` and clear it
 
 #### Defined in
 
-[extension.ts:258](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L258)
+[extension.ts:258](https://github.com/dhcmrlchtdj/sync-op/blob/76a91db/src/extension.ts#L258)
