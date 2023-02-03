@@ -8,6 +8,7 @@ import {
 	fromAbortSignal,
 	fromPromise,
 	timeout,
+	after,
 } from "../../index.js"
 
 describe("example", () => {
@@ -118,6 +119,7 @@ describe("example", () => {
 		const r2 = fromPromise(Promise.reject("error")).sync()
 		await expect(r2).rejects.toBe("error")
 
+		const timeout = after(0).wrap(() => "timeout")
 		const ac = new AbortController()
 		const fetchOp = guard(() =>
 			fromPromise(
@@ -126,10 +128,7 @@ describe("example", () => {
 				),
 			),
 		).wrapAbort(() => ac.abort())
-		const r3 = await choose(
-			timeout(1).wrap(() => "timeout"),
-			fetchOp,
-		).sync()
+		const r3 = await choose(timeout, fetchOp).sync()
 		expect(ac.signal.aborted).toBe(true)
 		expect(r3).toBe("timeout")
 	})
