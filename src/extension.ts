@@ -164,6 +164,56 @@ export class Mutex {
 	}
 }
 
+export class Semaphore {
+	private _capacity: number
+	private _used: number
+	private _queue: { performed: Deferred<number>; idx: number }[]
+	constructor(capacity: number = 1) {
+		if (capacity <= 0) {
+			throw new Error("the capacity must be greater than 0")
+		}
+		this._capacity = capacity
+		this._used = 0
+		this._queue = []
+	}
+	lock(): Op<void> {
+		return new Operation((performed, idx) => {
+			return {
+				poll: () => {
+					if (this._used < this._capacity) {
+						this._used++
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					this._queue.push({ performed, idx })
+				},
+				result: noop,
+			}
+		})
+	}
+	unlock(): void {
+		if (this._used > 0) {
+			while (this._queue.length > 0) {
+				const { performed, idx } = this._queue.shift()!
+				if (!performed.isFulfilled) {
+					performed.resolve(idx)
+					return
+				}
+			}
+			this._used--
+		}
+	}
+	async withLock<T>(f: () => Promise<T>): Promise<T> {
+		await this.lock().sync()
+		try {
+			return await f()
+		} finally {
+			this.unlock()
+		}
+	}
+}
+
 export class IVar<T> {
 	private _value: Option<T>
 	private _queue: { performed: Deferred<number>; idx: number }[]
