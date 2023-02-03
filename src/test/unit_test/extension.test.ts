@@ -10,6 +10,8 @@ import {
 	MVar,
 } from "../../extension.js"
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
 describe("Operation Ext", () => {
 	test("always", () => {
 		const r = always(1).poll()
@@ -25,8 +27,12 @@ describe("Operation Ext", () => {
 	test("fromPromise", async () => {
 		const op = fromPromise(Promise.resolve(1))
 		expect(op.poll().isNone()).toBe(true)
-		const r = await op.sync()
-		expect(r).toBe(1)
+		expect(await op.sync()).toBe(1)
+
+		const op2 = fromPromise(Promise.resolve(2))
+		await sleep(10)
+		expect(op2.poll().isSome()).toBe(true)
+		expect(await op2.poll().unwrap()).toBe(2)
 	})
 
 	test("fromAbortSignal", async () => {
@@ -73,33 +79,45 @@ describe("Operation Ext", () => {
 
 		await r
 		expect(counter).toBe(1)
+
+		expect(mutex.lock().poll().isNone()).toBe(true)
+		mutex.unlock()
+		expect(mutex.lock().poll().isSome()).toBe(true)
 	})
 
 	test("IVar", async () => {
 		const iv = new IVar<number>()
 		expect(iv.get().poll().isNone()).toBe(true)
+		const r = expect(iv.get().sync()).resolves.toBe(1)
 
 		expect(iv.put(1)).toBe(true)
 		expect(iv.put(2)).toBe(false)
 
 		expect(iv.get().poll().isSome()).toBe(true)
 		expect(await iv.get().sync()).toBe(1)
+
+		await r
 	})
 
 	test("MVar", async () => {
 		const mv = new MVar<number>()
 		expect(mv.get().poll().isSome()).toBe(false)
+		const r = expect(mv.take().sync()).resolves.toBe(1)
 
 		expect(mv.put(1)).toBe(true)
-		expect(mv.put(2)).toBe(false)
+		await r
+
+		expect(mv.put(2)).toBe(true)
+		expect(mv.put(3)).toBe(false)
 
 		expect(mv.get().poll().isSome()).toBe(true)
-		expect(await mv.get().sync()).toBe(1)
+		expect(await mv.get().sync()).toBe(2)
 
-		expect(await mv.swap(3).sync()).toBe(1)
-		expect(await mv.get().sync()).toBe(3)
+		expect(await mv.swap(4).sync()).toBe(2)
+		expect(await mv.get().sync()).toBe(4)
 
-		expect(await mv.take().sync()).toBe(3)
+		expect(await mv.take().sync()).toBe(4)
 		expect(mv.get().poll().isNone()).toBe(true)
+
 	})
 })
