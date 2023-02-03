@@ -45,13 +45,13 @@ jobs:
             - run: |
                   git config --global user.name "GitHub Actions (${GITHUB_ACTOR})"
                   git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-            - run: npm version ${VERSION}
-              env:
-                  VERSION: ${{ inputs.version }}
             - run: |
                   make doc
                   git add .
                   git commit -m "[skip ci] doc"
+            - run: npm version ${VERSION}
+              env:
+                  VERSION: ${{ inputs.version }}
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
