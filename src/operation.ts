@@ -56,7 +56,7 @@ export abstract class Op<T> {
 	}
 
 	/**
-	`onAbort` is invoked if `Op` is not chosen by the `choose()`
+	`onAbort` is called if `Op` is not chosen by the `choose()`
 
 	```typescript
 	await select(
@@ -70,7 +70,7 @@ export abstract class Op<T> {
 	}
 
 	/**
-	`fn` is used to transform the result from type T to type R.
+	`fn` is used to transform the result from type `T` to type `R`.
 
 	```typescript
 	await always(2).wrap(n => n * 2).sync() // 4
@@ -247,7 +247,7 @@ function doAborts(abortMap: AbortMap, shouldNotAbort: number[]) {
 ///
 
 /**
-just `choose(...ops).sync()`
+just a shorthand for `choose(...ops).sync()`
 */
 export function select<T>(...ops: Op<T>[]): Promise<T>
 export function select<T1, T2>(op1: Op<T1>, op2: Op<T2>): Promise<T1 | T2>
@@ -312,7 +312,7 @@ export function select<T>(...ops: Op<T>[]): Promise<T> {
 }
 
 /**
-constructs `Op` that represents the non-deterministic choice of the `ops`
+create an `Op` that represents the non-deterministic choice of `...ops`
 */
 export function choose<T>(...ops: Op<T>[]): Op<T>
 export function choose<T1, T2>(op1: Op<T1>, op2: Op<T2>): Op<T1 | T2>

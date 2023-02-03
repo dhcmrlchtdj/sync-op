@@ -36,7 +36,7 @@ export function never(): Op<never> {
 convert `Promise` to `Op`
 
 > **Warning**
-> if the `Promise` rejected, `await op.sync()` will throw the error.
+> if `Promise` is rejected, `await op.sync()` will throw the error.
 
 ```typescript
 await fromPromise(Promise.reject("error").catch(err => err)).sync()
@@ -88,14 +88,14 @@ export function fromAbortSignal(signal: AbortSignal): Op<unknown> {
 }
 
 /**
-the timer is started when `Op` polled
+the timer is started when `Op` is polled
 */
 export function timeout(delay: number): Op<void> {
 	return guard(() => after(delay))
 }
 
 /**
-the timer is started when `Op` created
+the timer is started when `Op` is created
 */
 export function after(delay: number): Op<void> {
 	let out = false
@@ -171,6 +171,25 @@ export class IVar<T> {
 		this._value = none
 		this._queue = []
 	}
+
+	/**
+	fill `IVar` if it is empty.
+	return `false` if it's not empty.
+	*/
+	put(value: T): boolean {
+		if (this._value.isSome()) {
+			return false
+		} else {
+			this._value = some(value)
+			this._queue.forEach(({ performed, idx }) => performed.resolve(idx))
+			this._queue = []
+			return true
+		}
+	}
+
+	/**
+	read `IVar`
+	*/
 	get(): Op<T> {
 		return new Operation((performed, idx) => {
 			return {
@@ -186,16 +205,6 @@ export class IVar<T> {
 			}
 		})
 	}
-	put(value: T): boolean {
-		if (this._value.isSome()) {
-			return false
-		} else {
-			this._value = some(value)
-			this._queue.forEach(({ performed, idx }) => performed.resolve(idx))
-			this._queue = []
-			return true
-		}
-	}
 }
 
 export class MVar<T> {
@@ -206,7 +215,10 @@ export class MVar<T> {
 		this._queue = []
 	}
 
-	// fill MVar if it is empty
+	/**
+	fill `MVar` if it is empty
+	return `false` if it's not empty.
+	*/
 	put(value: T): boolean {
 		if (this._value.isSome()) {
 			return false
@@ -221,7 +233,9 @@ export class MVar<T> {
 		}
 	}
 
-	// read MVar
+	/**
+	read `MVar`
+	*/
 	get(): Op<T> {
 		return new Operation((performed, idx) => {
 			return {
@@ -238,7 +252,9 @@ export class MVar<T> {
 		})
 	}
 
-	// read MVar and clear it
+	/**
+	read `MVar` and clear it
+	*/
 	take(): Op<T> {
 		return new Operation((performed, idx) => {
 			let value = null as T
@@ -268,7 +284,9 @@ export class MVar<T> {
 		})
 	}
 
-	// read MVar and replace it with `newValue`
+	/**
+	read `MVar` and replace it with `newValue`
+	*/
 	swap(newValue: T): Op<T> {
 		return new Operation((performed, idx) => {
 			let oldValue = null as T

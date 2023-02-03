@@ -57,7 +57,7 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	}
 
 	/**
-	return `true` if the buffer is empty and there is no pending senders.
+	returns `true` if the buffer is empty and there are no pending senders.
 	*/
 	isDrained(): boolean {
 		if (!this._closed) return false
@@ -65,8 +65,8 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	}
 
 	/**
-	sends the message `data` to the channel.
-	if the channel is closed, return `false`.
+	sends the `data` message to the channel.
+	if channel is closed, return `false`.
 
 	```typescript
 	const op = ch.send("hello world")
