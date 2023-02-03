@@ -51,7 +51,7 @@ jobs:
             - run: |
                   make doc
                   git add .
-                  git commit -m "doc"
+                  git commit -m "[skip ci] doc"
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
