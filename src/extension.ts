@@ -256,45 +256,24 @@ export class MVar<T> {
 	read `MVar` and clear it
 	*/
 	take(): Op<T> {
-		return new Operation((performed, idx) => {
-			let value = null as T
-			return {
-				poll: () => {
-					if (this._value.isSome()) {
-						value = this._value.unwrap()
-						this._value = none
-						performed.resolve(idx)
-					}
-				},
-				suspend: () => {
-					const cb = () => {
-						if (performed.isFulfilled) return
-						if (this._value.isSome()) {
-							value = this._value.unwrap()
-							this._value = none
-							performed.resolve(idx)
-						} else {
-							this._queue.push(cb)
-						}
-					}
-					this._queue.push(cb)
-				},
-				result: () => value,
-			}
-		})
+		return this._replaceWith(none)
 	}
 
 	/**
 	read `MVar` and replace it with `newValue`
 	*/
 	swap(newValue: T): Op<T> {
+		return this._replaceWith(some(newValue))
+	}
+
+	private _replaceWith(newValue: Option<T>): Op<T> {
 		return new Operation((performed, idx) => {
 			let oldValue = null as T
 			return {
 				poll: () => {
 					if (this._value.isSome()) {
 						oldValue = this._value.unwrap()
-						this._value = some(newValue)
+						this._value = newValue
 						performed.resolve(idx)
 					}
 				},
@@ -303,7 +282,7 @@ export class MVar<T> {
 						if (performed.isFulfilled) return
 						if (this._value.isSome()) {
 							oldValue = this._value.unwrap()
-							this._value = some(newValue)
+							this._value = newValue
 							performed.resolve(idx)
 						} else {
 							this._queue.push(cb)
