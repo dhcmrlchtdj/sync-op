@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[extension.ts:170](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L170)
+[extension.ts:170](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L170)
 
 ## Methods
 
@@ -49,7 +49,7 @@ read `IVar`
 
 #### Defined in
 
-[extension.ts:193](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L193)
+[extension.ts:193](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L193)
 
 ___
 
@@ -72,4 +72,4 @@ return `false` if it's not empty.
 
 #### Defined in
 
-[extension.ts:179](https://github.com/dhcmrlchtdj/sync-op/blob/b976202/src/extension.ts#L179)
+[extension.ts:179](https://github.com/dhcmrlchtdj/sync-op/blob/165e48c/src/extension.ts#L179)
