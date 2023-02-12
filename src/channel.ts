@@ -21,11 +21,11 @@ export interface writableChannel<T> {
 the synchronous channel
 */
 export class Channel<T> implements readableChannel<T>, writableChannel<T> {
-	private _senders: Sender<T>[]
 	private _receivers: Receiver<T>[]
-	private _closed: boolean
-	private _capacity: number
+	private _senders: Sender<T>[]
 	private _buffer: Option<T>[] // [out ... in]
+	private _capacity: number
+	private _closed: boolean
 
 	/**
 	create a new channel with buffer size `capacity`
@@ -36,20 +36,29 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	```
 	*/
 	constructor(capacity: number = 0) {
-		this._senders = []
 		this._receivers = []
-		this._closed = false
-		this._capacity = capacity
+		this._senders = []
 		this._buffer = []
+		this._capacity = capacity
+		this._closed = false
+	}
+
+	private _cleanupFulfilled<X extends { performed: Deferred<number> }>(
+		arr: X[],
+	): X[] {
+		return arr.filter((x) => !x.performed.isFulfilled)
 	}
 
 	close() {
 		if (this._closed) return
 		this._closed = true
-		if (this._receivers.length > 0 && this._senders.length === 0) {
-			this._receivers.forEach((r) => {
-				r.performed.resolve(r.idx)
-			})
+
+		this._senders = this._cleanupFulfilled(this._senders)
+		this._receivers = this._cleanupFulfilled(this._receivers)
+		const pendingSend = this._buffer.length + this._senders.length
+		for (let i = pendingSend, len = this._receivers.length; i < len; i++) {
+			const r = this._receivers[i]!
+			r.performed.resolve(r.idx)
 		}
 	}
 	isClosed(): boolean {
@@ -61,7 +70,10 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 	*/
 	isDrained(): boolean {
 		if (!this._closed) return false
-		return this._buffer.length === 0 && this._senders.length === 0
+		if (this._buffer.length > 0) return false
+		if (this._senders.length === 0) return true
+		this._senders = this._cleanupFulfilled(this._senders)
+		return this._senders.length === 0
 	}
 
 	/**
@@ -84,28 +96,24 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 			}
 			return {
 				poll: () => {
-					while (this._receivers.length > 0) {
-						const receiver = this._receivers.shift()!
-						if (receiver.performed.isFulfilled) continue
-						sender.sent = true
+					this._receivers = this._cleanupFulfilled(this._receivers)
+					if (this._closed) {
 						performed.resolve(idx)
+					} else if (this._receivers.length > 0) {
+						const receiver = this._receivers.shift()!
 						receiver.data = sender.data
 						receiver.performed.resolve(receiver.idx)
-						return
-					}
-					if (this._buffer.length < this._capacity) {
+						sender.sent = true
+						performed.resolve(idx)
+					} else if (this._buffer.length < this._capacity) {
 						this._buffer.push(some(data))
 						sender.sent = true
 						performed.resolve(idx)
-						return
 					}
 				},
 				suspend: () => {
-					const senders = this._senders.filter(
-						(x) => !x.performed.isFulfilled,
-					)
-					senders.push(sender)
-					this._senders = senders
+					this._senders.push(sender)
+					this._senders = this._cleanupFulfilled(this._senders)
 				},
 				result: () => sender.sent,
 			}
@@ -131,37 +139,30 @@ export class Channel<T> implements readableChannel<T>, writableChannel<T> {
 			}
 			return {
 				poll: () => {
+					this._senders = this._cleanupFulfilled(this._senders)
 					if (this._buffer.length > 0) {
 						const data = this._buffer.shift()!
 						receiver.data = data
 						performed.resolve(idx)
-						while (this._senders.length > 0) {
+						if (this._senders.length > 0) {
 							const sender = this._senders.shift()!
-							if (sender.performed.isFulfilled) continue
 							this._buffer.push(sender.data)
 							sender.sent = true
 							sender.performed.resolve(sender.idx)
-							break
 						}
-						return
-					}
-					while (this._senders.length > 0) {
+					} else if (this._senders.length > 0) {
 						const sender = this._senders.shift()!
-						if (sender.performed.isFulfilled) continue
-						receiver.data = sender.data
-						performed.resolve(idx)
 						sender.sent = true
 						sender.performed.resolve(sender.idx)
-						return
+						receiver.data = sender.data
+						performed.resolve(idx)
+					} else if (this._closed) {
+						performed.resolve(idx)
 					}
-					if (this._closed) performed.resolve(idx)
 				},
 				suspend: () => {
-					const receivers = this._receivers.filter(
-						(x) => !x.performed.isFulfilled,
-					)
-					receivers.push(receiver)
-					this._receivers = receivers
+					this._receivers.push(receiver)
+					this._receivers = this._cleanupFulfilled(this._receivers)
 				},
 				result: () => receiver.data,
 			}
