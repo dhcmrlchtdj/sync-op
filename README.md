@@ -136,6 +136,7 @@ await choose(timeout, fetchOp).sync()
 -   https://ocaml.org/api/Event.html
 -   https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
 -   https://medium.com/@asolove/synchronizable-abstractions-for-understandable-concurrency-64ae57cd61d1
+-   https://github.com/python-trio/trio/issues/242
 
 ## License
 
