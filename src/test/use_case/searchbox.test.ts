@@ -1,4 +1,4 @@
-import { Channel, IVar, choose, timeout } from "../../index.js"
+import { Channel, IVar, choose } from "../../index.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -35,75 +35,72 @@ describe("search box", () => {
 			inputChan.send("banan").sync()
 			await inputChan.send("banana").sync()
 			/* eslint-enable @typescript-eslint/no-floating-promises */
+
+			inputChan.close()
 		})()
 
+		const someSlowOperation = async (
+			input: string,
+			done: (r: string) => void,
+			signal: AbortSignal,
+		) => {
+			if (signal.aborted) return
+
+			await sleep(50) // debounce
+			if (signal.aborted) return
+			expect(["apple", "orange", "banana"]).toContainEqual(input)
+
+			await sleep(200 /*, { signal } */) // expensive operation
+			if (signal.aborted) return
+			expect(["apple", "banana"]).toContainEqual(input)
+
+			done(input)
+		}
+
 		const worker = (async () => {
-			const getInputDebounce = async (input: string, wait: number) => {
-				expect(["a", "o", "b"]).toContainEqual(input)
-				let done = false
-				while (!done) {
-					done = await choose(
-						timeout(wait).wrap(() => true),
-						inputChan
-							.receive()
-							.wrap((v) => (input = v.unwrap()))
-							.wrap(() => false),
-					).sync()
-				}
-				return input
-			}
-
-			const search = (
-				input: string,
-			): {
-				resp: IVar<string>
-				cancel: () => void
-			} => {
-				const resp = new IVar<string>()
-				let canceled = false
-				const cancel = () => {
-					canceled = true
-				}
-
-				/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unnecessary-condition */
-				;(async () => {
-					await sleep(200)
-					if (canceled) return
-					resp.put(input)
-				})()
-				/* eslint-enable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unnecessary-condition */
-
-				return { resp, cancel }
-			}
-
 			const responses = []
-			for (let i = 0; i < 2; i++) {
-				let input = (await inputChan.receive().sync()).unwrap()
+			while (!inputChan.isDrained()) {
+				let input = await inputChan.receive().sync()
+				if (input.isNone()) {
+					return
+				}
+
 				while (true) {
-					input = await getInputDebounce(input, 50)
-					expect(["apple", "orange", "banana"]).toContainEqual(input)
+					const output = new IVar<string>()
+					const ac = new AbortController()
+					/* eslint-disable-next-line @typescript-eslint/no-floating-promises */
+					someSlowOperation(
+						input.unwrap(),
+						(v: string) => output.put(v),
+						ac.signal,
+					)
 
-					const { resp, cancel } = search(input)
-
-					const done = await choose(
-						inputChan.receive().wrap((i) => {
-							input = i.unwrap()
-							return false
-						}),
-						resp
-							.get()
-							.wrapAbort(() => cancel())
-							.wrap(() => true),
-					).sync()
-
-					if (done) {
-						const output = await resp.get().sync()
-						responses.push(output)
+					if (inputChan.isDrained()) {
+						const v = await output.get().sync()
+						responses.push(v)
 						break
+					} else {
+						const breakInnerLoop = await choose(
+							inputChan.receive().wrap((i) => {
+								// if i.isSome(), just replace `input` with new value, and then restart the lopp
+								// if i.isNone(), the `input` is the latest value, we should wait for the result
+								// but the operation is aborted, so we need to restart the loop with current value
+								if (i.isSome()) input = i
+								return false
+							}),
+							output
+								.get()
+								.wrapAbort(() => ac.abort())
+								.wrap((v) => {
+									responses.push(v)
+									return true
+								}),
+						).sync()
+						if (breakInnerLoop) break
 					}
 				}
 			}
-			expect(responses).toEqual(["apple", "banana"])
+			expect(responses).toStrictEqual(["apple", "banana"])
 		})()
 
 		await Promise.all([userInput, worker])
