@@ -61,9 +61,7 @@ describe("search box", () => {
 			const responses = []
 			while (!inputChan.isDrained()) {
 				let input = await inputChan.receive().sync()
-				if (input.isNone()) {
-					return
-				}
+				if (input.isNone()) break
 
 				while (true) {
 					const output = new IVar<string>()
