@@ -20,7 +20,7 @@ lint:
 	prettier --check .
 
 test: build
-	NODE_OPTIONS=--experimental-vm-modules jest --coverage --rootDir=./dist/test/
+	NODE_OPTIONS=--experimental-vm-modules jest --coverage --rootDir=./dist/test/ --verbose=true
 
 doc:
 	typedoc \

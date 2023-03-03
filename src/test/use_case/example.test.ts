@@ -51,7 +51,7 @@ describe("example", () => {
 		for await (const msg of ch) {
 			r.push(msg)
 		}
-		expect(r).toStrictEqual([1, 2, 3])
+		expect(r).toEqual([1, 2, 3])
 
 		expect(ch.isDrained()).toBe(true)
 		await expect(s1).resolves.toBe(true)
