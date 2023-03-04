@@ -14,10 +14,12 @@ import {
 describe("example", () => {
 	test("unbuffered channel", async () => {
 		const ch = new Channel<string>()
-		const s = ch.send("hello").sync()
 
+		const s = ch.send("hello").sync()
 		const r = ch.receive().poll()
+
 		expect(r.isSome()).toBe(true)
+		expect(r.unwrap().isSome()).toBe(true)
 		expect(r.unwrap().unwrap()).toBe("hello")
 
 		await expect(s).resolves.toBe(true)
@@ -32,13 +34,19 @@ describe("example", () => {
 
 		expect(ch.receive().poll().isSome()).toBe(true)
 		expect(ch.receive().poll().isSome()).toBe(true)
-		expect(ch.receive().poll().isSome()).toBe(false)
+		expect(ch.receive().poll().isNone()).toBe(true)
 
 		await expect(s3).resolves.toBe(true)
+
+		ch.close()
+		expect(ch.receive().poll().isSome()).toBe(true)
+		expect(ch.receive().poll().unwrap().isNone()).toBe(true)
+		expect(ch.isClosed()).toBe(true)
+		expect(ch.isDrained()).toBe(true)
 	})
 
 	test("for await channel", async () => {
-		const ch = new Channel<number>(1)
+		const ch = new Channel<number>()
 
 		const s1 = ch.send(1).sync()
 		const s2 = ch.send(2).sync()

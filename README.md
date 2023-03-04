@@ -37,13 +37,16 @@ ch.send(1).poll() // Some(true), the data is buffered
 ch.send(2).poll() // None, the buf is full and there is no receiver.
 const s3 = ch.send(3).sync() // Promise<boolean>
 
-ch.receive().poll() // Some(1), read from buffer. s3 is resolved and the data is pushed to buf.
-ch.receive().poll() // Some(3), read from buffer
+ch.receive().poll() // Some(Some(1)), read from buffer. s3 is resolved and the data is pushed to buf.
+ch.receive().poll() // Some(Some(3)), read from buffer
 ch.receive().poll() // None, the buf is empty and there is no sender.
+
+ch.close()
+ch.receive().poll() // Some(None), channel is closed
 
 ///
 
-const ch = new Channel<number>(1)
+const ch = new Channel<number>()
 
 ch.send(1).sync()
 ch.send(2).sync()
