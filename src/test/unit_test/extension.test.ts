@@ -8,6 +8,7 @@ import {
 	IVar,
 	Mutex,
 	MVar,
+	Semaphore,
 } from "../../extension.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
@@ -83,6 +84,28 @@ describe("Operation Ext", () => {
 		expect(mutex.lock().poll().isNone()).toBe(true)
 		mutex.unlock()
 		expect(mutex.lock().poll().isSome()).toBe(true)
+	})
+
+	test("Semaphore", async () => {
+		const sema = new Semaphore(2)
+
+		expect(sema.lock().poll().isSome()).toBe(true)
+		expect(sema.lock().poll().isSome()).toBe(true)
+		expect(sema.lock().poll().isNone()).toBe(true)
+
+		let counter = 0
+		const op = sema.lock().wrap(() => counter++)
+		const r = op.sync()
+		expect(counter).toBe(0)
+
+		sema.unlock()
+
+		await r
+		expect(counter).toBe(1)
+
+		expect(sema.lock().poll().isNone()).toBe(true)
+		sema.unlock()
+		expect(sema.lock().poll().isSome()).toBe(true)
 	})
 
 	test("IVar", async () => {
