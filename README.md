@@ -12,7 +12,15 @@ Just read the following example to see how to use them.
 $ npm install sync-op
 ```
 
-or try `import { Channel } from "https://esm.sh/sync-op"` on [esm.sh/playground](https://playground.esm.sh/).
+or
+
+```typescript
+import { Channel } from "https://esm.sh/sync-op"
+```
+
+or
+
+[Try it on StackBlitz](https://stackblitz.com/edit/sync-op?file=index.ts)
 
 ## Usage
 
