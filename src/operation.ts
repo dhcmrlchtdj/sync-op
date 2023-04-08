@@ -1,7 +1,7 @@
 // based on https://github.com/ocaml/ocaml/blob/5.0.0/otherlibs/systhreads/event.ml
 
 import { Deferred } from "./deferred.js"
-import { Option, some, none } from "./option.js"
+import { type Option, some, none } from "./option.js"
 
 export type BasicOp<T> = {
 	poll(): void

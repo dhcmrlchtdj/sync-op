@@ -1,6 +1,6 @@
 import { Deferred } from "./deferred.js"
 import { Op, Operation, guard } from "./operation.js"
-import { Option, some, none } from "./option.js"
+import { type Option, some, none } from "./option.js"
 
 const noop = () => {}
 

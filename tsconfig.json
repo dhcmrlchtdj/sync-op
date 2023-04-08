@@ -4,7 +4,7 @@
 		"outDir": "dist/",
 		"noEmit": false,
 
-		"module": "NodeNext",
+		"module": "ESNext",
 		"target": "ESNext",
 		"lib": ["ESNext", "DOM"],
 		"types": ["@types/jest"],
@@ -18,9 +18,10 @@
 		"incremental": true,
 
 		"moduleResolution": "NodeNext",
-		"isolatedModules": true,
 		"resolveJsonModule": false,
 		"esModuleInterop": false,
+		"forceConsistentCasingInFileNames": true,
+		"verbatimModuleSyntax": true,
 
 		"strict": true,
 		"allowUnreachableCode": false,
@@ -33,6 +34,9 @@
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
+
+		"checkJs": true,
+		"skipLibCheck": true,
 
 		"pretty": true
 	}
