@@ -28,7 +28,6 @@ jobs:
                   pnpm config set store-dir ~/.local/share/pnpm/store
                   corepack enable pnpm
                   pnpm install
-                  pnpm store prune
               env:
                   PNPM_HOME: /home/runner/.local/bin
             - run: make -j build lint test
