@@ -40,9 +40,8 @@ jobs:
             - run: |
                   corepack enable
                   # https://www.npmjs.com/package/pnpm
-                  corepack prepare pnpm@8.3.1 --activate
+                  corepack prepare pnpm@8.6.0 --activate
                   pnpm config set store-dir ~/.local/share/pnpm/store
-                  corepack enable pnpm
                   pnpm install
               env:
                   PNPM_HOME: /home/runner/.local/bin
@@ -57,7 +56,7 @@ jobs:
             - run: npm version ${VERSION}
               env:
                   VERSION: ${{ inputs.version }}
-            - run: npm publish --provenance
+            - run: npm publish --provenance --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
             - run: |
