@@ -31,6 +31,7 @@ jobs:
             - uses: actions/setup-node@v3.6.0
               with:
                   node-version: "20.x"
+                  registry-url: "https://registry.npmjs.org"
             # https://github.com/marketplace/actions/cache
             - uses: actions/cache@v3.3.1
               with:
@@ -59,7 +60,6 @@ jobs:
             - run: npm publish --provenance --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
             - run: |
                   git push
                   git push --tags
