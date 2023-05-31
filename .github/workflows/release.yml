@@ -56,10 +56,9 @@ jobs:
             - run: npm version ${VERSION}
               env:
                   VERSION: ${{ inputs.version }}
-            - run: npm publish --provenance --access public
+            - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
             - run: |
                   git push
                   git push --tags
