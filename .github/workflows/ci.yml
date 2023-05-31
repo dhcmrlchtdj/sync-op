@@ -14,7 +14,7 @@ jobs:
             # https://github.com/marketplace/actions/setup-node-js-environment
             - uses: actions/setup-node@v3.6.0
               with:
-                  node-version: "20"
+                  node-version: "20.x"
             # https://github.com/marketplace/actions/cache
             - uses: actions/cache@v3.3.1
               with:
