@@ -29,6 +29,7 @@ doc:
 		--readme none \
 		--excludePrivate \
 		--excludeProtected \
+		--plugin typedoc-plugin-markdown \
 		src/index.ts
 
 clean:
