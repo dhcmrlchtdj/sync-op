@@ -1,5 +1,7 @@
 # sync-op
 
+[![npm version](https://img.shields.io/npm/v/sync-op.svg)](https://www.npmjs.com/package/sync-op)
+
 sync-op provides CML-like first-class synchronous operations.
 
 There are `Channel`, `select`, and more. If you know golang, they are similar.
@@ -10,12 +12,6 @@ Just read the following example to see how to use them.
 
 ```sh
 $ npm install sync-op
-```
-
-or
-
-```typescript
-import { Channel } from "https://esm.sh/sync-op"
 ```
 
 or
