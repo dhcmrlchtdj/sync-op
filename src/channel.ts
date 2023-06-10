@@ -1,6 +1,6 @@
 import { Deferred } from "./deferred.js"
 import { always } from "./extension.js"
-import { Op, Operation } from "./operation.js"
+import { type Op, Operation } from "./operation.js"
 import { type Option, some, none } from "./option.js"
 
 export interface readableChannel<T> {
