@@ -81,4 +81,19 @@ describe("buffered Channel", () => {
 		expect(r3.isSome()).toBe(true)
 		expect(r3.unwrap().isNone()).toBe(true)
 	})
+
+	test("iterator", async () => {
+		const ch = new Channel<number>(2)
+		ch.send(1).poll()
+		ch.send(2).poll()
+		ch.close()
+
+		const iter = ch[Symbol.asyncIterator]()
+		expect(await iter.next()).toStrictEqual({ done: false, value: 1 })
+		expect(await iter.next()).toStrictEqual({ done: false, value: 2 })
+		expect(await iter.next()).toStrictEqual({
+			done: true,
+			value: undefined,
+		})
+	})
 })
