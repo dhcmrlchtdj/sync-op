@@ -2,12 +2,13 @@ import { Channel, IVar, choose, never } from "../../index.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 describe("search box", () => {
 	test("debounce && cancel", async () => {
 		const inputChan = new Channel<string>()
 
 		const userInput = (async () => {
-			/* eslint-disable @typescript-eslint/no-floating-promises */
 			inputChan.send("a").sync()
 			inputChan.send("ap").sync()
 			await sleep(10)
@@ -34,7 +35,6 @@ describe("search box", () => {
 			inputChan.send("bana").sync()
 			inputChan.send("banan").sync()
 			await inputChan.send("banana").sync()
-			/* eslint-enable @typescript-eslint/no-floating-promises */
 
 			inputChan.close()
 		})()
@@ -64,7 +64,6 @@ describe("search box", () => {
 			while (input.isSome()) {
 				const output = new IVar<string>()
 				const ac = new AbortController()
-				/* eslint-disable-next-line @typescript-eslint/no-floating-promises */
 				slowOperation(input.unwrap(), (v) => output.put(v), ac.signal)
 
 				const nextInput = choose(

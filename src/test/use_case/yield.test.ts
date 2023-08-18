@@ -18,7 +18,10 @@ function wrap<Tyield, Treturn = void, Tnext = void>(
 			| { err: unknown },
 	): Promise<IteratorResult<Tyield, Treturn>> => {
 		if (_start.isFulfilled) {
-			_chIn.send(data).sync()
+			_chIn
+				.send(data)
+				.sync()
+				.catch(() => {})
 		} else {
 			_start.resolve()
 		}
@@ -36,28 +39,34 @@ function wrap<Tyield, Treturn = void, Tnext = void>(
 	const _next = (val?: Tnext) => _send({ val })
 	const _return = (ret?: Treturn) => _send({ ret })
 	const _throw = (err?: unknown) => _send({ err })
-	_start.promise.then(() =>
-		fn(async (data) => {
-			_chOut.send({ done: false, value: data }).sync()
-			const inOpt = await _chIn.receive().sync()
-			if (inOpt.isSome()) {
-				const val = inOpt.value
-				if ("val" in val) {
-					return val.val
-				} else if ("err" in val) {
-					throw val.err
-				} else if ("ret" in val) {
-					_chOut
-						.send({ done: true, value: val.ret as Treturn })
-						.sync()
-					_chOut.close()
+	_start.promise
+		.then(() =>
+			fn(async (data) => {
+				_chOut
+					.send({ done: false, value: data })
+					.sync()
+					.catch(() => {})
+				const inOpt = await _chIn.receive().sync()
+				if (inOpt.isSome()) {
+					const val = inOpt.value
+					if ("val" in val) {
+						return val.val
+					} else if ("err" in val) {
+						throw val.err
+					} else if ("ret" in val) {
+						_chOut
+							.send({ done: true, value: val.ret as Treturn })
+							.sync()
+							.catch(() => {})
+						_chOut.close()
+					}
 				}
-			}
-			return new Promise((_) => {})
-		})
-			.then((value) => _chOut.send({ done: true, value: value }).sync())
-			.finally(() => _chOut.close()),
-	)
+				return new Promise((_) => {})
+			}).then((value) =>
+				_chOut.send({ done: true, value: value }).sync(),
+			),
+		)
+		.finally(() => _chOut.close())
 
 	const iterator = {
 		next: _next,

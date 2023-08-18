@@ -18,14 +18,13 @@
 	],
 	"rules": {
 		"no-constant-condition": ["error", { "checkLoops": false }],
+		"@typescript-eslint/consistent-type-definitions": "off",
 		"@typescript-eslint/no-unused-vars": "off",
 		"@typescript-eslint/no-empty-function": "off",
 		"@typescript-eslint/no-inferrable-types": "off",
-		"@typescript-eslint/prefer-string-starts-ends-with": "off",
-		"@typescript-eslint/restrict-template-expressions": "off",
-		"@typescript-eslint/consistent-type-definitions": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/no-unnecessary-condition": "off",
+		"@typescript-eslint/no-invalid-void-type": "off",
 		"@typescript-eslint/ban-ts-comment": [
 			"error",
 			{ "ts-expect-error": false }
