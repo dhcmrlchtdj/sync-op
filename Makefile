@@ -23,8 +23,10 @@ lint:
 	eslint --ext=".ts" src
 	prettier --check .
 
+t :=
 test: build
-	NODE_OPTIONS=--experimental-vm-modules jest --coverage --rootDir=./dist/test/ --verbose=true
+	@echo "filter test with 'make test t=xxx'"
+	NODE_OPTIONS="--experimental-vm-modules --no-warnings" jest --coverage --rootDir=./dist/test/ --verbose=true -t=$(t)
 
 doc:
 	typedoc \
