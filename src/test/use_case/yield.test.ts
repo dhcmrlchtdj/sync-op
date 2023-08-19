@@ -1,12 +1,12 @@
-import { Channel, Deferred } from "../../index.js"
-
-type Out<T1, T2> =
-	| { done: false; value: T1 }
-	| { done: true; value: T2 | undefined }
+import { Channel, Deferred, some, type Option, none } from "../../index.js"
 
 function wrap<Tyield = unknown, Tnext = void, Treturn = void>(
 	fn: (Yield: (_: Tyield) => Promise<Tnext>) => Promise<Treturn>,
 ) {
+	type Out<T1, T2> =
+		| { done: false; value: T1 }
+		| { done: true; value: T2 | undefined }
+
 	const _chOut = new Channel<Out<Tyield, Treturn>>()
 	const _chIn = new Channel<
 		{ val: Tnext } | { ret: Treturn } | { err: unknown }
@@ -272,5 +272,56 @@ describe("yield", () => {
 		expect(t).toHaveBeenLastCalledWith(4)
 		expect(await g.next()).toStrictEqual({ done: true, value: undefined })
 		expect(t).toHaveBeenCalledTimes(4)
+	})
+})
+
+describe("effect", () => {
+	type Effect<T = unknown> = { kind: string; arg: T }
+	test("next", async () => {
+		const echo = effect<string>("echo")
+		const echoHandler = handle(echo, (x) => x)
+
+		const program = wrap<Effect, unknown, unknown>(async (useEffect) => {
+			const x1 = await useEffect(echo("hello"))
+			const x2 = await useEffect(echo("world"))
+			return [x1, x2]
+		})
+
+		async function exec(
+			gen: ReturnType<typeof wrap<Effect, unknown, unknown>>,
+			handler: (e: Effect<any>) => Promise<Option<any>>,
+		) {
+			let val = await gen.next(undefined)
+			while (!val.done) {
+				const r = await handler(val.value)
+				if (r.isSome()) {
+					val = await gen.next(r.value)
+				} else {
+					throw new Error()
+				}
+			}
+			return val.value
+		}
+
+		const r = await exec(program, echoHandler)
+		expect(r).toStrictEqual(["hello", "world"])
+
+		function effect<T = unknown>(kind: string) {
+			const f = (arg: T): Effect => ({ kind, arg })
+			f.kind = kind
+			return f
+		}
+		function handle<T, R>(
+			eff: ReturnType<typeof effect<T>>,
+			cb: (_: T) => R | Promise<R>,
+		) {
+			return async (e: Effect<T>): Promise<Option<R>> => {
+				if (e.kind === eff.kind) {
+					return some(await cb(e.arg))
+				} else {
+					return none
+				}
+			}
+		}
 	})
 })
