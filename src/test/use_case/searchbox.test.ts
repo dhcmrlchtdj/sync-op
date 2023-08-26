@@ -34,37 +34,20 @@ describe("search box", () => {
 			inputChan.send("ban").sync()
 			inputChan.send("bana").sync()
 			inputChan.send("banan").sync()
-			await inputChan.send("banana").sync()
+			inputChan.send("banana").sync()
 
 			inputChan.close()
 		})()
 
-		const slowOperation = async (
-			input: string,
-			done: (r: string) => void,
-			signal: AbortSignal,
-		) => {
-			if (signal.aborted) return
-
-			await sleep(50) // debounce
-			if (signal.aborted) return
-			expect(["apple", "orange", "banana"]).toContainEqual(input)
-
-			await sleep(200 /*, { signal } */) // expensive operation
-			if (signal.aborted) return
-			expect(["apple", "banana"]).toContainEqual(input)
-
-			done(input)
-		}
-
 		const worker = (async () => {
 			const responses: string[] = []
 
+			const slowOp = debounce(slowOperation, 50)
+
 			let input = await inputChan.receive().sync()
 			while (input.isSome()) {
-				const output = new IVar<string>()
 				const ac = new AbortController()
-				slowOperation(input.unwrap(), (v) => output.put(v), ac.signal)
+				const output = slowOp(input.unwrap(), ac.signal)
 
 				const nextInput = choose(
 					output
@@ -85,5 +68,36 @@ describe("search box", () => {
 		})()
 
 		await Promise.all([userInput, worker])
+
+		async function slowOperation(
+			input: string,
+			signal: AbortSignal,
+		): Promise<string> {
+			expect(["apple", "orange", "banana"]).toContainEqual(input)
+
+			await sleep(200 /*, { signal } */) // expensive operation
+			if (signal.aborted) return ""
+
+			expect(["apple", "banana"]).toContainEqual(input)
+
+			return input
+		}
+
+		function debounce<T, Args extends unknown[] = unknown[]>(
+			f: (...arg: Args) => Promise<T> | T,
+			ms: number,
+		) {
+			let cancel = (): void => undefined
+			return (...arg: Args) => {
+				cancel()
+				const output = new IVar<T>()
+				const tid = setTimeout(async () => {
+					const v = await f(...arg)
+					output.put(v)
+				}, ms)
+				cancel = () => clearTimeout(tid)
+				return output
+			}
+		}
 	})
 })

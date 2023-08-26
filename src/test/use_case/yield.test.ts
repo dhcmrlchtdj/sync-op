@@ -1,5 +1,6 @@
 import { Channel, Deferred, some, type Option, none } from "../../index.js"
 
+const noop = () => undefined
 function wrap<Tyield = unknown, Tnext = void, Treturn = void>(
 	fn: (Yield: (_: Tyield) => Promise<Tnext>) => Promise<Treturn>,
 ) {
@@ -19,10 +20,7 @@ function wrap<Tyield = unknown, Tnext = void, Treturn = void>(
 	const _start = new Deferred()
 	const _next = async (val: Tnext): Promise<Out<Tyield, Treturn>> => {
 		if (_start.isFulfilled) {
-			_chIn
-				.send({ val })
-				.sync()
-				.catch(() => {})
+			_chIn.send({ val }).sync().catch(noop)
 		} else if (!_chIn.isClosed()) {
 			_start.resolve()
 		}
@@ -43,10 +41,7 @@ function wrap<Tyield = unknown, Tnext = void, Treturn = void>(
 	}
 	const _throw = async (err?: unknown): Promise<Out<Tyield, Treturn>> => {
 		if (_start.isFulfilled) {
-			_chIn
-				.send({ err })
-				.sync()
-				.catch(() => {})
+			_chIn.send({ err }).sync().catch(noop)
 			const out = await _chOut.receive().sync()
 			if (out.isSome()) {
 				return out.value
@@ -61,10 +56,7 @@ function wrap<Tyield = unknown, Tnext = void, Treturn = void>(
 	_start.promise
 		.then(() =>
 			fn(async (data) => {
-				_chOut
-					.send({ done: false, value: data })
-					.sync()
-					.catch(() => {})
+				_chOut.send({ done: false, value: data }).sync().catch(noop)
 				const inOpt = await _chIn.receive().sync()
 				if (inOpt.isSome()) {
 					const val = inOpt.value
@@ -76,18 +68,18 @@ function wrap<Tyield = unknown, Tnext = void, Treturn = void>(
 						_chOut
 							.send({ done: true, value: val.ret })
 							.sync()
-							.catch(() => {})
+							.catch(noop)
 						_close()
 					}
 				}
-				return new Promise((_) => {})
+				return new Promise(noop)
 			})
 				.then((value) =>
 					_chOut.send({ done: true, value: value }).sync(),
 				)
 				.finally(() => _close()),
 		)
-		.catch(() => {})
+		.catch(noop)
 
 	const iterator = {
 		next: _next,
@@ -289,6 +281,7 @@ describe("effect", () => {
 
 		async function exec(
 			gen: ReturnType<typeof wrap<Effect, unknown, unknown>>,
+			/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 			handler: (e: Effect<any>) => Promise<Option<any>>,
 		) {
 			let val = await gen.next(undefined)
