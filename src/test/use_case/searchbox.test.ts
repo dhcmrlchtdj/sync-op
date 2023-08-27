@@ -1,11 +1,17 @@
-import { Channel, IVar, choose, never } from "../../index.js"
+import {
+	Channel,
+	IVar,
+	choose,
+	never,
+	type readableChannel,
+} from "../../index.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
 describe("search box", () => {
-	test("debounce && cancel", async () => {
+	test("debounce", async () => {
 		const inputChan = new Channel<string>()
 
 		const userInput = (async () => {
@@ -40,48 +46,42 @@ describe("search box", () => {
 		})()
 
 		const worker = (async () => {
-			const responses: string[] = []
+			const t1 = import.meta.jest.fn()
+			const t2 = import.meta.jest.fn()
 
-			const slowOp = debounce(slowOperation, 50)
-
-			let input = await inputChan.receive().sync()
-			while (input.isSome()) {
-				const ac = new AbortController()
-				const output = slowOp(input.unwrap(), ac.signal)
-
-				const nextInput = choose(
-					output
-						.get()
-						.wrapAbort(() => ac.abort())
-						.wrap((v) => responses.push(v))
-						.wrap(() => inputChan.receive().sync()),
-					inputChan.isDrained()
-						? never()
-						: inputChan
-								.receive()
-								.wrap((i) => (i.isSome() ? i : input)),
-				)
-				input = await nextInput.sync()
+			const slowOperation = async (
+				input: string,
+				signal: AbortSignal,
+			) => {
+				t1(input)
+				await sleep(200 /*, { signal } */) // expensive operation
+				if (signal.aborted) return ""
+				t2(input)
+				return input
 			}
 
-			expect(responses).toStrictEqual(["apple", "banana"])
+			const chOut = chain(inputChan, debounce(slowOperation, 50))
+
+			expect(t1).toHaveBeenCalledTimes(0)
+			expect(t2).toHaveBeenCalledTimes(0)
+
+			expect((await chOut.receive().sync()).unwrap()).toBe("apple")
+
+			expect(t1).toHaveBeenCalledTimes(1)
+			expect(t2).toHaveBeenCalledTimes(1)
+
+			expect((await chOut.receive().sync()).unwrap()).toBe("banana")
+
+			expect(t1).toHaveBeenCalledTimes(3)
+			expect(t2).toHaveBeenCalledTimes(2)
+
+			expect((await chOut.receive().sync()).isNone()).toBe(true)
+
+			expect(t1).toHaveBeenCalledTimes(3)
+			expect(t2).toHaveBeenCalledTimes(2)
 		})()
 
 		await Promise.all([userInput, worker])
-
-		async function slowOperation(
-			input: string,
-			signal: AbortSignal,
-		): Promise<string> {
-			expect(["apple", "orange", "banana"]).toContainEqual(input)
-
-			await sleep(200 /*, { signal } */) // expensive operation
-			if (signal.aborted) return ""
-
-			expect(["apple", "banana"]).toContainEqual(input)
-
-			return input
-		}
 
 		function debounce<T, Args extends unknown[] = unknown[]>(
 			f: (...arg: Args) => Promise<T> | T,
@@ -98,6 +98,36 @@ describe("search box", () => {
 				cancel = () => clearTimeout(tid)
 				return output
 			}
+		}
+
+		function chain<T>(
+			chIn: readableChannel<T>,
+			op: (input: T, s: AbortSignal) => IVar<T>,
+		): readableChannel<T> {
+			const chOut = new Channel<T>()
+			setTimeout(async () => {
+				let input = await chIn.receive().sync()
+				while (input.isSome()) {
+					const ac = new AbortController()
+					const output = op(input.unwrap(), ac.signal)
+
+					const nextInput = choose(
+						output
+							.get()
+							.wrapAbort(() => ac.abort())
+							.wrap((v) => chOut.send(v).sync())
+							.wrap(() => chIn.receive().sync()),
+						chIn.isDrained()
+							? never()
+							: chIn
+									.receive()
+									.wrap((i) => (i.isSome() ? i : input)),
+					)
+					input = await nextInput.sync()
+				}
+				chOut.close()
+			})
+			return chOut
 		}
 	})
 })
