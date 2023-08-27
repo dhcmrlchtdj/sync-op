@@ -5,7 +5,7 @@ import { noop } from "./noop.js"
 export type YieldFn<In = unknown, Out = void> = (_: In) => Promise<Out>
 
 export function generator<In = unknown, Out = void, Return = void>(
-	fn: (Yield: YieldFn<In, Out>) => Promise<Return>,
+	fn: (Yield: YieldFn<In, Out>) => Return | Promise<Return>,
 ) {
 	type Result =
 		| { done: false; value: In }

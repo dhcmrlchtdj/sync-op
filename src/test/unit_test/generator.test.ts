@@ -133,6 +133,16 @@ describe("generator", () => {
 		await expect(g.throw("err")).rejects.toBe("err")
 		expect(t).toHaveBeenCalledTimes(0)
 	})
+	test("throw 4", async () => {
+		const t = import.meta.jest.fn()
+		const g = generator<string>(() => {
+			t(1)
+		})
+		expect(t).toHaveBeenCalledTimes(0)
+		expect(await g.next()).toStrictEqual({ done: true, value: undefined })
+		expect(t).toHaveBeenCalledTimes(1)
+		await expect(g.throw("err")).rejects.toBe("err")
+	})
 	test("yield", async () => {
 		const t = import.meta.jest.fn()
 		const g = generator<string, number>(async (Yield) => {
