@@ -1,8 +1,7 @@
 import { Deferred } from "./deferred.js"
+import { noop } from "./noop.js"
 import { type Op, Operation, guard } from "./operation.js"
 import { type Option, some, none } from "./option.js"
-
-const noop = () => undefined
 
 /**
 always ready for synchronization
