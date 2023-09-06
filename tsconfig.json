@@ -4,10 +4,11 @@
 		"outDir": "dist/",
 		"noEmit": false,
 
-		"module": "ESNext",
-		"target": "ESNext",
-		"lib": ["ESNext", "DOM"],
-		"types": ["@types/jest"],
+		"module": "esnext",
+		"target": "esnext",
+		"lib": ["esnext", "DOM"],
+
+		"moduleResolution": "bundler",
 
 		"sourceMap": false,
 		"inlineSourceMap": false,
@@ -17,7 +18,6 @@
 		"declaration": true,
 		"incremental": true,
 
-		"moduleResolution": "NodeNext",
 		"resolveJsonModule": false,
 		"esModuleInterop": false,
 		"forceConsistentCasingInFileNames": true,
