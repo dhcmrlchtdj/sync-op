@@ -24,9 +24,7 @@ export function never(): Op<never> {
 		return {
 			poll: noop,
 			suspend: noop,
-			result: () => {
-				throw new Error("never")
-			},
+			result: noop as () => never, // unreachable
 		}
 	})
 }
@@ -42,16 +40,15 @@ await fromPromise(Promise.reject("error").catch(err => err)).sync()
 ```
 */
 export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
-	const pp = p.catch(noop)
 	let fulfilled = false
-	pp.finally(() => (fulfilled = true))
+	p.finally(() => (fulfilled = true)).catch(noop)
 	return new Operation((performed, idx) => {
 		return {
 			poll: () => {
 				if (fulfilled) performed.resolve(idx)
 			},
 			suspend: () => {
-				pp.finally(() => performed.resolve(idx))
+				p.finally(() => performed.resolve(idx)).catch(noop)
 			},
 			result: () => p,
 		}
@@ -61,25 +58,27 @@ export function fromPromise<T>(p: Promise<T>): Op<Promise<T>> {
 /**
 convert `AbortSignal` to `Op`
 */
-export function fromAbortSignal(signal: AbortSignal): Op<unknown> {
-	let reason = null as unknown
+export function fromAbortSignal<Reason = unknown>(
+	signal: AbortSignal,
+): Op<Reason> {
+	let reason = null as Reason
 	return new Operation((performed, idx) => {
 		return {
 			poll: () => {
 				if (signal.aborted) {
-					reason = signal.reason
+					reason = signal.reason as Reason
 					performed.resolve(idx)
 				}
 			},
 			suspend: () => {
 				const cb = () => {
-					reason = signal.reason
+					reason = signal.reason as Reason
 					performed.resolve(idx)
 				}
 				signal.addEventListener("abort", cb, { once: true })
-				performed.promise.finally(() =>
-					signal.removeEventListener("abort", cb),
-				)
+				performed.promise
+					.finally(() => signal.removeEventListener("abort", cb))
+					.catch(noop)
 			},
 			result: () => reason,
 		}
@@ -98,9 +97,7 @@ the timer is started when `Op` is created
 */
 export function after(delay: number): Op<void> {
 	let out = false
-	let handler = () => {
-		out = true
-	}
+	let handler = () => (out = true) as unknown
 	const timer = setTimeout(() => handler(), delay)
 	return new Operation((performed, idx) => {
 		return {
@@ -108,9 +105,7 @@ export function after(delay: number): Op<void> {
 				if (out) performed.resolve(idx)
 			},
 			suspend: () => {
-				handler = () => {
-					performed.resolve(idx)
-				}
+				handler = () => performed.resolve(idx)
 				performed.promise.finally(() => clearTimeout(timer)).catch(noop)
 			},
 			result: noop,

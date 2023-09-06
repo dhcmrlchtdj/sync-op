@@ -1,3 +1,4 @@
+import { jest, describe, test, expect } from "@jest/globals"
 import {
 	Channel,
 	IVar,
@@ -5,15 +6,15 @@ import {
 	never,
 	type readableChannel,
 } from "../../index.js"
+import { noop } from "../../noop.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
-
-/* eslint-disable @typescript-eslint/no-floating-promises */
 
 describe("search box", () => {
 	test("debounce", async () => {
 		const inputChan = new Channel<string>()
 
+		/* eslint-disable @typescript-eslint/no-floating-promises */
 		const userInput = (async () => {
 			inputChan.send("a").sync()
 			inputChan.send("ap").sync()
@@ -44,10 +45,11 @@ describe("search box", () => {
 
 			inputChan.close()
 		})()
+		/* eslint-enable @typescript-eslint/no-floating-promises */
 
 		const worker = (async () => {
-			const t1 = import.meta.jest.fn()
-			const t2 = import.meta.jest.fn()
+			const t1 = jest.fn()
+			const t2 = jest.fn()
 
 			const slowOperation = async (
 				input: string,
@@ -91,6 +93,7 @@ describe("search box", () => {
 			return (...arg: Args) => {
 				cancel()
 				const output = new IVar<T>()
+				// eslint-disable-next-line @typescript-eslint/no-misused-promises
 				const tid = setTimeout(async () => {
 					const v = await f(...arg)
 					output.put(v)
@@ -105,28 +108,30 @@ describe("search box", () => {
 			op: (input: T, s: AbortSignal) => IVar<T>,
 		): readableChannel<T> {
 			const chOut = new Channel<T>()
-			setTimeout(async () => {
-				let input = await chIn.receive().sync()
-				while (input.isSome()) {
-					const ac = new AbortController()
-					const output = op(input.unwrap(), ac.signal)
+			Promise.resolve()
+				.then(async () => {
+					let input = await chIn.receive().sync()
+					while (input.isSome()) {
+						const ac = new AbortController()
+						const output = op(input.unwrap(), ac.signal)
 
-					const nextInput = choose(
-						output
-							.get()
-							.wrapAbort(() => ac.abort())
-							.wrap((v) => chOut.send(v).sync())
-							.wrap(() => chIn.receive().sync()),
-						chIn.isDrained()
-							? never()
-							: chIn
-									.receive()
-									.wrap((i) => (i.isSome() ? i : input)),
-					)
-					input = await nextInput.sync()
-				}
-				chOut.close()
-			})
+						const nextInput = choose(
+							output
+								.get()
+								.wrapAbort(() => ac.abort())
+								.wrap((v) => chOut.send(v).sync())
+								.wrap(() => chIn.receive().sync()),
+							chIn.isDrained()
+								? never()
+								: chIn
+										.receive()
+										.wrap((i) => (i.isSome() ? i : input)),
+						)
+						input = await nextInput.sync()
+					}
+					chOut.close()
+				})
+				.catch(noop)
 			return chOut
 		}
 	})

@@ -1,14 +1,15 @@
+import { describe, test, expect } from "@jest/globals"
 import {
 	Channel,
 	choose,
 	select,
-	guard,
 	always,
 	never,
 	fromAbortSignal,
-	fromPromise,
 	timeout,
+	fromPromise,
 	after,
+	guard,
 } from "../../index.js"
 
 describe("example", () => {
@@ -124,8 +125,8 @@ describe("example", () => {
 		const r1 = await fromPromise(Promise.resolve(1)).sync()
 		expect(r1).toBe(1)
 
-		const r2 = fromPromise(Promise.reject("error")).sync()
-		await expect(r2).rejects.toBe("error")
+		const r2 = fromPromise(Promise.reject("error"))
+		await expect(r2.sync()).rejects.toBe("error")
 
 		const timeout = after(0).wrap(() => "timeout")
 		const ac = new AbortController()

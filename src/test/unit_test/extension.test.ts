@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals"
 import {
 	always,
 	never,
@@ -34,11 +35,15 @@ describe("Operation Ext", () => {
 		await sleep(10)
 		expect(op2.poll().isSome()).toBe(true)
 		expect(await op2.poll().unwrap()).toBe(2)
+
+		const op3 = fromPromise(Promise.reject(3))
+		expect(op3.poll().isNone()).toBe(true)
+		await expect(op3.sync()).rejects.toBe(3)
 	})
 
 	test("fromAbortSignal", async () => {
 		const controller = new AbortController()
-		const op = fromAbortSignal(controller.signal)
+		const op = fromAbortSignal<string>(controller.signal)
 		expect(op.poll().isNone()).toBe(true)
 
 		controller.abort("test")
@@ -50,7 +55,7 @@ describe("Operation Ext", () => {
 		const op = timeout(0).wrap(() => "timeout")
 		expect(op.poll().isNone()).toBe(true)
 
-		await new Promise((r) => setTimeout(r, 10))
+		await sleep(10)
 		expect(op.poll().isNone()).toBe(true)
 
 		const r = await op.sync()

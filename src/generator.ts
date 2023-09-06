@@ -71,6 +71,7 @@ export function generator<In = unknown, Out = void, Return = void>(
 		.then(() => fn(_yield))
 		.then((value) => _chOut.send({ done: true, value: value }).sync())
 		.finally(() => _close())
+		.catch(noop)
 
 	const iterator = {
 		next: _next,

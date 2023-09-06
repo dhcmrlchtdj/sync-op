@@ -1,8 +1,9 @@
+import { jest, describe, test, expect } from "@jest/globals"
 import { generator } from "../../generator.js"
 
 describe("generator", () => {
 	test("next", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string>(async (Yield) => {
 			t(1)
 			await Yield("hello")
@@ -20,7 +21,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(3)
 	})
 	test("return 1", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string, void, string>(async (Yield) => {
 			t(1)
 			await Yield("hello")
@@ -36,7 +37,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(2)
 	})
 	test("return 2", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string, void, string>(async (Yield) => {
 			t(1)
 			await Yield("hello")
@@ -62,7 +63,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(1)
 	})
 	test("return 3", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string, void, string>(async (Yield) => {
 			t(1)
 			await Yield("hello")
@@ -80,7 +81,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(0)
 	})
 	test("throw 1", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string>(async (Yield) => {
 			t(1)
 			try {
@@ -105,7 +106,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(3)
 	})
 	test("throw 2", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string, void, string>(async (Yield) => {
 			t(1)
 			await Yield("hello")
@@ -122,7 +123,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(0)
 	})
 	test("throw 3", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string>(async (Yield) => {
 			t(1)
 			await Yield("hello")
@@ -134,7 +135,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(0)
 	})
 	test("throw 4", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string>(() => {
 			t(1)
 		})
@@ -144,7 +145,7 @@ describe("generator", () => {
 		await expect(g.throw("err")).rejects.toBe("err")
 	})
 	test("yield", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<string, number>(async (Yield) => {
 			t(1)
 			const x1 = await Yield("hello")
@@ -164,7 +165,7 @@ describe("generator", () => {
 		expect(t).toHaveBeenCalledTimes(3)
 	})
 	test("for...of", async () => {
-		const t = import.meta.jest.fn()
+		const t = jest.fn()
 		const g = generator<number>(async (Yield) => {
 			t(1)
 			await Yield(1)
