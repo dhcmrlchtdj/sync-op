@@ -1,4 +1,4 @@
-import { jest, describe, test, expect } from "@jest/globals"
+import { describe, expect, jest, test } from "@jest/globals"
 import { generator } from "../../generator.js"
 
 describe("generator", () => {

@@ -1,4 +1,4 @@
-import { describe, test, expect } from "@jest/globals"
+import { describe, expect, test } from "@jest/globals"
 import { generator, type YieldFn } from "../../generator.js"
 
 describe("yield", () => {

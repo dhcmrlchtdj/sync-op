@@ -1,6 +1,6 @@
-import { describe, test, expect } from "@jest/globals"
-import { choose, select, guard } from "../../operation.js"
+import { describe, expect, test } from "@jest/globals"
 import { always } from "../../extension.js"
+import { choose, guard, select } from "../../operation.js"
 
 describe("Operation", () => {
 	test("choose", () => {

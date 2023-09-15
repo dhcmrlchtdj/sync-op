@@ -33,6 +33,7 @@
 		"eslint-config-prettier": "9.0.0",
 		"jest": "29.6.4",
 		"prettier": "3.0.3",
+		"prettier-plugin-organize-imports": "3.2.3",
 		"typedoc": "0.25.0",
 		"typedoc-plugin-markdown": "3.16.0",
 		"typescript": "5.2.2"
@@ -54,6 +55,9 @@
 		"vueIndentScriptAndStyle": true,
 		"endOfLine": "lf",
 		"embeddedLanguageFormatting": "auto",
-		"singleAttributePerLine": true
+		"singleAttributePerLine": true,
+		"plugins": [
+			"prettier-plugin-organize-imports"
+		]
 	}
 }

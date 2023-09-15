@@ -1,7 +1,7 @@
 import { Deferred } from "./deferred.js"
 import { always } from "./extension.js"
-import { type Op, Operation } from "./operation.js"
-import { type Option, some, none } from "./option.js"
+import { Operation, type Op } from "./operation.js"
+import { none, some, type Option } from "./option.js"
 
 export interface readableChannel<T> {
 	isClosed(): boolean

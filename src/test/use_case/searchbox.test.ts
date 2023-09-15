@@ -1,4 +1,4 @@
-import { jest, describe, test, expect } from "@jest/globals"
+import { describe, expect, jest, test } from "@jest/globals"
 import {
 	Channel,
 	IVar,

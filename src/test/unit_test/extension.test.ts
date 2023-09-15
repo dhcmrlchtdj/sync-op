@@ -1,15 +1,15 @@
-import { describe, test, expect } from "@jest/globals"
+import { describe, expect, test } from "@jest/globals"
 import {
-	always,
-	never,
-	fromPromise,
-	fromAbortSignal,
-	timeout,
-	after,
 	IVar,
-	Mutex,
 	MVar,
+	Mutex,
 	Semaphore,
+	after,
+	always,
+	fromAbortSignal,
+	fromPromise,
+	never,
+	timeout,
 } from "../../extension.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))

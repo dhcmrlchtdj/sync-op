@@ -1,15 +1,15 @@
-import { describe, test, expect } from "@jest/globals"
+import { describe, expect, test } from "@jest/globals"
 import {
 	Channel,
-	choose,
-	select,
-	always,
-	never,
-	fromAbortSignal,
-	timeout,
-	fromPromise,
 	after,
+	always,
+	choose,
+	fromAbortSignal,
+	fromPromise,
 	guard,
+	never,
+	select,
+	timeout,
 } from "../../index.js"
 
 describe("example", () => {

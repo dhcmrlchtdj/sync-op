@@ -1,7 +1,7 @@
 import { Deferred } from "./deferred.js"
 import { noop } from "./noop.js"
-import { type Op, Operation, guard } from "./operation.js"
-import { type Option, some, none } from "./option.js"
+import { Operation, guard, type Op } from "./operation.js"
+import { none, some, type Option } from "./option.js"
 
 /**
 always ready for synchronization

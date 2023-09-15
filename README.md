@@ -90,11 +90,11 @@ await choose(op, c3.send(true)).sync() // Option<string> | Option<number> | bool
 ```typescript
 import {
 	Channel,
-	choose,
 	always,
+	choose,
+	fromAbortSignal,
 	never,
 	timeout,
-	fromAbortSignal,
 } from "sync-op"
 
 const ch = new Channel<number>()
@@ -120,7 +120,7 @@ choose(ch.receive(), fromAbortSignal(ac.signal)).sync()
 ### `fromPromise` / `guard`
 
 ```typescript
-import { choose, guard, after, fromPromise } from "sync-op"
+import { after, choose, fromPromise, guard } from "sync-op"
 
 await fromPromise(Promise.resolve(1)).sync() // 1
 
