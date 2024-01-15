@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals"
 import { Var, atomically } from "../../stm"
 
-describe("Operation", () => {
-	test("choose", async () => {
+describe("STM", () => {
+	test("sum", async () => {
 		const sum = new Var<number>()
 		await atomically((txn) => {
 			sum.store(txn, 0)
