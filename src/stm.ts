@@ -1,8 +1,6 @@
 // based on https://github.com/tiancaiamao/stm
 // Apache-2.0 license
 
-import { none, some, type Option } from "./option.js"
-
 class Transaction {
 	rv: number
 	readSet: Var<unknown>[]
@@ -20,6 +18,8 @@ class Transaction {
 	}
 }
 
+class VersionConflictError extends Error {}
+
 class VersionLock {
 	private version: number
 	constructor() {
@@ -36,14 +36,11 @@ class VersionLock {
 const globalVersionLock = new VersionLock()
 
 class VersionedWriteLock {
-	private locked: boolean
-	private version: number
+	locked: boolean
+	version: number
 	constructor() {
 		this.locked = false
 		this.version = 0
-	}
-	load(): [locked: boolean, version: number] {
-		return [this.locked, this.version]
 	}
 	tryAcquire(): boolean {
 		if (this.locked) {
@@ -68,27 +65,28 @@ class VersionedWriteLock {
 	}
 }
 
+const VarLock = Symbol()
+const VarValue = Symbol()
 export class Var<T> {
-	private value: T
-	private lock: VersionedWriteLock
+	[VarValue]: T;
+	[VarLock]: VersionedWriteLock
 	constructor() {
-		this.value = null as T
-		this.lock = new VersionedWriteLock()
+		this[VarValue] = null as T
+		this[VarLock] = new VersionedWriteLock()
 	}
-	load(txn: Transaction): Option<T> {
+	load(txn: Transaction): T {
 		if (txn.writeSet.has(this)) {
-			return some(txn.writeSet.get(this)) as Option<T>
+			return txn.writeSet.get(this) as T
 		}
 
-		const [locked, version] = this.lock.load()
-		if (locked || version > txn.rv) {
+		if (this[VarLock].locked || this[VarLock].version > txn.rv) {
 			abortAndRetry(txn)
-			return none
+			throw new VersionConflictError()
 		}
 
-		const value = this.value
+		const value = this[VarValue]
 		txn.readSet.push(this)
-		return some(value)
+		return value
 	}
 	store(txn: Transaction, value: T) {
 		txn.writeSet.set(this, value)
@@ -113,7 +111,13 @@ async function runWithTxn(
 		txn.rv = versionLock.load()
 
 		// Step2: run through a speculative execution
-		await speculative(txn)
+		try {
+			await speculative(txn)
+		} catch (err) {
+			if (!(err instanceof VersionConflictError)) {
+				throw err
+			}
+		}
 		if (txn.retry) {
 			continue
 		}
@@ -125,8 +129,7 @@ async function runWithTxn(
 
 		// Step3: lock the write-set
 		for (const writeVar of txn.writeSet.keys()) {
-			// @ts-expect-error tsserver 2341
-			const lock = writeVar.lock.tryAcquire()
+			const lock = writeVar[VarLock].tryAcquire()
 			if (!lock) {
 				abortAndRetry(txn)
 				break
@@ -145,13 +148,15 @@ async function runWithTxn(
 			// optimize: it means we are the only writer, so no need to validate the read set
 		} else {
 			for (const readVar of txn.readSet) {
-				// @ts-expect-error tsserver 2341
-				const [locked, version] = readVar.lock.load()
 				let lockedByMe = false
-				if (locked) {
+				const readLock = readVar[VarLock]
+				if (readLock.locked) {
 					lockedByMe = txn.writeSet.has(readVar)
 				}
-				if ((locked && !lockedByMe) || version > txn.rv) {
+				if (
+					(readLock.locked && !lockedByMe) ||
+					readLock.version > txn.rv
+				) {
 					abortAndRetry(txn)
 					break
 				}
@@ -173,17 +178,14 @@ function abortAndRetry(txn: Transaction) {
 	txn.readSet = []
 	txn.writeSet = new Map()
 	for (const writeVar of txn.locked) {
-		// @ts-expect-error tsserver 2341
-		writeVar.lock.release()
+		writeVar[VarLock].release()
 	}
 	txn.locked = []
 }
 
 function commitTxn(txn: Transaction, writeVersion: number) {
 	for (const [writeVar, value] of txn.writeSet.entries()) {
-		// @ts-expect-error tsserver 2341
-		writeVar.value = value
-		// @ts-expect-error tsserver 2341
-		writeVar.lock.commit(writeVersion)
+		writeVar[VarValue] = value
+		writeVar[VarLock].commit(writeVersion)
 	}
 }

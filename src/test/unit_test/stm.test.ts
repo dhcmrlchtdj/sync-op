@@ -13,8 +13,7 @@ describe("STM", () => {
 			tasks.push(
 				atomically((txn) => {
 					const v = sum.load(txn)
-					if (v.isNone()) return
-					sum.store(txn, v.unwrap() + 1)
+					sum.store(txn, v + 1)
 				}),
 			)
 		}
@@ -22,8 +21,7 @@ describe("STM", () => {
 
 		await atomically((txn) => {
 			const total = sum.load(txn)
-			expect(total.isSome()).toBe(true)
-			expect(total.unwrap()).toBe(1000)
+			expect(total).toBe(1000)
 		})
 	})
 })
