@@ -129,10 +129,8 @@ await fromPromise(Promise.reject("error")).sync() // throw "error"
 const timeout = after(0)
 const ac = new AbortController()
 // `guard` will create a new Op when it is polled
-const fetchOp = guard(() =>
-	fromPromise(fetch("http://127.0.0.1", { signal: ac.signal })),
-).wrapAbort(() => ac.abort())
-await choose(timeout, fetchOp).sync()
+const expensiveOp = guard(() => after(100)).wrapAbort(() => ac.abort())
+await choose(timeout, expensiveOp).sync()
 ```
 
 ## Resource

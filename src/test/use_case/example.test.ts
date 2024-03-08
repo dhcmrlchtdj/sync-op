@@ -130,14 +130,8 @@ describe("example", () => {
 
 		const timeout = after(0).wrap(() => "timeout")
 		const ac = new AbortController()
-		const fetchOp = guard(() =>
-			fromPromise(
-				fetch("http://127.0.0.1", { signal: ac.signal }).catch(
-					(_) => "err",
-				),
-			),
-		).wrapAbort(() => ac.abort())
-		const r3 = await choose(timeout, fetchOp).sync()
+		const expensiveOp = guard(() => after(100)).wrapAbort(() => ac.abort())
+		const r3 = await choose(timeout, expensiveOp).sync()
 		expect(ac.signal.aborted).toBe(true)
 		expect(r3).toBe("timeout")
 	})
