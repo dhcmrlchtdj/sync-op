@@ -70,8 +70,8 @@ const VarValue = Symbol()
 export class Var<T> {
 	[VarValue]: T;
 	[VarLock]: VersionedWriteLock
-	constructor() {
-		this[VarValue] = null as T
+	constructor(value: T) {
+		this[VarValue] = value
 		this[VarLock] = new VersionedWriteLock()
 	}
 	load(txn: Transaction): T {

@@ -3,10 +3,7 @@ import { Var, atomically } from "../../stm"
 
 describe("STM", () => {
 	test("sum", async () => {
-		const sum = new Var<number>()
-		await atomically((txn) => {
-			sum.store(txn, 0)
-		})
+		const sum = new Var<number>(0)
 
 		const tasks = []
 		for (let i = 0; i < 1000; i++) {
