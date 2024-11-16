@@ -339,3 +339,44 @@ export class MVar<T> {
 		})
 	}
 }
+
+export class WaitGroup {
+	private _count: number
+	private _queue: { performed: Deferred<number>; idx: number }[]
+	constructor() {
+		this._count = 0
+		this._queue = []
+	}
+	add(): void {
+		this._count++
+	}
+	done(): void {
+		this._count--
+		if (this._count < 0) {
+			throw new Error("negative WaitGroup counter")
+		}
+		if (this._count === 0) {
+			while (this._queue.length > 0) {
+				const { performed, idx } = this._queue.shift()!
+				if (!performed.isFulfilled) {
+					performed.resolve(idx)
+				}
+			}
+		}
+	}
+	wait(): Op<void> {
+		return new Operation((performed, idx) => {
+			return {
+				poll: () => {
+					if (this._count === 0) {
+						performed.resolve(idx)
+					}
+				},
+				suspend: () => {
+					this._queue.push({ performed, idx })
+				},
+				result: noop,
+			}
+		})
+	}
+}

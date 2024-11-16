@@ -4,6 +4,7 @@ import {
 	MVar,
 	Mutex,
 	Semaphore,
+	WaitGroup,
 	after,
 	always,
 	fromAbortSignal,
@@ -146,5 +147,16 @@ describe("Operation Ext", () => {
 
 		expect(await mv.take().sync()).toBe(4)
 		expect(mv.get().poll().isNone()).toBe(true)
+	})
+
+	test("WaitGroup", async () => {
+		const wg = new WaitGroup()
+		expect(wg.wait().poll().isSome()).toBe(true)
+
+		wg.add()
+		expect(wg.wait().poll().isSome()).toBe(false)
+
+		wg.done()
+		expect(wg.wait().poll().isSome()).toBe(true)
 	})
 })
