@@ -12,7 +12,7 @@ describe("yield", () => {
 				await f(text)
 			})
 
-		const split = (Yield: YieldFn<string>) => {
+		const split = (Yield: YieldFn<string>): YieldFn<string> => {
 			return async (text: string) => {
 				for (const char of text) {
 					await Yield(char)
@@ -20,33 +20,36 @@ describe("yield", () => {
 				await Yield("\n")
 			}
 		}
-		const expandTab = (width: number) => (Yield: YieldFn<string>) => {
-			let pos = 0
-			return (char: string) => {
-				if (char === "\t") {
-					const nextpos = pos + width - (pos % width)
-					const space = "".padStart(nextpos - pos)
-					pos = nextpos
-					return Yield(space)
-				} else {
-					if (char == "\n") {
-						pos = 0
+		const expandTab =
+			(width: number) =>
+			(Yield: YieldFn<string>): YieldFn<string> => {
+				let pos = 0
+				return (char: string) => {
+					if (char === "\t") {
+						const nextpos = pos + width - (pos % width)
+						const space = "".padStart(nextpos - pos)
+						pos = nextpos
+						return Yield(space)
 					} else {
-						pos++
+						if (char === "\n") {
+							pos = 0
+						} else {
+							pos++
+						}
+						return Yield(char)
 					}
-					return Yield(char)
 				}
 			}
-		}
-		const concat = (Yield: YieldFn<string>) => {
+		const concat = (Yield: YieldFn<string>): YieldFn<string> => {
 			let p = ""
-			return async (char: string) => {
+			return (char: string) => {
 				if (char === "\n") {
 					const done = p
 					p = ""
 					return Yield(done)
 				} else {
 					p += char
+					return Promise.resolve()
 				}
 			}
 		}

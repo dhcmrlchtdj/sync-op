@@ -20,7 +20,18 @@ fmt:
 	prettier --write .
 
 lint:
-	eslint --ext=".ts" src
+	oxlint --deny-warnings \
+		-D=correctness \
+		-D=suspicious \
+		-D=pedantic \
+		-A=max-classes-per-file \
+		-A=ban-ts-comment \
+		-A=no-else-return \
+		-A=max-dependencies \
+		-A=max-lines \
+		-A=no-negated-condition \
+		-A=consistent-function-scoping \
+		--import-plugin
 	prettier --check .
 
 t :=

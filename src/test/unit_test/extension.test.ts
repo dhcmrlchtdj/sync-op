@@ -149,7 +149,7 @@ describe("Operation Ext", () => {
 		expect(mv.get().poll().isNone()).toBe(true)
 	})
 
-	test("WaitGroup", async () => {
+	test("WaitGroup", () => {
 		const wg = new WaitGroup()
 		expect(wg.wait().poll().isSome()).toBe(true)
 
