@@ -5,7 +5,10 @@
 	"author": "h11 <me@h11.dev>",
 	"license": "LGPL-2.1",
 	"homepage": "https://github.com/dhcmrlchtdj/sync-op",
-	"repository": "github:dhcmrlchtdj/sync-op",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dhcmrlchtdj/sync-op.git"
+	},
 	"type": "module",
 	"module": "dist/index.js",
 	"main": "dist/index.js",
