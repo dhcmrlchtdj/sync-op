@@ -1,105 +1,88 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / Operation
 
-# Class: Operation<T\>
+# Class: Operation\<T\>
 
 the first-class sychronous operations
 
-## Type parameters
+## Extends
 
-| Name |
-| :------ |
-| `T` |
+- [`Op`](Op.md)\<`T`\>
 
-## Hierarchy
+## Type Parameters
 
-- [`Op`](Op.md)<`T`\>
-
-  ↳ **`Operation`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](Operation.md#constructor)
-
-### Methods
-
-- [poll](Operation.md#poll)
-- [sync](Operation.md#sync)
-- [wrap](Operation.md#wrap)
-- [wrapAbort](Operation.md#wrapabort)
+• **T**
 
 ## Constructors
 
-### constructor
+### new Operation()
 
-• **new Operation**<`T`\>(`builder`)
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
+> **new Operation**\<`T`\>(`builder`): [`Operation`](Operation.md)\<`T`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `builder` | [`OpBuilder`](../README.md#opbuilder)<`T`\> |
+• **builder**: [`OpBuilder`](../type-aliases/OpBuilder.md)\<`T`\>
+
+#### Returns
+
+[`Operation`](Operation.md)\<`T`\>
 
 #### Overrides
 
-[Op](Op.md).[constructor](Op.md#constructor)
+[`Op`](Op.md).[`constructor`](Op.md#constructors)
 
 #### Defined in
 
-[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/operation.ts#L89)
+[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L89)
 
 ## Methods
 
-### poll
+### poll()
 
-▸ **poll**(): [`Option`](../README.md#option)<`T`\>
+> **poll**(): [`Option`](../type-aliases/Option.md)\<`T`\>
 
 non-blocking version of `Op#sync`
 
 #### Returns
 
-[`Option`](../README.md#option)<`T`\>
+[`Option`](../type-aliases/Option.md)\<`T`\>
 
 #### Inherited from
 
-[Op](Op.md).[poll](Op.md#poll)
+[`Op`](Op.md).[`poll`](Op.md#poll)
 
 #### Defined in
 
-[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/operation.ts#L53)
+[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L53)
 
-___
+***
 
-### sync
+### sync()
 
-▸ **sync**(): `Promise`<`T`\>
+> **sync**(): `Promise`\<`T`\>
 
 synchronizes on `Op`
 
 #### Returns
 
-`Promise`<`T`\>
+`Promise`\<`T`\>
 
 #### Inherited from
 
-[Op](Op.md).[sync](Op.md#sync)
+[`Op`](Op.md).[`sync`](Op.md#sync)
 
 #### Defined in
 
-[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/operation.ts#L45)
+[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L45)
 
-___
+***
 
-### wrap
+### wrap()
 
-▸ **wrap**<`R`\>(`fn`): [`Op`](Op.md)<`R`\>
+> **wrap**\<`R`\>(`fn`): [`Op`](Op.md)\<`R`\>
 
 `fn` is used to transform the result from type `T` to type `R`.
 
@@ -107,35 +90,31 @@ ___
 await always(2).wrap(n => n * 2).sync() // 4
 ```
 
-#### Type parameters
+#### Type Parameters
 
-| Name |
-| :------ |
-| `R` |
+• **R**
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fn` | (`v`: `T`) => `R` |
+• **fn**
 
 #### Returns
 
-[`Op`](Op.md)<`R`\>
+[`Op`](Op.md)\<`R`\>
 
 #### Overrides
 
-[Op](Op.md).[wrap](Op.md#wrap)
+[`Op`](Op.md).[`wrap`](Op.md#wrap)
 
 #### Defined in
 
-[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/operation.ts#L93)
+[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L93)
 
-___
+***
 
-### wrapAbort
+### wrapAbort()
 
-▸ **wrapAbort**(`onAbort`): [`Op`](Op.md)<`T`\>
+> **wrapAbort**(`onAbort`): [`Op`](Op.md)\<`T`\>
 
 `onAbort` is called if `Op` is not chosen by the `choose()`
 
@@ -148,18 +127,16 @@ await select(
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `onAbort` | () => `void` |
+• **onAbort**
 
 #### Returns
 
-[`Op`](Op.md)<`T`\>
+[`Op`](Op.md)\<`T`\>
 
 #### Inherited from
 
-[Op](Op.md).[wrapAbort](Op.md#wrapabort)
+[`Op`](Op.md).[`wrapAbort`](Op.md#wrapabort)
 
 #### Defined in
 
-[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/operation.ts#L68)
+[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L68)

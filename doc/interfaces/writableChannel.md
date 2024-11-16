@@ -1,31 +1,20 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / writableChannel
 
-# Interface: writableChannel<T\>
+# Interface: writableChannel\<T\>
 
-## Type parameters
+## Type Parameters
 
-| Name |
-| :------ |
-| `T` |
-
-## Implemented by
-
-- [`Channel`](../classes/Channel.md)
-
-## Table of contents
-
-### Methods
-
-- [close](writableChannel.md#close)
-- [isClosed](writableChannel.md#isclosed)
-- [isDrained](writableChannel.md#isdrained)
-- [send](writableChannel.md#send)
+• **T**
 
 ## Methods
 
-### close
+### close()
 
-▸ **close**(): `void`
+> **close**(): `void`
 
 #### Returns
 
@@ -33,27 +22,13 @@
 
 #### Defined in
 
-[channel.ts:17](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L17)
+[channel.ts:17](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L17)
 
-___
+***
 
-### isClosed
+### isClosed()
 
-▸ **isClosed**(): `boolean`
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[channel.ts:14](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L14)
-
-___
-
-### isDrained
-
-▸ **isDrained**(): `boolean`
+> **isClosed**(): `boolean`
 
 #### Returns
 
@@ -61,24 +36,36 @@ ___
 
 #### Defined in
 
-[channel.ts:15](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L15)
+[channel.ts:14](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L14)
 
-___
+***
 
-### send
+### isDrained()
 
-▸ **send**(`data`): [`Op`](../classes/Op.md)<`boolean`\>
+> **isDrained**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[channel.ts:15](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L15)
+
+***
+
+### send()
+
+> **send**(`data`): [`Op`](../classes/Op.md)\<`boolean`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `T` |
+• **data**: `T`
 
 #### Returns
 
-[`Op`](../classes/Op.md)<`boolean`\>
+[`Op`](../classes/Op.md)\<`boolean`\>
 
 #### Defined in
 
-[channel.ts:16](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L16)
+[channel.ts:16](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L16)

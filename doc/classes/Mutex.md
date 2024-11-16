@@ -1,48 +1,44 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / Mutex
 
 # Class: Mutex
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Mutex.md#constructor)
-
-### Methods
-
-- [lock](Mutex.md#lock)
-- [unlock](Mutex.md#unlock)
-- [withLock](Mutex.md#withlock)
-
 ## Constructors
 
-### constructor
+### new Mutex()
 
-• **new Mutex**()
-
-#### Defined in
-
-[extension.ts:125](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L125)
-
-## Methods
-
-### lock
-
-▸ **lock**(): [`Op`](Op.md)<`void`\>
+> **new Mutex**(): [`Mutex`](Mutex.md)
 
 #### Returns
 
-[`Op`](Op.md)<`void`\>
+[`Mutex`](Mutex.md)
 
 #### Defined in
 
-[extension.ts:129](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L129)
+[extension.ts:119](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L119)
 
-___
+## Methods
 
-### unlock
+### lock()
 
-▸ **unlock**(): `void`
+> **lock**(): [`Op`](Op.md)\<`void`\>
+
+#### Returns
+
+[`Op`](Op.md)\<`void`\>
+
+#### Defined in
+
+[extension.ts:123](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L123)
+
+***
+
+### unlock()
+
+> **unlock**(): `void`
 
 #### Returns
 
@@ -50,30 +46,26 @@ ___
 
 #### Defined in
 
-[extension.ts:145](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L145)
+[extension.ts:139](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L139)
 
-___
+***
 
-### withLock
+### withLock()
 
-▸ **withLock**<`T`\>(`f`): `Promise`<`T`\>
+> **withLock**\<`T`\>(`f`): `Promise`\<`T`\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name |
-| :------ |
-| `T` |
+• **T**
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `f` | () => `T` \| `Promise`<`T`\> |
+• **f**
 
 #### Returns
 
-`Promise`<`T`\>
+`Promise`\<`T`\>
 
 #### Defined in
 
-[extension.ts:157](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L157)
+[extension.ts:151](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L151)

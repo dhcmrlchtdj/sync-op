@@ -1,72 +1,57 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / MVar
 
-# Class: MVar<T\>
+# Class: MVar\<T\>
 
-## Type parameters
+## Type Parameters
 
-| Name |
-| :------ |
-| `T` |
-
-## Table of contents
-
-### Constructors
-
-- [constructor](MVar.md#constructor)
-
-### Methods
-
-- [get](MVar.md#get)
-- [put](MVar.md#put)
-- [swap](MVar.md#swap)
-- [take](MVar.md#take)
+• **T**
 
 ## Constructors
 
-### constructor
+### new MVar()
 
-• **new MVar**<`T`\>()
+> **new MVar**\<`T`\>(): [`MVar`](MVar.md)\<`T`\>
 
-#### Type parameters
+#### Returns
 
-| Name |
-| :------ |
-| `T` |
+[`MVar`](MVar.md)\<`T`\>
 
 #### Defined in
 
-[extension.ts:263](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L263)
+[extension.ts:257](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L257)
 
 ## Methods
 
-### get
+### get()
 
-▸ **get**(): [`Op`](Op.md)<`T`\>
+> **get**(): [`Op`](Op.md)\<`T`\>
 
 read `MVar`
 
 #### Returns
 
-[`Op`](Op.md)<`T`\>
+[`Op`](Op.md)\<`T`\>
 
 #### Defined in
 
-[extension.ts:289](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L289)
+[extension.ts:283](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L283)
 
-___
+***
 
-### put
+### put()
 
-▸ **put**(`value`): `boolean`
+> **put**(`value`): `boolean`
 
 fill `MVar` if it is empty
 return `false` if it's not empty.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `T` |
+• **value**: `T`
 
 #### Returns
 
@@ -74,42 +59,40 @@ return `false` if it's not empty.
 
 #### Defined in
 
-[extension.ts:272](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L272)
+[extension.ts:266](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L266)
 
-___
+***
 
-### swap
+### swap()
 
-▸ **swap**(`newValue`): [`Op`](Op.md)<`T`\>
+> **swap**(`newValue`): [`Op`](Op.md)\<`T`\>
 
 read `MVar` and replace it with `newValue`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `newValue` | `T` |
+• **newValue**: `T`
 
 #### Returns
 
-[`Op`](Op.md)<`T`\>
+[`Op`](Op.md)\<`T`\>
 
 #### Defined in
 
-[extension.ts:315](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L315)
+[extension.ts:309](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L309)
 
-___
+***
 
-### take
+### take()
 
-▸ **take**(): [`Op`](Op.md)<`T`\>
+> **take**(): [`Op`](Op.md)\<`T`\>
 
 read `MVar` and clear it
 
 #### Returns
 
-[`Op`](Op.md)<`T`\>
+[`Op`](Op.md)\<`T`\>
 
 #### Defined in
 
-[extension.ts:308](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L308)
+[extension.ts:302](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L302)

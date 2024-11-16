@@ -1,40 +1,27 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / Channel
 
-# Class: Channel<T\>
+# Class: Channel\<T\>
 
 the synchronous channel
 
-## Type parameters
+## Type Parameters
 
-| Name |
-| :------ |
-| `T` |
+• **T**
 
 ## Implements
 
-- [`readableChannel`](../interfaces/readableChannel.md)<`T`\>
-- [`writableChannel`](../interfaces/writableChannel.md)<`T`\>
-
-## Table of contents
-
-### Constructors
-
-- [constructor](Channel.md#constructor)
-
-### Methods
-
-- [[asyncIterator]](Channel.md#[asynciterator])
-- [close](Channel.md#close)
-- [isClosed](Channel.md#isclosed)
-- [isDrained](Channel.md#isdrained)
-- [receive](Channel.md#receive)
-- [send](Channel.md#send)
+- [`readableChannel`](../interfaces/readableChannel.md)\<`T`\>
+- [`writableChannel`](../interfaces/writableChannel.md)\<`T`\>
 
 ## Constructors
 
-### constructor
+### new Channel()
 
-• **new Channel**<`T`\>(`capacity?`)
+> **new Channel**\<`T`\>(`capacity`): [`Channel`](Channel.md)\<`T`\>
 
 create a new channel with buffer size `capacity`
 
@@ -43,27 +30,23 @@ const unbuffered = new Channel()
 const buffered = new Channel(1)
 ```
 
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `capacity` | `number` | `0` |
+• **capacity**: `number` = `0`
+
+#### Returns
+
+[`Channel`](Channel.md)\<`T`\>
 
 #### Defined in
 
-[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L38)
+[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L38)
 
 ## Methods
 
-### [asyncIterator]
+### \[asyncIterator\]()
 
-▸ **[asyncIterator]**(): `AsyncGenerator`<`Awaited`<`T`\>, `void`, `unknown`\>
+> **\[asyncIterator\]**(): `AsyncGenerator`\<`Awaited`\<`T`\>, `void`, `unknown`\>
 
 ```typescript
 const ch = new Channel()
@@ -76,21 +59,21 @@ for await (const msg of ch) {
 
 #### Returns
 
-`AsyncGenerator`<`Awaited`<`T`\>, `void`, `unknown`\>
+`AsyncGenerator`\<`Awaited`\<`T`\>, `void`, `unknown`\>
 
 #### Implementation of
 
-[readableChannel](../interfaces/readableChannel.md).[[asyncIterator]](../interfaces/readableChannel.md#[asynciterator])
+[`readableChannel`](../interfaces/readableChannel.md).[`[asyncIterator]`](../interfaces/readableChannel.md#%5Basynciterator%5D)
 
 #### Defined in
 
-[channel.ts:182](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L182)
+[channel.ts:182](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L182)
 
-___
+***
 
-### close
+### close()
 
-▸ **close**(): `void`
+> **close**(): `void`
 
 #### Returns
 
@@ -98,17 +81,17 @@ ___
 
 #### Implementation of
 
-[writableChannel](../interfaces/writableChannel.md).[close](../interfaces/writableChannel.md#close)
+[`writableChannel`](../interfaces/writableChannel.md).[`close`](../interfaces/writableChannel.md#close)
 
 #### Defined in
 
-[channel.ts:52](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L52)
+[channel.ts:52](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L52)
 
-___
+***
 
-### isClosed
+### isClosed()
 
-▸ **isClosed**(): `boolean`
+> **isClosed**(): `boolean`
 
 #### Returns
 
@@ -116,17 +99,17 @@ ___
 
 #### Implementation of
 
-[writableChannel](../interfaces/writableChannel.md).[isClosed](../interfaces/writableChannel.md#isclosed)
+[`writableChannel`](../interfaces/writableChannel.md).[`isClosed`](../interfaces/writableChannel.md#isclosed)
 
 #### Defined in
 
-[channel.ts:64](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L64)
+[channel.ts:64](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L64)
 
-___
+***
 
-### isDrained
+### isDrained()
 
-▸ **isDrained**(): `boolean`
+> **isDrained**(): `boolean`
 
 returns `true` if the buffer is empty and there are no pending senders.
 
@@ -136,17 +119,17 @@ returns `true` if the buffer is empty and there are no pending senders.
 
 #### Implementation of
 
-[writableChannel](../interfaces/writableChannel.md).[isDrained](../interfaces/writableChannel.md#isdrained)
+[`writableChannel`](../interfaces/writableChannel.md).[`isDrained`](../interfaces/writableChannel.md#isdrained)
 
 #### Defined in
 
-[channel.ts:71](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L71)
+[channel.ts:71](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L71)
 
-___
+***
 
-### receive
+### receive()
 
-▸ **receive**(): [`Op`](Op.md)<[`Option`](../README.md#option)<`T`\>\>
+> **receive**(): [`Op`](Op.md)\<[`Option`](../type-aliases/Option.md)\<`T`\>\>
 
 receives a message from the channel.
 if the channel is drained, return `none`.
@@ -158,21 +141,21 @@ const msg = await op.sync()
 
 #### Returns
 
-[`Op`](Op.md)<[`Option`](../README.md#option)<`T`\>\>
+[`Op`](Op.md)\<[`Option`](../type-aliases/Option.md)\<`T`\>\>
 
 #### Implementation of
 
-[readableChannel](../interfaces/readableChannel.md).[receive](../interfaces/readableChannel.md#receive)
+[`readableChannel`](../interfaces/readableChannel.md).[`receive`](../interfaces/readableChannel.md#receive)
 
 #### Defined in
 
-[channel.ts:132](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L132)
+[channel.ts:132](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L132)
 
-___
+***
 
-### send
+### send()
 
-▸ **send**(`data`): [`Op`](Op.md)<`boolean`\>
+> **send**(`data`): [`Op`](Op.md)\<`boolean`\>
 
 sends the `data` message to the channel.
 if channel is closed, return `false`.
@@ -184,18 +167,16 @@ await op.sync()
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `T` |
+• **data**: `T`
 
 #### Returns
 
-[`Op`](Op.md)<`boolean`\>
+[`Op`](Op.md)\<`boolean`\>
 
 #### Implementation of
 
-[writableChannel](../interfaces/writableChannel.md).[send](../interfaces/writableChannel.md#send)
+[`writableChannel`](../interfaces/writableChannel.md).[`send`](../interfaces/writableChannel.md#send)
 
 #### Defined in
 
-[channel.ts:88](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L88)
+[channel.ts:88](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L88)

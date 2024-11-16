@@ -1,128 +1,101 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / Deferred
 
-# Class: Deferred<T\>
+# Class: Deferred\<T\>
 
-## Type parameters
+## Type Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `void` |
-
-## Table of contents
-
-### Constructors
-
-- [constructor](Deferred.md#constructor)
-
-### Properties
-
-- [isFulfilled](Deferred.md#isfulfilled)
-- [isRejected](Deferred.md#isrejected)
-- [isResolved](Deferred.md#isresolved)
-- [promise](Deferred.md#promise)
-- [reject](Deferred.md#reject)
-- [resolve](Deferred.md#resolve)
+• **T** = `void`
 
 ## Constructors
 
-### constructor
+### new Deferred()
 
-• **new Deferred**<`T`\>()
+> **new Deferred**\<`T`\>(): [`Deferred`](Deferred.md)\<`T`\>
 
-#### Type parameters
+#### Returns
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `void` |
+[`Deferred`](Deferred.md)\<`T`\>
 
 #### Defined in
 
-[deferred.ts:11](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L11)
+[deferred.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L9)
 
 ## Properties
 
 ### isFulfilled
 
-• **isFulfilled**: `boolean`
+> **isFulfilled**: `boolean`
 
 #### Defined in
 
-[deferred.ts:3](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L3)
+[deferred.ts:3](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L3)
 
-___
+***
 
 ### isRejected
 
-• **isRejected**: `boolean`
+> **isRejected**: `boolean`
 
 #### Defined in
 
-[deferred.ts:5](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L5)
+[deferred.ts:5](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L5)
 
-___
+***
 
 ### isResolved
 
-• **isResolved**: `boolean`
+> **isResolved**: `boolean`
 
 #### Defined in
 
-[deferred.ts:4](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L4)
+[deferred.ts:4](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L4)
 
-___
+***
 
 ### promise
 
-• **promise**: `Promise`<`T`\>
+> **promise**: `Promise`\<`T`\>
 
 #### Defined in
 
-[deferred.ts:2](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L2)
+[deferred.ts:2](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L2)
 
-___
+***
 
-### reject
+### reject()
 
-• **reject**: (`err?`: `unknown`) => `void`
+> **reject**: (`err`?) => `void`
 
-#### Type declaration
+#### Parameters
 
-▸ (`err?`): `void`
+• **err?**: `unknown`
 
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `err?` | `unknown` |
-
-##### Returns
+#### Returns
 
 `void`
 
 #### Defined in
 
-[deferred.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L9)
+[deferred.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L7)
 
-___
+***
 
-### resolve
+### resolve()
 
-• **resolve**: (`payload`: `T` \| `PromiseLike`<`T`\>) => `void`
+> **resolve**: (`payload`) => `void`
 
-#### Type declaration
+#### Parameters
 
-▸ (`payload`): `void`
+• **payload**: `T` \| `PromiseLike`\<`T`\>
 
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `payload` | `T` \| `PromiseLike`<`T`\> |
-
-##### Returns
+#### Returns
 
 `void`
 
 #### Defined in
 
-[deferred.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/deferred.ts#L7)
+[deferred.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L6)

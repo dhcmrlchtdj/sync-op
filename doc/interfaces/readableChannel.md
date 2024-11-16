@@ -1,59 +1,34 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / readableChannel
 
-# Interface: readableChannel<T\>
+# Interface: readableChannel\<T\>
 
-## Type parameters
+## Type Parameters
 
-| Name |
-| :------ |
-| `T` |
-
-## Implemented by
-
-- [`Channel`](../classes/Channel.md)
-
-## Table of contents
-
-### Methods
-
-- [[asyncIterator]](readableChannel.md#[asynciterator])
-- [isClosed](readableChannel.md#isclosed)
-- [isDrained](readableChannel.md#isdrained)
-- [receive](readableChannel.md#receive)
+• **T**
 
 ## Methods
 
-### [asyncIterator]
+### \[asyncIterator\]()
 
-▸ **[asyncIterator]**(): `AsyncGenerator`<`T`, `any`, `unknown`\>
-
-#### Returns
-
-`AsyncGenerator`<`T`, `any`, `unknown`\>
-
-#### Defined in
-
-[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L10)
-
-___
-
-### isClosed
-
-▸ **isClosed**(): `boolean`
+> **\[asyncIterator\]**(): `AsyncGenerator`\<`T`, `any`, `any`\>
 
 #### Returns
 
-`boolean`
+`AsyncGenerator`\<`T`, `any`, `any`\>
 
 #### Defined in
 
-[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L7)
+[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L10)
 
-___
+***
 
-### isDrained
+### isClosed()
 
-▸ **isDrained**(): `boolean`
+> **isClosed**(): `boolean`
 
 #### Returns
 
@@ -61,18 +36,32 @@ ___
 
 #### Defined in
 
-[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L8)
+[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L7)
 
-___
+***
 
-### receive
+### isDrained()
 
-▸ **receive**(): [`Op`](../classes/Op.md)<[`Option`](../README.md#option)<`T`\>\>
+> **isDrained**(): `boolean`
 
 #### Returns
 
-[`Op`](../classes/Op.md)<[`Option`](../README.md#option)<`T`\>\>
+`boolean`
 
 #### Defined in
 
-[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/channel.ts#L9)
+[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L8)
+
+***
+
+### receive()
+
+> **receive**(): [`Op`](../classes/Op.md)\<[`Option`](../type-aliases/Option.md)\<`T`\>\>
+
+#### Returns
+
+[`Op`](../classes/Op.md)\<[`Option`](../type-aliases/Option.md)\<`T`\>\>
+
+#### Defined in
+
+[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L9)

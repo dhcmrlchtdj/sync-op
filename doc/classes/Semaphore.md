@@ -1,54 +1,48 @@
+[**sync-op**](../README.md) • **Docs**
+
+***
+
 [sync-op](../README.md) / Semaphore
 
 # Class: Semaphore
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Semaphore.md#constructor)
-
-### Methods
-
-- [lock](Semaphore.md#lock)
-- [unlock](Semaphore.md#unlock)
-- [withLock](Semaphore.md#withlock)
-
 ## Constructors
 
-### constructor
+### new Semaphore()
 
-• **new Semaphore**(`capacity?`)
+> **new Semaphore**(`capacity`): [`Semaphore`](Semaphore.md)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `capacity` | `number` | `1` |
-
-#### Defined in
-
-[extension.ts:171](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L171)
-
-## Methods
-
-### lock
-
-▸ **lock**(): [`Op`](Op.md)<`void`\>
+• **capacity**: `number` = `1`
 
 #### Returns
 
-[`Op`](Op.md)<`void`\>
+[`Semaphore`](Semaphore.md)
 
 #### Defined in
 
-[extension.ts:179](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L179)
+[extension.ts:165](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L165)
 
-___
+## Methods
 
-### unlock
+### lock()
 
-▸ **unlock**(): `void`
+> **lock**(): [`Op`](Op.md)\<`void`\>
+
+#### Returns
+
+[`Op`](Op.md)\<`void`\>
+
+#### Defined in
+
+[extension.ts:173](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L173)
+
+***
+
+### unlock()
+
+> **unlock**(): `void`
 
 #### Returns
 
@@ -56,30 +50,26 @@ ___
 
 #### Defined in
 
-[extension.ts:195](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L195)
+[extension.ts:189](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L189)
 
-___
+***
 
-### withLock
+### withLock()
 
-▸ **withLock**<`T`\>(`f`): `Promise`<`T`\>
+> **withLock**\<`T`\>(`f`): `Promise`\<`T`\>
 
-#### Type parameters
+#### Type Parameters
 
-| Name |
-| :------ |
-| `T` |
+• **T**
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `f` | () => `Promise`<`T`\> |
+• **f**
 
 #### Returns
 
-`Promise`<`T`\>
+`Promise`\<`T`\>
 
 #### Defined in
 
-[extension.ts:207](https://github.com/dhcmrlchtdj/sync-op/blob/0a6e09c/src/extension.ts#L207)
+[extension.ts:201](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L201)
