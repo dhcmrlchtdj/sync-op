@@ -7,16 +7,16 @@ on:
 jobs:
     ci:
         # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
         steps:
             # https://github.com/marketplace/actions/checkout
-            - uses: actions/checkout@v3.5.2
+            - uses: actions/checkout@v4.2.2
             # https://github.com/marketplace/actions/setup-node-js-environment
-            - uses: actions/setup-node@v3.6.0
+            - uses: actions/setup-node@v4.1.0
               with:
-                  node-version: "20.x"
+                  node-version: "22.x"
             # https://github.com/marketplace/actions/cache
-            - uses: actions/cache@v3.3.1
+            - uses: actions/cache@v4.1.2
               with:
                   path: ~/.local/share/pnpm/store
                   key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -24,7 +24,7 @@ jobs:
             - run: |
                   corepack enable
                   # https://www.npmjs.com/package/pnpm
-                  corepack prepare pnpm@8.6.0 --activate
+                  corepack prepare pnpm@9.13.2 --activate
                   pnpm config set store-dir ~/.local/share/pnpm/store
                   pnpm install
               env:
