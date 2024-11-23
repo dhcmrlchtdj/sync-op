@@ -59,10 +59,10 @@ export abstract class Op<T> {
 	`onAbort` is called if `Op` is not chosen by the `choose()`
 
 	```typescript
-	await select(
+	choose(
 		always(1),
-		never().wrapAbort(() => console.log("aborted"))),
-	)
+		never().wrapAbort(() => console.log("aborted")),
+	).poll()
 	```
 	*/
 	wrapAbort(onAbort: () => void): Op<T> {
@@ -245,17 +245,6 @@ function doAborts(abortMap: AbortMap, shouldNotAbort: number[]) {
 }
 
 ///
-
-/**
-just a shorthand for `choose(...ops).sync()`
-*/
-export function select<T extends Op<unknown>[]>(
-	...ops: T
-): Promise<T[number] extends Op<infer R> ? R : never> {
-	return (
-		new Choose(ops) as Op<T[number] extends Op<infer R> ? R : never>
-	).sync()
-}
 
 /**
 create an `Op` that represents the non-deterministic choice of `...ops`

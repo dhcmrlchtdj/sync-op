@@ -4,7 +4,7 @@
 
 sync-op provides CML-like first-class synchronous operations.
 
-There are `Channel`, `select`, and more. If you know golang, they are similar.
+There are `Channel`, and more. If you know golang, they are similar.
 
 Just read the following example to see how to use them.
 
@@ -62,10 +62,10 @@ for await (const msg of ch) {
 }
 ```
 
-### `choose` / `select`
+### `choose`
 
 ```typescript
-import { Channel, choose, select } from "sync-op"
+import { Channel, choose } from "sync-op"
 
 const c1 = new Channel<string>()
 const c2 = new Channel<number>()
@@ -76,10 +76,9 @@ c2.send(1).sync()
 c3.receive().sync()
 
 const op = choose(c1.receive(), c2.receive()) // Op<Option<string> | Option<number>>
-const r = await op.sync() // maybe "hello" or 1
+await op.sync() // maybe "hello" or 1
 
-// `select(...ops)` is just a sugar for `choose(...ops).sync()`
-await select(c1.receive(), c2.receive()) // Option<string> | Option<number>
+await choose(c1.receive(), c2.receive()).sync() // Option<string> | Option<number>
 
 // `choose` can be nested
 await choose(op, c3.send(true)).sync() // Option<string> | Option<number> | boolean

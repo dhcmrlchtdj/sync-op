@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals"
 import { always } from "../../extension.js"
-import { choose, guard, select } from "../../operation.js"
+import { choose, guard } from "../../operation.js"
 
 describe("Operation", () => {
 	test("choose", () => {
@@ -13,11 +13,6 @@ describe("Operation", () => {
 		expect(r.isSome()).toBe(true)
 		expect([1, 2]).toContain(r.unwrap())
 		expect(counter).toBe(1)
-	})
-
-	test("select", async () => {
-		const r = await select(always(1), always(2))
-		expect([1, 2]).toContain(r)
 	})
 
 	test("guard", () => {

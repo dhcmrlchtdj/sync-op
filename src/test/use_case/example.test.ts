@@ -8,7 +8,6 @@ import {
 	fromPromise,
 	guard,
 	never,
-	select,
 	timeout,
 } from "../../index.js"
 
@@ -82,7 +81,7 @@ describe("example", () => {
 		expect(r1.isSome()).toBe(true)
 		expect([1, "hello"]).toContain(r1.unwrap())
 
-		const r2 = await select(c1.receive(), c2.receive())
+		const r2 = await choose(c1.receive(), c2.receive()).sync()
 		expect(r2.isSome()).toBe(true)
 		expect([1, "hello"]).toContain(r2.unwrap())
 
