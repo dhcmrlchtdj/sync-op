@@ -5,12 +5,12 @@ import {
 	Mutex,
 	Semaphore,
 	WaitGroup,
-	after,
 	always,
 	fromAbortSignal,
 	fromPromise,
 	never,
 	timeout,
+	timeoutImmediate,
 } from "../../extension.js"
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
@@ -63,12 +63,15 @@ describe("Operation Ext", () => {
 		expect(r).toBe("timeout")
 	})
 
-	test("after", async () => {
-		const op = after(0).wrap(() => "timeout")
+	test("timeoutImmediate", async () => {
+		const op = timeoutImmediate(10).wrap(() => "timeout")
 		expect(op.poll().isNone()).toBe(true)
 
-		await new Promise((r) => setTimeout(r, 10))
+		const r = op.sync()
+
+		await new Promise((r) => setTimeout(r, 20))
 		expect(op.poll().isSome()).toBe(true)
+		expect(await r).toBe("timeout")
 	})
 
 	test("Mutex", async () => {

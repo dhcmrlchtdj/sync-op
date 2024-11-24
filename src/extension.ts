@@ -89,24 +89,23 @@ export function fromAbortSignal<Reason = unknown>(
 the timer is started when `Op` is polled
 */
 export function timeout(delay: number): Op<void> {
-	return guard(() => after(delay))
+	return guard(() => timeoutImmediate(delay))
 }
 
 /**
 the timer is started when `Op` is created
 */
-export function after(delay: number): Op<void> {
-	let out = false
-	let handler = () => (out = true) as unknown
-	const timer = setTimeout(() => handler(), delay)
+export function timeoutImmediate(delay: number): Op<void> {
+	let expired = false
+	const callback: (() => unknown)[] = [() => (expired = true)]
+	setTimeout(() => callback.forEach((fn) => fn()), delay)
 	return new Operation((performed, idx) => {
 		return {
 			poll: () => {
-				if (out) performed.resolve(idx)
+				if (expired) performed.resolve(idx)
 			},
 			suspend: () => {
-				handler = () => performed.resolve(idx)
-				performed.promise.finally(() => clearTimeout(timer)).catch(noop)
+				callback.push(() => performed.resolve(idx))
 			},
 			result: noop,
 		}

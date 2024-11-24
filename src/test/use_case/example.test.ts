@@ -1,7 +1,6 @@
 import { describe, expect, test } from "@jest/globals"
 import {
 	Channel,
-	after,
 	always,
 	choose,
 	fromAbortSignal,
@@ -127,10 +126,12 @@ describe("example", () => {
 		const r2 = fromPromise(Promise.reject("error"))
 		await expect(r2.sync()).rejects.toBe("error")
 
-		const timeout = after(0).wrap(() => "timeout")
+		const timer = timeout(0).wrap(() => "timeout")
 		const ac = new AbortController()
-		const expensiveOp = guard(() => after(100)).wrapAbort(() => ac.abort())
-		const r3 = await choose(timeout, expensiveOp).sync()
+		const expensiveOp = guard(() => timeout(100)).wrapAbort(() =>
+			ac.abort(),
+		)
+		const r3 = await choose(timer, expensiveOp).sync()
 		expect(ac.signal.aborted).toBe(true)
 		expect(r3).toBe("timeout")
 	})
