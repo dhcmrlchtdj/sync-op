@@ -1,7 +1,7 @@
 {
 	"name": "sync-op",
 	"version": "0.7.0",
-	"description": "CML-like first-class synchronous operations",
+	"description": "Concurrent ML style first-class synchronous operations for JavaScript.",
 	"author": "h11 <me@h11.dev>",
 	"license": "LGPL-2.1",
 	"homepage": "https://github.com/dhcmrlchtdj/sync-op",
