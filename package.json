@@ -1,6 +1,6 @@
 {
 	"name": "sync-op",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "Concurrent ML style first-class synchronous operations for JavaScript.",
 	"author": "h11 <me@h11.dev>",
 	"license": "LGPL-2.1",
