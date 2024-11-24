@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L10)
+[channel.ts:10](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L10)
 
 ***
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L7)
+[channel.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L7)
 
 ***
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L8)
+[channel.ts:8](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L8)
 
 ***
 
@@ -64,4 +64,4 @@
 
 #### Defined in
 
-[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L9)
+[channel.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L9)

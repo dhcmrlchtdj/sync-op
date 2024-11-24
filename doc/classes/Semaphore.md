@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[extension.ts:165](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L165)
+[extension.ts:164](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L164)
 
 ## Methods
 
@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[extension.ts:173](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L173)
+[extension.ts:172](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L172)
 
 ***
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[extension.ts:189](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L189)
+[extension.ts:188](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L188)
 
 ***
 
@@ -72,4 +72,4 @@
 
 #### Defined in
 
-[extension.ts:201](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L201)
+[extension.ts:200](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L200)

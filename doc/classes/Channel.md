@@ -40,7 +40,7 @@ const buffered = new Channel(1)
 
 #### Defined in
 
-[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L38)
+[channel.ts:38](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L38)
 
 ## Methods
 
@@ -67,7 +67,7 @@ for await (const msg of ch) {
 
 #### Defined in
 
-[channel.ts:182](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L182)
+[channel.ts:182](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L182)
 
 ***
 
@@ -85,7 +85,7 @@ for await (const msg of ch) {
 
 #### Defined in
 
-[channel.ts:52](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L52)
+[channel.ts:52](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L52)
 
 ***
 
@@ -103,7 +103,7 @@ for await (const msg of ch) {
 
 #### Defined in
 
-[channel.ts:64](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L64)
+[channel.ts:64](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L64)
 
 ***
 
@@ -123,7 +123,7 @@ returns `true` if the buffer is empty and there are no pending senders.
 
 #### Defined in
 
-[channel.ts:71](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L71)
+[channel.ts:71](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L71)
 
 ***
 
@@ -149,7 +149,7 @@ const msg = await op.sync()
 
 #### Defined in
 
-[channel.ts:132](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L132)
+[channel.ts:132](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L132)
 
 ***
 
@@ -179,4 +179,4 @@ await op.sync()
 
 #### Defined in
 
-[channel.ts:88](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/channel.ts#L88)
+[channel.ts:88](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L88)

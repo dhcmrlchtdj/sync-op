@@ -20,4 +20,4 @@ the timer is started when `Op` is polled
 
 ## Defined in
 
-[extension.ts:91](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/extension.ts#L91)
+[extension.ts:91](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L91)

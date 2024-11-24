@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[deferred.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L9)
+[deferred.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L9)
 
 ## Properties
 
@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[deferred.ts:3](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L3)
+[deferred.ts:3](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L3)
 
 ***
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[deferred.ts:5](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L5)
+[deferred.ts:5](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L5)
 
 ***
 
@@ -52,7 +52,7 @@
 
 #### Defined in
 
-[deferred.ts:4](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L4)
+[deferred.ts:4](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L4)
 
 ***
 
@@ -62,7 +62,7 @@
 
 #### Defined in
 
-[deferred.ts:2](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L2)
+[deferred.ts:2](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L2)
 
 ***
 
@@ -80,7 +80,7 @@
 
 #### Defined in
 
-[deferred.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L7)
+[deferred.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L7)
 
 ***
 
@@ -98,4 +98,4 @@
 
 #### Defined in
 
-[deferred.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/deferred.ts#L6)
+[deferred.ts:6](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/deferred.ts#L6)

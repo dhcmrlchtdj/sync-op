@@ -36,7 +36,7 @@ the first-class sychronous operations
 
 #### Defined in
 
-[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L89)
+[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L89)
 
 ## Methods
 
@@ -56,7 +56,7 @@ non-blocking version of `Op#sync`
 
 #### Defined in
 
-[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L53)
+[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L53)
 
 ***
 
@@ -76,7 +76,7 @@ synchronizes on `Op`
 
 #### Defined in
 
-[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L45)
+[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L45)
 
 ***
 
@@ -108,7 +108,7 @@ await always(2).wrap(n => n * 2).sync() // 4
 
 #### Defined in
 
-[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L93)
+[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L93)
 
 ***
 
@@ -119,10 +119,10 @@ await always(2).wrap(n => n * 2).sync() // 4
 `onAbort` is called if `Op` is not chosen by the `choose()`
 
 ```typescript
-await select(
+choose(
 	always(1),
-	never().wrapAbort(() => console.log("aborted"))),
-)
+	never().wrapAbort(() => console.log("aborted")),
+).poll()
 ```
 
 #### Parameters
@@ -139,4 +139,4 @@ await select(
 
 #### Defined in
 
-[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/133adb7618f2d99175e28d5c119b7eff7ad21410/src/operation.ts#L68)
+[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L68)

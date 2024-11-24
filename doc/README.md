@@ -34,7 +34,6 @@
 
 ## Functions
 
-- [after](functions/after.md)
 - [always](functions/always.md)
 - [choose](functions/choose.md)
 - [fromAbortSignal](functions/fromAbortSignal.md)
@@ -42,6 +41,6 @@
 - [generator](functions/generator.md)
 - [guard](functions/guard.md)
 - [never](functions/never.md)
-- [select](functions/select.md)
 - [some](functions/some.md)
 - [timeout](functions/timeout.md)
+- [timeoutImmediate](functions/timeoutImmediate.md)
