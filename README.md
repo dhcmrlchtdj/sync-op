@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/sync-op.svg)](https://www.npmjs.com/package/sync-op)
 
-`sync-op` brings CML-like first-class synchronous operations to JavaScript.
+Concurrent ML style first-class synchronous operations for JavaScript.
 
 ## Installation
 
