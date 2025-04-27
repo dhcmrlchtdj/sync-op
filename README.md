@@ -40,13 +40,13 @@ Dive into the [documentation](https://github.com/dhcmrlchtdj/sync-op/tree/main/d
 
 ## Resource
 
--   https://people.cs.uchicago.edu/~jhr/papers/cml.html
--   http://cml.cs.uchicago.edu/pages/cml.html
--   https://docs.racket-lang.org/reference/sync.html
--   https://ocaml.org/api/Event.html
--   https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
--   https://medium.com/@asolove/synchronizable-abstractions-for-understandable-concurrency-64ae57cd61d1
--   https://github.com/python-trio/trio/issues/242
+- https://people.cs.uchicago.edu/~jhr/papers/cml.html
+- http://cml.cs.uchicago.edu/pages/cml.html
+- https://docs.racket-lang.org/reference/sync.html
+- https://ocaml.org/api/Event.html
+- https://wingolog.org/archives/2017/06/29/a-new-concurrent-ml
+- https://medium.com/@asolove/synchronizable-abstractions-for-understandable-concurrency-64ae57cd61d1
+- https://github.com/python-trio/trio/issues/242
 
 ## License
 

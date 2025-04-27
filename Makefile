@@ -24,13 +24,18 @@ lint:
 		-D=correctness \
 		-D=suspicious \
 		-D=pedantic \
-		-A=max-classes-per-file \
+		-D=exhaustive-deps \
 		-A=ban-ts-comment \
 		-A=no-else-return \
-		-A=max-dependencies \
-		-A=max-lines \
 		-A=no-negated-condition \
 		-A=consistent-function-scoping \
+		-A=max-classes-per-file \
+		-A=max-dependencies \
+		-A=max-depth \
+		-A=max-lines \
+		-A=max-lines-per-function \
+		-A=max-nested-callbacks \
+		--promise-plugin \
 		--import-plugin
 	prettier --check .
 

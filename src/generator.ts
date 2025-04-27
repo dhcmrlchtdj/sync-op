@@ -42,6 +42,7 @@ export function generator<In = unknown, Out = void, Return = void>(
 	}
 	const _throw = async (err?: unknown): Promise<Result> => {
 		if (_start.isFulfilled) {
+			// eslint-disable-next-line no-promise-in-callback
 			_chIn.send({ err }).sync().catch(noop)
 			const out = await _chOut.receive().sync()
 			if (out.isSome()) {
