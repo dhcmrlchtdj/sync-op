@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,19 +6,19 @@
 
 # Class: WaitGroup
 
+Defined in: [extension.ts:353](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L353)
+
 ## Constructors
 
-### new WaitGroup()
+### Constructor
 
-> **new WaitGroup**(): [`WaitGroup`](WaitGroup.md)
+> **new WaitGroup**(): `WaitGroup`
+
+Defined in: [extension.ts:356](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L356)
 
 #### Returns
 
-[`WaitGroup`](WaitGroup.md)
-
-#### Defined in
-
-[extension.ts:345](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L345)
+`WaitGroup`
 
 ## Methods
 
@@ -26,13 +26,11 @@
 
 > **add**(): `void`
 
+Defined in: [extension.ts:360](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L360)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[extension.ts:349](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L349)
 
 ***
 
@@ -40,13 +38,11 @@
 
 > **done**(): `void`
 
+Defined in: [extension.ts:363](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L363)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[extension.ts:352](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L352)
 
 ***
 
@@ -54,10 +50,8 @@
 
 > **wait**(): [`Op`](Op.md)\<`void`\>
 
+Defined in: [extension.ts:377](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L377)
+
 #### Returns
 
 [`Op`](Op.md)\<`void`\>
-
-#### Defined in
-
-[extension.ts:366](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L366)

@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: Semaphore
 
+Defined in: [extension.ts:160](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L160)
+
 ## Constructors
 
-### new Semaphore()
+### Constructor
 
-> **new Semaphore**(`capacity`): [`Semaphore`](Semaphore.md)
+> **new Semaphore**(`capacity`): `Semaphore`
+
+Defined in: [extension.ts:164](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L164)
 
 #### Parameters
 
-• **capacity**: `number` = `1`
+##### capacity
+
+`number` = `1`
 
 #### Returns
 
-[`Semaphore`](Semaphore.md)
-
-#### Defined in
-
-[extension.ts:164](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L164)
+`Semaphore`
 
 ## Methods
 
@@ -30,13 +32,11 @@
 
 > **lock**(): [`Op`](Op.md)\<`void`\>
 
+Defined in: [extension.ts:172](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L172)
+
 #### Returns
 
 [`Op`](Op.md)\<`void`\>
-
-#### Defined in
-
-[extension.ts:172](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L172)
 
 ***
 
@@ -44,13 +44,11 @@
 
 > **unlock**(): `void`
 
+Defined in: [extension.ts:188](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L188)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[extension.ts:188](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L188)
 
 ***
 
@@ -58,18 +56,20 @@
 
 > **withLock**\<`T`\>(`f`): `Promise`\<`T`\>
 
+Defined in: [extension.ts:200](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L200)
+
 #### Type Parameters
 
-• **T**
+##### T
+
+`T`
 
 #### Parameters
 
-• **f**
+##### f
+
+() => `Promise`\<`T`\>
 
 #### Returns
 
 `Promise`\<`T`\>
-
-#### Defined in
-
-[extension.ts:200](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L200)

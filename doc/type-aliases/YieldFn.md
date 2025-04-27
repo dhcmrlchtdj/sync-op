@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,22 +6,26 @@
 
 # Type Alias: YieldFn()\<In, Out\>
 
-> **YieldFn**\<`In`, `Out`\>: (`_`) => `Promise`\<`Out`\>
+> **YieldFn**\<`In`, `Out`\> = (`_`) => `Promise`\<`Out`\>
+
+Defined in: [generator.ts:5](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/generator.ts#L5)
 
 ## Type Parameters
 
-• **In** = `unknown`
+### In
 
-• **Out** = `void`
+`In` = `unknown`
+
+### Out
+
+`Out` = `void`
 
 ## Parameters
 
-• **\_**: `In`
+### \_
+
+`In`
 
 ## Returns
 
 `Promise`\<`Out`\>
-
-## Defined in
-
-[generator.ts:5](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/generator.ts#L5)

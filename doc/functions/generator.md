@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -8,17 +8,27 @@
 
 > **generator**\<`In`, `Out`, `Return`\>(`fn`): `object`
 
+Defined in: [generator.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/generator.ts#L7)
+
 ## Type Parameters
 
-• **In** = `unknown`
+### In
 
-• **Out** = `void`
+`In` = `unknown`
 
-• **Return** = `void`
+### Out
+
+`Out` = `void`
+
+### Return
+
+`Return` = `void`
 
 ## Parameters
 
-• **fn**
+### fn
+
+(`Yield`) => `Return` \| `Promise`\<`Return`\>
 
 ## Returns
 
@@ -38,7 +48,9 @@
 
 #### Parameters
 
-• **val**: `Out`
+##### val
+
+`Out`
 
 #### Returns
 
@@ -50,7 +62,9 @@
 
 #### Parameters
 
-• **ret**: `Return`
+##### ret
+
+`Return`
 
 #### Returns
 
@@ -58,16 +72,14 @@
 
 ### throw()
 
-> **throw**: (`err`?) => `Promise`\<`Result`\> = `_throw`
+> **throw**: (`err?`) => `Promise`\<`Result`\> = `_throw`
 
 #### Parameters
 
-• **err?**: `unknown`
+##### err?
+
+`unknown`
 
 #### Returns
 
 `Promise`\<`Result`\>
-
-## Defined in
-
-[generator.ts:7](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/generator.ts#L7)

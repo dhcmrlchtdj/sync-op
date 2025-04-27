@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,12 +6,12 @@
 
 # Type Alias: Option\<T\>
 
-> **Option**\<`T`\>: `None` \| `Some`\<`T`\>
+> **Option**\<`T`\> = `None` \| `Some`\<`T`\>
+
+Defined in: [option.ts:1](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/option.ts#L1)
 
 ## Type Parameters
 
-• **T**
+### T
 
-## Defined in
-
-[option.ts:1](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/option.ts#L1)
+`T`

@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: fromPromise()
 
 > **fromPromise**\<`T`\>(`p`): [`Op`](../classes/Op.md)\<`Promise`\<`T`\>\>
+
+Defined in: [extension.ts:42](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L42)
 
 convert `Promise` to `Op`
 
@@ -19,16 +21,16 @@ await fromPromise(Promise.reject("error").catch(err => err)).sync()
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Parameters
 
-• **p**: `Promise`\<`T`\>
+### p
+
+`Promise`\<`T`\>
 
 ## Returns
 
 [`Op`](../classes/Op.md)\<`Promise`\<`T`\>\>
-
-## Defined in
-
-[extension.ts:42](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L42)

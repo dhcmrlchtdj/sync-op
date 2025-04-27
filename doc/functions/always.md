@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -8,20 +8,22 @@
 
 > **always**\<`T`\>(`data`): [`Op`](../classes/Op.md)\<`T`\>
 
+Defined in: [extension.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L9)
+
 always ready for synchronization
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Parameters
 
-• **data**: `T`
+### data
+
+`T`
 
 ## Returns
 
 [`Op`](../classes/Op.md)\<`T`\>
-
-## Defined in
-
-[extension.ts:9](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L9)

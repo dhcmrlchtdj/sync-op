@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -8,18 +8,20 @@
 
 > **some**\<`T`\>(`v`): `Some`\<`T`\>
 
+Defined in: [option.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/option.ts#L45)
+
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Parameters
 
-• **v**: `T`
+### v
+
+`T`
 
 ## Returns
 
 `Some`\<`T`\>
-
-## Defined in
-
-[option.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/option.ts#L45)

@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,9 +6,13 @@
 
 # Interface: writableChannel\<T\>
 
+Defined in: [channel.ts:13](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/channel.ts#L13)
+
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Methods
 
@@ -16,13 +20,11 @@
 
 > **close**(): `void`
 
+Defined in: [channel.ts:17](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/channel.ts#L17)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[channel.ts:17](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L17)
 
 ***
 
@@ -30,13 +32,11 @@
 
 > **isClosed**(): `boolean`
 
+Defined in: [channel.ts:14](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/channel.ts#L14)
+
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[channel.ts:14](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L14)
 
 ***
 
@@ -44,13 +44,11 @@
 
 > **isDrained**(): `boolean`
 
+Defined in: [channel.ts:15](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/channel.ts#L15)
+
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[channel.ts:15](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L15)
 
 ***
 
@@ -58,14 +56,14 @@
 
 > **send**(`data`): [`Op`](../classes/Op.md)\<`boolean`\>
 
+Defined in: [channel.ts:16](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/channel.ts#L16)
+
 #### Parameters
 
-• **data**: `T`
+##### data
+
+`T`
 
 #### Returns
 
 [`Op`](../classes/Op.md)\<`boolean`\>
-
-#### Defined in
-
-[channel.ts:16](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/channel.ts#L16)

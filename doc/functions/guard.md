@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -8,20 +8,22 @@
 
 > **guard**\<`T`\>(`fn`): [`Op`](../classes/Op.md)\<`T`\>
 
+Defined in: [operation.ts:261](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L261)
+
 use `fn` to create new `Op` when it's polled
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Parameters
 
-• **fn**
+### fn
+
+() => [`Op`](../classes/Op.md)\<`T`\>
 
 ## Returns
 
 [`Op`](../classes/Op.md)\<`T`\>
-
-## Defined in
-
-[operation.ts:261](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L261)

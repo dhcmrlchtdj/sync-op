@@ -1,4 +1,4 @@
-**sync-op** • **Docs**
+**sync-op**
 
 ***
 

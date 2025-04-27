@@ -1,10 +1,12 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
 [sync-op](../README.md) / Operation
 
 # Class: Operation\<T\>
+
+Defined in: [operation.ts:87](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L87)
 
 the first-class sychronous operations
 
@@ -14,35 +16,39 @@ the first-class sychronous operations
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Constructors
 
-### new Operation()
+### Constructor
 
-> **new Operation**\<`T`\>(`builder`): [`Operation`](Operation.md)\<`T`\>
+> **new Operation**\<`T`\>(`builder`): `Operation`\<`T`\>
+
+Defined in: [operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L89)
 
 #### Parameters
 
-• **builder**: [`OpBuilder`](../type-aliases/OpBuilder.md)\<`T`\>
+##### builder
+
+[`OpBuilder`](../type-aliases/OpBuilder.md)\<`T`\>
 
 #### Returns
 
-[`Operation`](Operation.md)\<`T`\>
+`Operation`\<`T`\>
 
 #### Overrides
 
-[`Op`](Op.md).[`constructor`](Op.md#constructors)
-
-#### Defined in
-
-[operation.ts:89](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L89)
+[`Op`](Op.md).[`constructor`](Op.md#constructor)
 
 ## Methods
 
 ### poll()
 
 > **poll**(): [`Option`](../type-aliases/Option.md)\<`T`\>
+
+Defined in: [operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L53)
 
 non-blocking version of `Op#sync`
 
@@ -54,15 +60,13 @@ non-blocking version of `Op#sync`
 
 [`Op`](Op.md).[`poll`](Op.md#poll)
 
-#### Defined in
-
-[operation.ts:53](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L53)
-
 ***
 
 ### sync()
 
 > **sync**(): `Promise`\<`T`\>
+
+Defined in: [operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L45)
 
 synchronizes on `Op`
 
@@ -74,15 +78,13 @@ synchronizes on `Op`
 
 [`Op`](Op.md).[`sync`](Op.md#sync)
 
-#### Defined in
-
-[operation.ts:45](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L45)
-
 ***
 
 ### wrap()
 
 > **wrap**\<`R`\>(`fn`): [`Op`](Op.md)\<`R`\>
+
+Defined in: [operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L93)
 
 `fn` is used to transform the result from type `T` to type `R`.
 
@@ -92,11 +94,15 @@ await always(2).wrap(n => n * 2).sync() // 4
 
 #### Type Parameters
 
-• **R**
+##### R
+
+`R`
 
 #### Parameters
 
-• **fn**
+##### fn
+
+(`v`) => `R`
 
 #### Returns
 
@@ -106,15 +112,13 @@ await always(2).wrap(n => n * 2).sync() // 4
 
 [`Op`](Op.md).[`wrap`](Op.md#wrap)
 
-#### Defined in
-
-[operation.ts:93](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L93)
-
 ***
 
 ### wrapAbort()
 
 > **wrapAbort**(`onAbort`): [`Op`](Op.md)\<`T`\>
+
+Defined in: [operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/operation.ts#L68)
 
 `onAbort` is called if `Op` is not chosen by the `choose()`
 
@@ -127,7 +131,9 @@ choose(
 
 #### Parameters
 
-• **onAbort**
+##### onAbort
+
+() => `void`
 
 #### Returns
 
@@ -136,7 +142,3 @@ choose(
 #### Inherited from
 
 [`Op`](Op.md).[`wrapAbort`](Op.md#wrapabort)
-
-#### Defined in
-
-[operation.ts:68](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/operation.ts#L68)

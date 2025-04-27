@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,19 +6,19 @@
 
 # Class: Mutex
 
+Defined in: [extension.ts:115](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L115)
+
 ## Constructors
 
-### new Mutex()
+### Constructor
 
-> **new Mutex**(): [`Mutex`](Mutex.md)
+> **new Mutex**(): `Mutex`
+
+Defined in: [extension.ts:118](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L118)
 
 #### Returns
 
-[`Mutex`](Mutex.md)
-
-#### Defined in
-
-[extension.ts:118](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L118)
+`Mutex`
 
 ## Methods
 
@@ -26,13 +26,11 @@
 
 > **lock**(): [`Op`](Op.md)\<`void`\>
 
+Defined in: [extension.ts:122](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L122)
+
 #### Returns
 
 [`Op`](Op.md)\<`void`\>
-
-#### Defined in
-
-[extension.ts:122](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L122)
 
 ***
 
@@ -40,13 +38,11 @@
 
 > **unlock**(): `void`
 
+Defined in: [extension.ts:138](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L138)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[extension.ts:138](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L138)
 
 ***
 
@@ -54,18 +50,20 @@
 
 > **withLock**\<`T`\>(`f`): `Promise`\<`T`\>
 
+Defined in: [extension.ts:150](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L150)
+
 #### Type Parameters
 
-• **T**
+##### T
+
+`T`
 
 #### Parameters
 
-• **f**
+##### f
+
+() => `T` \| `Promise`\<`T`\>
 
 #### Returns
 
 `Promise`\<`T`\>
-
-#### Defined in
-
-[extension.ts:150](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L150)

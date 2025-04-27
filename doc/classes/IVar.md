@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: IVar\<T\>
 
+Defined in: [extension.ts:210](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L210)
+
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Constructors
 
-### new IVar()
+### Constructor
 
-> **new IVar**\<`T`\>(): [`IVar`](IVar.md)\<`T`\>
+> **new IVar**\<`T`\>(): `IVar`\<`T`\>
+
+Defined in: [extension.ts:213](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L213)
 
 #### Returns
 
-[`IVar`](IVar.md)\<`T`\>
-
-#### Defined in
-
-[extension.ts:213](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L213)
+`IVar`\<`T`\>
 
 ## Methods
 
@@ -30,15 +32,13 @@
 
 > **get**(): [`Op`](Op.md)\<`T`\>
 
+Defined in: [extension.ts:236](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L236)
+
 read `IVar`
 
 #### Returns
 
 [`Op`](Op.md)\<`T`\>
-
-#### Defined in
-
-[extension.ts:236](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L236)
 
 ***
 
@@ -46,17 +46,17 @@ read `IVar`
 
 > **put**(`value`): `boolean`
 
+Defined in: [extension.ts:222](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L222)
+
 fill `IVar` if it is empty.
 return `false` if it's not empty.
 
 #### Parameters
 
-• **value**: `T`
+##### value
+
+`T`
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[extension.ts:222](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L222)

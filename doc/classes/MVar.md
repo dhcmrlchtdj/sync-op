@@ -1,4 +1,4 @@
-[**sync-op**](../README.md) • **Docs**
+[**sync-op**](../README.md)
 
 ***
 
@@ -6,23 +6,25 @@
 
 # Class: MVar\<T\>
 
+Defined in: [extension.ts:253](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L253)
+
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Constructors
 
-### new MVar()
+### Constructor
 
-> **new MVar**\<`T`\>(): [`MVar`](MVar.md)\<`T`\>
+> **new MVar**\<`T`\>(): `MVar`\<`T`\>
+
+Defined in: [extension.ts:256](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L256)
 
 #### Returns
 
-[`MVar`](MVar.md)\<`T`\>
-
-#### Defined in
-
-[extension.ts:256](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L256)
+`MVar`\<`T`\>
 
 ## Methods
 
@@ -30,15 +32,13 @@
 
 > **get**(): [`Op`](Op.md)\<`T`\>
 
+Defined in: [extension.ts:282](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L282)
+
 read `MVar`
 
 #### Returns
 
 [`Op`](Op.md)\<`T`\>
-
-#### Defined in
-
-[extension.ts:282](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L282)
 
 ***
 
@@ -46,20 +46,20 @@ read `MVar`
 
 > **put**(`value`): `boolean`
 
+Defined in: [extension.ts:265](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L265)
+
 fill `MVar` if it is empty
 return `false` if it's not empty.
 
 #### Parameters
 
-• **value**: `T`
+##### value
+
+`T`
 
 #### Returns
 
 `boolean`
-
-#### Defined in
-
-[extension.ts:265](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L265)
 
 ***
 
@@ -67,19 +67,19 @@ return `false` if it's not empty.
 
 > **swap**(`newValue`): [`Op`](Op.md)\<`T`\>
 
+Defined in: [extension.ts:319](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L319)
+
 read `MVar` and replace it with `newValue`
 
 #### Parameters
 
-• **newValue**: `T`
+##### newValue
+
+`T`
 
 #### Returns
 
 [`Op`](Op.md)\<`T`\>
-
-#### Defined in
-
-[extension.ts:308](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L308)
 
 ***
 
@@ -87,12 +87,10 @@ read `MVar` and replace it with `newValue`
 
 > **take**(): [`Op`](Op.md)\<`T`\>
 
+Defined in: [extension.ts:312](https://github.com/dhcmrlchtdj/sync-op/blob/93fe32636f3c6c188a811dfea276951b3e31f9bc/src/extension.ts#L312)
+
 read `MVar` and clear it
 
 #### Returns
 
 [`Op`](Op.md)\<`T`\>
-
-#### Defined in
-
-[extension.ts:301](https://github.com/dhcmrlchtdj/sync-op/blob/163328e6c4e45f4e1851de6e0cd2086a60714f03/src/extension.ts#L301)
