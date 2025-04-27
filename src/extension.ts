@@ -281,16 +281,27 @@ export class MVar<T> {
 	*/
 	get(): Op<T> {
 		return new Operation((performed, idx) => {
+			let cached = null as T
 			return {
 				poll: () => {
 					if (this._value.isSome()) {
+						cached = this._value.unwrap()
 						performed.resolve(idx)
 					}
 				},
 				suspend: () => {
-					this._queue.push(() => performed.resolve(idx))
+					const cb = () => {
+						if (performed.isFulfilled) return
+						if (this._value.isSome()) {
+							cached = this._value.unwrap()
+							performed.resolve(idx)
+						} else {
+							this._queue.push(cb)
+						}
+					}
+					this._queue.push(cb)
 				},
-				result: () => this._value.unwrap(),
+				result: () => cached,
 			}
 		})
 	}
