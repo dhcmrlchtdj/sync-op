@@ -39,9 +39,8 @@ jobs:
                   key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
                   restore-keys: ${{ runner.os }}-pnpm-
             - run: |
-                  corepack enable
                   # https://www.npmjs.com/package/pnpm
-                  corepack prepare pnpm@10.9.0 --activate
+                  npm install -g pnpm@10.9.0
                   pnpm config set store-dir ~/.local/share/pnpm/store
                   pnpm install
               env:
