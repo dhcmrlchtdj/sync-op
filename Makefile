@@ -14,7 +14,7 @@ PATH := ./node_modules/.bin:$(PATH)
 #     tsc --watch
 
 build:
-	tsc
+	tsgo
 
 fmt:
 	prettier --write .
